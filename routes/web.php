@@ -14,6 +14,12 @@ use App\Http\Controllers\Admin\Admin_MinistryController;
 use App\Http\Controllers\Admin\Admin_DocumentController;
 use App\Http\Controllers\Admin\Admin_ProfileController;
 
+use App\Http\Controllers\Admin\Admin_TrackerController;
+use App\Http\Controllers\Admin\Admin_AnalyticsController;
+
+use App\Http\Controllers\Admin\Admin_CellController;
+use App\Http\Controllers\Admin\Admin_CellTypeController;
+
 use App\Http\Controllers\Staff\Staff_AuthController;
 use App\Http\Controllers\Staff\Staff_DashboardController;
 use App\Http\Controllers\Staff\Staff_DocumentController;
@@ -23,8 +29,7 @@ use App\Http\Controllers\Staff\Staff_PrivateMessageController;
 
 use App\Http\Controllers\Staff\Staff_ProfileController;
 
-use App\Http\Controllers\Admin\Admin_TrackerController;
-use App\Http\Controllers\Admin\Admin_AnalyticsController;
+
 
 
 use App\Http\Controllers\Staff\Staff_CategoryController;
@@ -40,6 +45,48 @@ use App\Http\Controllers\Staff\Staff_CategoryController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+class User
+{
+    public $name;
+    public $email;
+};
+
+class Job
+{
+    public $title;
+}
+
+Route::get('test', function(){
+
+    $user = (object) [
+        'name' => 'Seyi Babs',
+        'email' => 'babarindeos@funaab.edu.ng'
+    ];
+
+    $user = new User();
+    $user->name = "Seyi Babs";
+    $user->email = "babarindeos@funaab.edu.ng";
+
+
+    //dd($user->email);
+
+    /* $job = (object) [
+        'title' => 'Laravel Developer'
+    ]; */
+
+    $job = new Job();
+    $job->title = "Laravel Developer";
+
+    //dd($job->title);
+
+    
+
+    \Illuminate\Support\Facades\Mail::to($user)->send(
+        new \App\Mail\JobPosted($job)
+    );
+
+    return "Done";
+});
 
 Route::get('/', function () {
     return view('welcome');
@@ -109,6 +156,31 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
     Route::get('/dashboard', [Admin_DashboardController::class, 'index'])->name('admin.dashboard.index');
     Route::post('/logout', [Admin_AuthController::class, 'logout'])->name('admin.auth.logout');
 
+
+    //Cell
+    Route::get('/cells', [Admin_CellController::class, 'index'])->name('admin.cells.index');
+    Route::get('cells/create', [Admin_CellController::class, 'create'])->name('admin.cells.create');
+    Route::post('cells/store', [Admin_CellController::class, 'store'])->name('admin.cells.store');
+    
+    Route::get('cells/{cell}/edit', [Admin_CellController::class, 'edit'])->name('admin.cells.edit');
+    Route::post('cells/{cell}/update', [Admin_CellController::class, 'update'])->name('admin.cells.update');
+
+    Route::get('cells/{cell}/confirm_delete', [Admin_CellController::class, 'confirm_delete'])->name('admin.cells.confirm_delete');
+    Route::post('cells/{cell}/destroy', [Admin_CellController::class, 'destroy'])->name('admin.cells.destroy');
+
+
+
+
+    // Cell Type
+    Route::get('/cell_types', [Admin_CellTypeController::class, 'index'])->name('admin.cell_types.index');
+    Route::get('cell_types/create', [Admin_CellTypeController::class, 'create'])->name('admin.cell_types.create');
+    Route::post('cell_types/store', [Admin_CellTypeController::class, 'store'])->name('admin.cell_types.store');
+    
+    Route::get('cell_types/{cell_type}/edit', [Admin_CellTypeController::class, 'edit'])->name('admin.cell_types.edit');
+    Route::post('cell_types/{cell_type}/update', [Admin_CellTypeController::class, 'update'])->name('admin.cell_types.update');
+
+    Route::get('cell_types/{cell_type}/confirm_delete', [Admin_CellTypeController::class, 'confirm_delete'])->name('admin.cell_types.confirm_delete');
+    Route::post('cell_types/{cell_type}/destroy', [Admin_CellTypeController::class, 'destroy'])->name('admin.cell_types.destroy');
 
     //college
     Route::get('/colleges', [Admin_CollegeController::class, 'index'])->name('admin.colleges.index');

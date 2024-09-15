@@ -1,10 +1,15 @@
 <x-guest-layout>
-<div class="flex flex-col w-full borders h-full">
+<div class="flex flex-col flex-1 w-full border-0">
 
-    <div class="flex flex-col md:flex-row  ">
+    <div class="flex flex-col md:flex-row h-full ">
             <!-- left  panel //-->
-            <div class="flex flex-col w-full  md:w-[70%] ">
-                    <img src="{{ asset('images/goviflow_low.jpg') }}" />
+            <div class="flex flex-col w-full md:w-[70%]"
+                style="background-image:url('{{asset('images/workplace.jpg')}}'); 
+                       background-size: cover; 
+                       background-repeat: repeat
+                       background-position: right; background-color:#f1f1f1;"
+            >
+                    <!-- <img src="{{ asset('images/goviflow_low.jpg') }}" /> //-->
             </div>
             <!-- end of left panel //-->
 
