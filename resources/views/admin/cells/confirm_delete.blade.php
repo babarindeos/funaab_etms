@@ -9,7 +9,7 @@
                     </div> 
                     <div>
                         <a href="{{ route('admin.cells.index') }}" class="bg-green-600 text-white py-2 px-4 
-                                        rounded-lg text-xs md:text-sm hover:bg-green-500">Cell</a>
+                                        rounded-lg text-xs md:text-sm hover:bg-green-500">Cells</a>
 
                         <a href="{{ route('admin.cell_types.index') }}" class="border border-green-600 text-green-600 py-2 px-4 
                                         rounded-lg text-xs md:text-sm hover:bg-green-500 hover:text-white hover:border-green-500">Cell Types</a>

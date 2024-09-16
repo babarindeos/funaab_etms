@@ -19,6 +19,8 @@ use App\Http\Controllers\Admin\Admin_AnalyticsController;
 
 use App\Http\Controllers\Admin\Admin_CellController;
 use App\Http\Controllers\Admin\Admin_CellTypeController;
+use App\Http\Controllers\Admin\Admin_CircleController;
+
 
 use App\Http\Controllers\Staff\Staff_AuthController;
 use App\Http\Controllers\Staff\Staff_DashboardController;
@@ -33,6 +35,8 @@ use App\Http\Controllers\Staff\Staff_ProfileController;
 
 
 use App\Http\Controllers\Staff\Staff_CategoryController;
+
+use App\Http\Controllers\MailTestController;
 
 
 /*
@@ -87,6 +91,31 @@ Route::get('test', function(){
 
     return "Done";
 });
+
+
+Route::get('testmail', function(){
+    $user = new User();
+    $user->name = "Kondi Shiva";
+    $user->email = "leakscrime@gmail.com";
+
+    \Illuminate\Support\Facades\Mail::to($user)->send(
+        new \App\Mail\SimpleMail()
+    );
+
+    return "Mail successfully sent";
+});
+
+Route::get('testmailcontroller', [MailTestController::class, 'dispatch']);
+
+Route::get('testmailparams', [MailTestController::class, 'param_dispatch']);
+
+Route::get('testmailbody', function(){
+    $name = "Babarinde Oluwaseyi Abiodun";
+    return new App\Mail\MarkupMail($name);
+
+});
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -182,6 +211,13 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
     Route::get('cell_types/{cell_type}/confirm_delete', [Admin_CellTypeController::class, 'confirm_delete'])->name('admin.cell_types.confirm_delete');
     Route::post('cell_types/{cell_type}/destroy', [Admin_CellTypeController::class, 'destroy'])->name('admin.cell_types.destroy');
 
+    
+    // Circle    
+    Route::get('circles/{cell}/show', [Admin_CircleController::class, 'show'])->name('admin.circles.show');
+    
+
+    
+    
     //college
     Route::get('/colleges', [Admin_CollegeController::class, 'index'])->name('admin.colleges.index');
     Route::get('/colleges/create', [Admin_CollegeController::class, 'create'])->name('admin.colleges.create');

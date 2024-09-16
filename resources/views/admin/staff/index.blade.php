@@ -1,7 +1,7 @@
 <x-admin-layout>
-    <div class="container">
+    <div class="container border-0 border-blue-900 mx-auto">
         <!-- page header //-->
-        <section class="flex flex-col w-[95%] md:w-[95%] py-1 mt-6 px-4 border-red-900 mx-auto">
+        <section class="flex flex-col w-[95%] md:w-[95%] py-1 mt-6 px-0 border-red-900 mx-auto">
         
             <div class="flex border-b border-gray-300 py-2 justify-between">
                     <div >
@@ -87,8 +87,10 @@
                     </div>
                 </section>
         @else
-                <section class="flex flex-col w-[95%] md:w-[95%] mx-auto px-4">
-                    No Staff record is found
+                <section class="flex flex-col w-[95%] md:w-[95%] mx-auto px-0 py-8 border-0">
+                    <div class="flex flex-row border-0 justify-center text-2xl font-semibold text-gray-300">
+                        No Staff record is found
+                    </div>
                 </section>
         @endif
     </div>

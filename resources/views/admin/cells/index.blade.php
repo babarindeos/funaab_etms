@@ -58,11 +58,13 @@
                                 <tr class="border border-b border-gray-200">
                                     <td class='text-center py-4'>{{ ++$counter }}.</td>
                                     <td>
-                                        {{ $cell->name }} ({{$cell->code}})
+                                        <a class="hover:underline" href="{{ route('admin.circles.show', ['cell'=>$cell->id]) }}">
+                                            {{ $cell->name }} ({{$cell->code}})
+                                        </a>
 
                                         <div>
                                             <small>
-                                                @if ($cell->parent != '')
+                                                @if ($cell->parent != 0)
                                                     {{ $cell->parent_modal->name }} ({{$cell->parent_modal->code}})
                                                 @endif
                                             </small>

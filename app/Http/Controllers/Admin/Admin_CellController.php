@@ -35,7 +35,7 @@ class Admin_CellController extends Controller
 
         try
         {
-            $formFields['parent'] = $request->input('parent');
+            $formFields['parent'] = $request->input('parent') == "" ? "0" : $request->parent;
 
             $formFields['cell_type_id'] = $formFields['type'];
             $create = Cell::create($formFields);

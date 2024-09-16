@@ -24,7 +24,8 @@ class Admin_AuthController extends Controller
             'password' => bcrypt('123456'),
             'role' => 'admin'
 
-        ]); */
+        ]); 
+        */
         
 
         return view('admin.auth.login');

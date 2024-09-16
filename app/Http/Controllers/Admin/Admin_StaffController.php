@@ -11,6 +11,8 @@ use App\Models\Ministry;
 use Illuminate\Support\Str;
 use App\Models\User;
 use Mail;
+use Illuminate\Support\Facades\DB;
+use App\Mail\NewUserEmail;
 
 
 class Admin_StaffController extends Controller
@@ -44,8 +46,7 @@ class Admin_StaffController extends Controller
        // dd($password);
 
         $formFields = $request->validate([           
-            'department' => ['required'],
-            'fileno' => 'required',
+            'fileno' => 'required|unique:staff,fileno',
             'title' => 'required',
             'surname' => 'required | string',
             'firstname' => ['required', 'string'],
@@ -72,21 +73,12 @@ class Admin_StaffController extends Controller
         $formFields['surname'] = strtoupper($formFields['surname']);
         $formFields['firstname'] = ucfirst($formFields['firstname']);
         $formFields['middlename'] = ucfirst($formFields['middlename']);
-        $formFields['college_id'] = $request->input('college');
-        $formFields['department_id'] = $request->input('department');
+        $formFields['email'] = strtolower($formFields['email']);
 
-        try{
-            
-            // create user login for the user
-            /* $user = new User();
-            $user->fileno = $formFields['fileno'];
-            $user->surname = $formFields['surname'];
-            $user->firstname = $formFields['firstname'];
-            $user->middlename = $formFields['middlename'];
-            $user->email = $formFields['email'];
-            $user->password = bcrypt($password);
-            $user->role = "staff";
-            $user->save(); */
+
+        DB::beginTransaction();
+
+        try{      
 
             $userData = [
                 'surname' => $formFields['surname'],
@@ -101,9 +93,7 @@ class Admin_StaffController extends Controller
             $createUser = User::create($userData);           
 
 
-            if ($createUser){                      
-
-                try{
+            if ($createUser){               
 
                     $formFields['user_id'] = $createUser->id;
 
@@ -124,44 +114,43 @@ class Admin_StaffController extends Controller
                             $recipient = $fullname;
                             $recipient_email = $formFields['email'];
 
-                            $payload = array("fullname"=>$fullname, "username"=>$username, "password"=>$password);
+                            //$payload = array("fullname"=>$fullname, "username"=>$username, "password"=>$password);
 
-                            
-                            Mail::send('emails.onboarding', $payload, function($message) use($recipient_email, $recipient){
+                            $payload = array("fullname"=>$fullname, "username"=>$username, 
+                                             "password"=>$password, "email"=>$recipient_email);
+
+                            Mail::to($recipient_email)->send(new NewUserEmail($payload));
+
+                            /* Mail::send('emails.onboarding', $payload, function($message) use($recipient_email, $recipient){
                                 $message->to($recipient_email, $recipient)
                                         ->subject("Welcome to Ogun State Workflow");
                                 $message->from("clearanceinfo@funaab.edu.ng", "GoviFlow");
                                         
-                            });        
+                            });    */     
                     }
                     else
                     {
-                        $data = [
-                            'error' => true,
-                            'status' => 'success',
-                            'message' => 'An error occurred createing the Staff'
-                        ];         
-                    }
+                            throw new \Exception("fatal error creating Staff");
+                    }            
 
-                    
-    
-                }catch(\Exception $e){
-                    dd($e->getMessage());
-                }
-
-            }else{
-                $data = [
-                    'error' => true,
-                    'status' => 'fail',
-                    'message' => 'An error occurred creating the Staff Account'
-                ];
             }
-        }catch(\Exception $e){
+            else
+            {
+                throw new \Exception("fatal error creating User");               
+            }
+
+            DB::commit();
+
+        }
+        catch(\Exception $e)
+        {
                 $data = [
                     'error' => true,
                     'status' => 'fail',
                     'message' => 'An error occurred creating the Staff '.$e->getMessage()
                 ];
+
+                DB::rollBack();
         }
 
         return redirect()->back()->with($data);

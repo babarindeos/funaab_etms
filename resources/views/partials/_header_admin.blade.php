@@ -42,9 +42,8 @@
                                 <!-- Sub-menu -->
                                 <div class="absolute hidden group-hover:block bg-white text-gray-800 mt-0 py-2 shadow-lg">
                                     <a href="{{ route('admin.cells.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Cells</a>
-                                    <a href="#" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-">Circles</a>
                                     <a href="#" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Admin</a>
-                                    <a href="#" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Staff</a>
+                                    <a href="{{ route('admin.staff.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Staff</a>
                                 </div>
                             </div>
                             <a  href='{{ route('admin.staff.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-3 ">Users</a>
