@@ -16,8 +16,8 @@
         <!-- end of page header //-->
 
         @if ($staffs->count())
-                <section class="flex flex-col py-2 px-2 justify-end w-[93%] mx-auto md:px-1">
-                    <div class="flex justify-end border border-0">
+                <section class="flex flex-col py-2 px-0 justify-end w-[95%] mx-auto md:px-0">
+                    <div class="flex justify-end border-0">
                     
                         <input type="text" name="search" class="w-4/5 md:w-2/5 border border-1 border-gray-400 bg-gray-50
                                     p-2 rounded-md 
@@ -32,7 +32,7 @@
                     </div>
                     
                 </section>
-                <section class="flex flex-col w-[95%] md:w-[95%] mx-auto px-4">
+                <section class="flex flex-col w-[95%] md:w-[95%] mx-auto px-0">
                     <table class="table-auto border-collapse border border-1 border-gray-200" 
                                 >
                         <thead>
@@ -58,7 +58,11 @@
                                         <td>{{ $staff->fileno }}</td>
                                         <td>{{ $staff->surname }} {{ $staff->firstname }} {{ $staff->middlename }}</td>
 
-                                        <td>{{ $staff->department->department_code }}</td>
+                                        <td>
+                                            @if ( $staff->profile != null)
+                                                {{ $staff->profile->designation }}
+                                            @endif
+                                        </td>
                                         <td class="text-center">
                                             <span class="px-1">
                                                 <a class="bg-green-400 hover:bg-green-500 text-white rounded-md px-4 py-1 text-xs"

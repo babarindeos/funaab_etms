@@ -214,7 +214,8 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
     
     // Circle    
     Route::get('circles/{cell}/show', [Admin_CircleController::class, 'show'])->name('admin.circles.show');
-    
+    Route::post('circles/{cell}/add_user', [Admin_CircleController::class, 'add_user'])->name('admin.circles.add_user');
+
 
     
     

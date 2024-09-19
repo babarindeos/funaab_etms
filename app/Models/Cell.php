@@ -20,4 +20,9 @@ class Cell extends Model
     {
         return $this->belongsTo(Cell::class, 'parent', 'id');
     }
+
+    public function users()
+    {
+        return $this->hasMany(CellUser::class, 'cell_id', 'id');
+    }
 }

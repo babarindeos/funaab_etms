@@ -2,7 +2,7 @@
     
 
     <!-- header bar //-->
-    <div class="flex flex-row justify-between py-2">
+    <div class="flex flex-row justify-between py-2 md:px-8">
         <div class="flex">
             <!-- logo //-->
             <div class="flex flex-row px-2 md:px-4 py-2">
