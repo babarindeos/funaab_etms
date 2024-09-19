@@ -318,7 +318,7 @@
                                                                         @if ($contributor->user->profile!=null && $contributor->user->profile->avatar!='')
                                                                             <img class="w-12 h-10 rounded-full" src="{{ asset('storage/'.$contributor->user->profile->avatar)}}" />
                                                                         @else
-                                                                            <img class="w-12" src="{{ asset('images/avatar_64.jpg')}}" />
+                                                                            <img class="w-12" src="{{ asset('images/avatar_64.jpg') }}" />
                                                                         @endif
                                                                                                                                        
                                                                 </div>
