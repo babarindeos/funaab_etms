@@ -32,21 +32,21 @@
                     @auth
                         @if (Auth::user()->role==='staff')
 
-                            <a href='{{ route('admin.dashboard.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Dashboard</a>
+                            <a href='{{ route('staff.dashboard.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Dashboard</a>
 
                             <div class="relative group flex item-center border-0">
                                 
-                                    <button class="text-white px-1 py-2 rounded-md  font-semibold border border-0 border-red-900">
+                                    <button class="text-white px-1 py-2 rounded-md font-semibold border-0 border-red-900">
                                         Office
                                     </button>
                                 
-                                <!-- Sub-menu -->
-                                <div class="absolute hidden group-hover:block bg-white text-gray-800 mt-2 top-10 py-2 rounded-md shadow-lg ">
-                                    <a href="{{ route('admin.cells.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Circles</a>
-                                    
-                                </div>
+                                    <!-- Sub-menu -->
+                                    <div class="absolute hidden group-hover:block bg-white text-gray-800 mt-2 top-10 py-2 rounded-md shadow-lg ">
+                                        <a href="{{ route('staff.circles.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Circles</a>
+                                        
+                                    </div>
                             </div>                            
-                            <a  href='{{ route('admin.documents.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-3 ">Documents</a>
+                            <a  href='{{ route('staff.document.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-3 ">Documents</a>
                             
                             
                             <div class="relative group flex">
@@ -64,8 +64,8 @@
                                     <a href="#" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Profile</a>
                                     <form action="{{ route('staff.auth.logout') }}" method="POST" class="flex flex-row w-full border-0 border-blue-900">
                                         @csrf
-                                        <div type="submit" class="flex flex-row border-0 w-full text-left px-1 py-2 text-md text-gray-700
-                                                                  hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pl-4 ">Log Out</div>
+                                        <button type="submit" class="flex flex-row border-0 w-full text-left px-1 py-2 text-md text-gray-700
+                                                                  hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pl-4 ">Log Out</button>
                                     </form>
 
                                 </div>
@@ -87,7 +87,7 @@
                     </button>
                     <!-- Sub-menu for Mobile -->
                     <div class="hidden bg-slate-50 rounded-md" id="services-sub-menu-mobile">                        
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-200">Circles</a>                        
+                        <a href="{{ route('staff.circles.index')}}" class="block px-4 py-2 hover:bg-gray-200">Circles</a>                        
                     </div>
                 </div>                
                 <a href="#" class="block text-white px-4 py-2 hover:bg-gray-700 rounded-md">Documents</a>

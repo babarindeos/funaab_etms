@@ -25,4 +25,6 @@ class Cell extends Model
     {
         return $this->hasMany(CellUser::class, 'cell_id', 'id');
     }
+
+    
 }

@@ -126,14 +126,14 @@
                     <div class="flex flex-col px-2 py-2">
                             @foreach ($cell->users as $users )
                                 <div class="flex flex-row py-3 space-x-2 border-b ">
-                                        <div class="border-0">
+                                        <div class="border-0 px-1">
                                                 @if($users->user->profile != null)
-                                                <img class="w-12 h-10" src="{{ asset('storage/'.$users->user->profile->avatar)}}" />
+                                                <img class="w-12 h-10 rounded-full" src="{{ asset('storage/'.$users->user->profile->avatar)}}" />
                                                 @else
                                                 <img class="w-12 h-10" src="{{ asset('images/avatar_64.jpg')}}" />
                                                 @endif
                                         </div>
-                                        <div class="flex flex-col border-0 w-full">
+                                        <div class="flex flex-col border-0 w-full px-2">
                                             <div class="font-medium">
                                                 {{ $users->user->staff->title }} 
                                                 {{ $users->user->staff->surname }} 

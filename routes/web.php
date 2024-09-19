@@ -31,6 +31,9 @@ use App\Http\Controllers\Staff\Staff_PrivateMessageController;
 
 use App\Http\Controllers\Staff\Staff_ProfileController;
 
+use App\Http\Controllers\Staff\Staff_CircleController;
+use App\Http\Controllers\Staff\Staff_CircleGeneralRoomController;
+
 
 
 
@@ -133,6 +136,14 @@ Route::prefix('staff')->middleware(['auth', 'staff'])->group(function(){
     Route::get('/dashboard', [Staff_DashboardController::class, 'index'])->name('staff.dashboard.index');
     Route::post('/logout', [Staff_AuthController::class, 'logout'])->name('staff.auth.logout');
 
+
+    // Circle
+    Route::get('/circles', [Staff_CircleController::class, 'index'])->name('staff.circles.index');
+    Route::get('/circles/{circle}/general_room', [Staff_CircleController::class, 'general_room'])->name('staff.circles.general_room');
+
+    Route::post('/circles/{cell}/general_room', [Staff_CircleGeneralRoomController::class, 'store'])->name('staff.circles.general_room.store');
+
+    // Documents
     Route::get('/documents', [Staff_DocumentController::class, 'index'])->name('staff.document.index');
     Route::get('/documents/create', [Staff_DocumentController::class, 'create'])->name('staff.documents.create');
     Route::post('/documents/store', [Staff_DocumentController::class, 'store'])->name('staff.documents.store');
@@ -141,6 +152,8 @@ Route::prefix('staff')->middleware(['auth', 'staff'])->group(function(){
     Route::get('/documents/mydocuments', [Staff_DocumentController::class, 'mydocuments'])->name('staff.documents.mydocuments');
     
     
+
+    // Workflow
     Route::get('/workflows/{document}/flow', [Staff_WorkflowController::class, 'flow'])->name('staff.workflows.flow');
     Route::get('/workflows/{document}/add_contributor',[Staff_WorkflowController::class, 'add_contributor'])->name('staff.workflows.add_contributor');
     Route::post('/workflows/{document}/post_add_contributor', [Staff_WorkflowController::class, 'post_add_contributor'])->name('staff.workflows.post_add_contributor');
@@ -160,6 +173,9 @@ Route::prefix('staff')->middleware(['auth', 'staff'])->group(function(){
 
     Route::post('/workflows/{document}/private_message/{sender}/{recipient}/{chat_uuid}/chat', [Staff_PrivateMessageController::class, 'store'])->name('staff.workflows.private_message.store');
 
+
+
+    // Profile
     Route::get('/profile/create', [Staff_ProfileController::class, 'create'])->name('staff.profile.create');
     Route::post('/profile/create', [Staff_ProfileController::class, 'store'])->name('staff.profile.store');
     Route::post('/profile/upload_avatar', [Staff_ProfileController::class, 'upload_avatar'])->name('staff.profile.upload_avatar');
