@@ -14,7 +14,7 @@
                     </div>
             </section>
         
-        @elseif ($userprofile->user->profile == null)
+        @elseif ($userprofile->profile == null)
             
             <section class="mx-auto">
                     <div class="flex flex-col justify-content items-center  py-12">
@@ -28,10 +28,10 @@
                     <div class="flex flex-col w-full  md:w-[30%] justify-center items-center 
                                 border px-8 py-4 rounded-md">
                             <div class="">
-                                @if ($userprofile->user->profile!=null && ($userprofile->user->profile->avatar != "" || $userprofile->user->profile->avatar != null))
-                                    <img src="{{ asset('storage/'.$userprofile->user->profile->avatar) }}" class="w-36 h-36 rounded-full" />
+                                @if ($userprofile->profile!=null && ($userprofile->profile->avatar != "" || $userprofile->profile->avatar != null))
+                                    <img src="{{ asset('storage/'.$userprofile->profile->avatar) }}" class="w-36 h-36 rounded-full" />
                                 @else
-                                    <img src="{{ asset('images/avatar_150.jpg') }}" />
+                                    <img src="{{ asset('images/avatar_200.jpg') }}" class="" />
                                 @endif
                             </div>
                             
@@ -41,28 +41,49 @@
                             
                             <div class="mb-4  mx-[10%] md:mx-0 ">
                                     <div class="text-xl font-semibold">
-                                            {{ $userprofile->user->surname }} {{ $userprofile->user->firstname }} {{ $userprofile->user->middlename }}                                
+                                            {{ $userprofile->staff->surname }} {{ $userprofile->staff->firstname }} {{ $userprofile->staff->middlename }}                                
                                     </div>
                                     <div class="text-sm">
-                                            {{ $userprofile->user->profile->designation}}, {{ $userprofile->user->staff->fileno}}
+                                            {{ $userprofile->profile->designation}}
                                     </div>                            
                             </div>
 
 
                             <div class="py-4 mx-[10%] md:mx-0">
-                                    <!-- circles //-->                     
+                                <div class="font-semibold py-1">
+                                        Contacts
+                                    </div>
+                                <div>
+                                        {{ $userprofile->email }}
+                                </div>
+                                <div>
+                                        {{ $userprofile->profile->phone}}
+                                </div>
                             </div>
+
 
 
                             <div class="py-4 mx-[10%] md:mx-0">
-                                    <div>
-                                            {{ $userprofile->user->email }}
+                                    <!-- circles //--> 
+                                    <div class="font-semibold py-1">
+                                        Work Circles
                                     </div>
-                                    <div>
-                                            {{ $userprofile->user->profile->phone}}
-                                    </div>
-
+                                    @if ($userprofile->circle->count())
+                                
+                                        @foreach($userprofile->circle as $circle)
+                                           <div>
+                                                {{ $circle->cell->name }} ({{$circle->cell->code}})
+                                           </div>
+                                        @endforeach
+                                    @else
+                                        <div>
+                                                Currently in no Work Circle
+                                        </div>                                        
+                                    @endif                  
                             </div>
+
+
+                            
                     </div>
                 </section>
 

@@ -60,5 +60,10 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class, 'user_id', 'id');
     }
 
+    public function circle()
+    {
+        return $this->hasMany(CellUser::class, 'user_id', 'id');
+    }
+
     
 }

@@ -33,6 +33,8 @@ use App\Http\Controllers\Staff\Staff_ProfileController;
 
 use App\Http\Controllers\Staff\Staff_CircleController;
 use App\Http\Controllers\Staff\Staff_CircleGeneralRoomController;
+use App\Http\Controllers\Staff\Staff_CircleTeamController;
+use App\Http\Controllers\Staff\Staff_CircleAnnouncementController;
 
 
 
@@ -139,9 +141,20 @@ Route::prefix('staff')->middleware(['auth', 'staff'])->group(function(){
 
     // Circle
     Route::get('/circles', [Staff_CircleController::class, 'index'])->name('staff.circles.index');
-    Route::get('/circles/{circle}/general_room', [Staff_CircleController::class, 'general_room'])->name('staff.circles.general_room');
-
+    Route::get('/circles/{circle}/general_room', [Staff_CircleGeneralRoomController::class, 'general_room'])->name('staff.circles.general_room');
     Route::post('/circles/{cell}/general_room', [Staff_CircleGeneralRoomController::class, 'store'])->name('staff.circles.general_room.store');
+    
+    Route::get('/circles/{circle}/team', [Staff_CircleTeamController::class, 'team'])->name('staff.circles.team');
+
+    Route::get('/circles/{circle}/announcements', [Staff_CircleAnnouncementController::class, 'announcements']
+    )->name('staff.circles.announcements');
+
+    Route::get('/circles/{circle}/create_announcement', [Staff_CircleAnnouncementController::class, 'create_announcement']
+    )->name('staff.circles.create_announcement');
+
+    Route::post('/circles/{circle}/store_announcement', [Staff_CircleAnnouncementController::class, 'store_announcement']
+    )->name('staff.circles.store_announcement');
+
 
     // Documents
     Route::get('/documents', [Staff_DocumentController::class, 'index'])->name('staff.document.index');
@@ -188,7 +201,9 @@ Route::prefix('staff')->middleware(['auth', 'staff'])->group(function(){
     Route::post('/profile/myprofile/update_avatar', [Staff_ProfileController::class, 'update_avatar'])->name('staff.profile.myprofile.update_avatar');
     
     Route::get('/profile/user/{fileno}', [Staff_ProfileController::class, 'user_profile'])->name('staff.profile.user_profile');
-    
+    Route::get('/profile/user/{email}/user_profile', [Staff_ProfileController::class, 'email_user_profile'])->name('staff.profile.email_user_profile');
+
+
     // Categories
     Route::get('/categories/create', [Staff_CategoryController::class, 'create'])->name('staff.categories.create');
     Route::post('/categories/store', [Staff_CategoryController::class, 'store'])->name('staff.categories.store');

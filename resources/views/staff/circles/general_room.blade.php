@@ -26,12 +26,7 @@
 
                     </div>
                     <div class="flex flex-row space-x-4">
-                            <div class="hover:underline">General Room</div>
-                            <div class="hover:underline">Announcements</div>
-                            <div class="hover:underline">Projects</div>
-                            <div class="hover:underline">Staff</div>
-                            
-
+                            @include('partials._circle_submenu')
                     </div>
             </div>
             <!-- end of navigation //-->
@@ -68,6 +63,12 @@
                                                     @if ($circle->user->profile != null)
                                                         <div>{{ $circle->user->profile->designation}} </div>
                                                     @endif 
+
+                                                    @if ($circle->role != '')
+                                                        <div class="text-xs">
+                                                            {{ $circle->role }} 
+                                                        </div>
+                                                    @endif
 
                                                     <div class="w-full">
                                                         @if (Auth::user()->id != $circle->user_id)

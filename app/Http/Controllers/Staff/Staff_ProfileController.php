@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Staff;
+use App\Models\User;
 
 class Staff_ProfileController extends Controller
 {
@@ -200,5 +201,12 @@ class Staff_ProfileController extends Controller
         $userprofile = Staff::where('fileno', $fileno)->first();
         
         return view('staff.profile.user_profile', compact('userprofile'));
+    }
+
+    public function email_user_profile($email)
+    {
+        $userprofile = User::where('email', $email)->first();
+
+        return view('staff.profile.email_user_profile', compact('userprofile'));
     }
 }

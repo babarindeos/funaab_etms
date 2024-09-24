@@ -19,26 +19,5 @@ class Staff_CircleController extends Controller
         return view('staff.circles.index', compact('circles'));
     }
 
-    public function general_room(CellUser $circle)
-    {
-        if ($circle == null)
-        {
-            return redirect()->route('staff.circles.index');
-        }
-
-        if ($circle->user_id != Auth::id())
-        {
-            return redirect()->back();
-        }
-
-        $cell = Cell::find($circle->cell_id);
-
-        $messages = CircleGeneralRoom::where('cell_id', $circle->cell_id)
-                                       ->orderBy('created_at', 'desc')
-                                       ->take(100)
-                                       ->paginate(20);
-
-        return view('staff.circles.general_room', compact('cell', 'messages'));
-
-    }
+    
 }
