@@ -1,5 +1,5 @@
 <x-admin-layout>
-    <div class="container border-1 border-0 border-blue-900 mx-auto">
+    <div class="flex flex-col w-full border-1 border-0 border-blue-900 mx-auto px-2 md:px-4">
         <!-- page header //-->
         <section class="flex flex-col w-[95%] md:w-[95%] py-2 mt-6 px-0 border-0 border-red-900 mx-auto">
         

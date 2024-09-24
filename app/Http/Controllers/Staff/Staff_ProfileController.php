@@ -22,7 +22,8 @@ class Staff_ProfileController extends Controller
 
     public function store(Request $request)
     {
-        $formFields = $request->validate([            
+        $formFields = $request->validate([ 
+            'avatar' => 'required|image|mimes:png,jpeg,jpg|max:100',           
             'designation' => 'required',
             'phone' => 'required'
         ]);

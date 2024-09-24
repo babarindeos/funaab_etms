@@ -1,5 +1,5 @@
 <x-admin-layout>
-    <div class="container mx-auto">
+    <div class="flex flex-col w-full mx-auto">
         <!-- page header //-->
         <section class="flex flex-col w-[90%] md:w-[95%] py-8 px-4 border-red-900 mx-auto">
             
@@ -30,8 +30,8 @@
                         
 
                         <div class="flex flex-col w-[80%] md:w-[60%] py-2 md:py-4" style="font-family:'Lato'; font-size:18px; font-weight:400;">
-                            <h2 class="font-semibold text-xl py-1" >New Cell</h2>
-                            Select Cell Type, Cell Parent and provide name, code
+                                <h2 class="font-semibold text-xl py-1" >New Cell</h2>
+                                Select Cell Type, Cell Parent and provide name, code
                         </div>
 
 

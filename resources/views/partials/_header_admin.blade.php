@@ -3,7 +3,7 @@
     
     
     <nav class="py-3 border-0">
-        <div class="max-w-7xl mx-auto px-2 sm:px-8 lg:px-0">
+        <div class="mx-auto px-2 sm:px-8 lg:px-8">
             <div class="flex items-center justify-between h-16">
 
                 <!-- Logo -->
@@ -29,7 +29,7 @@
                     </button>
                 </div>
                 <!-- Main Menu -->
-                <div class="hidden lg:flex space-x-4">
+                <div class="hidden lg:flex lg:px-4 space-x-4">
                     @auth
                         @if (Auth::user()->role==='admin')
 

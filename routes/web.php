@@ -155,6 +155,8 @@ Route::prefix('staff')->middleware(['auth', 'staff'])->group(function(){
     Route::post('/circles/{circle}/store_announcement', [Staff_CircleAnnouncementController::class, 'store_announcement']
     )->name('staff.circles.store_announcement');
 
+    Route::get('/circles/{circle}/announcement/{announcement}/show_announcement', [Staff_CircleAnnouncementController::class, 'show_announcement'])->name('staff.circles.show_announcement');
+    Route::post('/circles/{circle}/announcement/{announcement}/store_announcement', [Staff_CircleAnnouncementController::class, 'store_announcement_comment'])->name('staff.circles.store_announcement_comment');
 
     // Documents
     Route::get('/documents', [Staff_DocumentController::class, 'index'])->name('staff.document.index');

@@ -1,5 +1,5 @@
 <x-admin-layout>
-    <div class=" border-0 border-blue-900 container mx-auto">
+    <div class="flex flex-col w-full border-0 border-blue-900 mx-auto">
         <!-- page header //-->
         <section class="flex flex-col w-[90%] md:w-[95%] py-8 px-4 border-red-900 mx-auto">
             
@@ -31,7 +31,7 @@
 
                         <div class="flex flex-col w-[80%] md:w-[60%] py-2 md:py-4" style="font-family:'Lato'; font-size:18px; font-weight:400;">
                             <h2 class="font-semibold text-xl py-1" >Edit Cell Type</h2>
-                            Provide Cell Type names
+                            Provide Cell Type name
                         </div>
 
 
@@ -71,7 +71,7 @@
                         <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] mt-4">
                             <button type="submit" class="border border-1 bg-gray-400 py-4 text-white 
                                            hover:bg-gray-500
-                                           rounded-md text-lg" style="font-family:'Lato';font-weight:500;">Update Department</button>
+                                           rounded-md text-lg" style="font-family:'Lato';font-weight:500;">Update Cell Type</button>
                         </div>
                         
                     </form><!-- end of new Cell Type form //-->

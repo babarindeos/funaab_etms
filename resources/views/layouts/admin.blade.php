@@ -26,7 +26,7 @@
             {{ $slot }}
         </main>
         <footer>
-            @include('partials._footer')   
+            @include('partials._footer_fluid')   
         </footer>    
             
             

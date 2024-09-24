@@ -9,7 +9,7 @@
         </section>
 
         <!-- section //-->
-        <section class="py-2 border-0">
+        <section class="py-4 border-0">
 
             <!-- navigation //-->
             <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:justify-between md:items-center border-0 ">
@@ -53,7 +53,10 @@
                         </div>
                         <div class="p-2 text-lg font-medium text-center">
                             <a href="{{ route('staff.profile.email_user_profile', ['email' => $team->user->email]) }}" class="hover:underline">
-                                {{ $team->user->surname }} {{ $team->user->firstname }}
+                                @php 
+                                    $surname = ucfirst(strtolower($team->user->surname))
+                                @endphp
+                                {{  $surname }} {{ $team->user->firstname }}
                             </a>
                             <div class="text-sm">
                                 {{ $team->user->profile->designation }}<br />{{ $team->role }}

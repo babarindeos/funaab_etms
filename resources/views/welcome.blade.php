@@ -30,7 +30,7 @@
                             </div>
 
                             <!-- username //-->
-                            <div class="w-[80%]">
+                            <div class="w-[80%] py-1">
 
                                 <input type="text" name="email" class="border border-1 border-gray-400 bg-gray-50
                                                                         w-full p-4 rounded-md 
@@ -55,7 +55,7 @@
                             </div><!-- end of username //-->
 
                             <!-- password //-->
-                            <div class="w-[80%]">
+                            <div class="w-[80%] py-1">
 
                                 <input type="password" name="password" class="border border-1 border-gray-400 bg-gray-50
                                     w-full p-4 rounded-md 
@@ -81,7 +81,7 @@
 
                             <!-- submit //-->
                             <!-- submit button //-->
-                            <div class="flex flex-col border-red-900 w-[80%] md:w-[80%] mt-8">
+                            <div class="flex flex-col border-red-900 w-[80%] md:w-[80%] mt-8 py-1">
                                 <button type="submit" class="border border-1 bg-gray-400 py-4 text-white 
                                                hover:bg-gray-500
                                                rounded-md text-lg" style="font-family:'Lato';font-weight:500;">Login</button>

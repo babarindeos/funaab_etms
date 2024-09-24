@@ -52,9 +52,9 @@
                             <div class="relative group flex">
                                 <button class="text-white px-1 py-2 rounded-md font-semibold flex items-center">
                                     @if (Auth::user()->profile->avatar != null || Auth::user()->profile->avatar != '')
-                                        <img class='w-10 h-11 rounded-full' src="{{ asset('storage/'.Auth::user()->profile->avatar )}}" alt="User Avatar" />
+                                        <img class='w-12 h-12 rounded-full' src="{{ asset('storage/'.Auth::user()->profile->avatar )}}" alt="User Avatar" />
                                     @else
-                                        <img class='w-12 h-11 rounded-full' src="{{ asset('images/avatar_64.jpg') }}" alt="Default Avatar" />
+                                        <img class='w-12 h-12 rounded-full' src="{{ asset('images/avatar_64.jpg') }}" alt="Default Avatar" />
                                     @endif
                                     
                                 </button>

@@ -9,6 +9,7 @@ use App\Models\Announcement;
 use Carbon\Carbon;
 use App\Http\Classes\Document;
 use Illuminate\Support\Facades\Auth;
+use App\Models\AnnouncementComment;
 
 class Staff_CircleAnnouncementController extends Controller
 {
@@ -58,7 +59,7 @@ class Staff_CircleAnnouncementController extends Controller
     
                 $new_filename = $filename.$file->getClientOriginalExtension();
     
-                $file->storeAs('announcement', $new_filename);    
+                $file->storeAs('announcements', $new_filename);    
             }
 
             $formfields['file'] = 'announcements/'.$new_filename;
@@ -102,6 +103,36 @@ class Staff_CircleAnnouncementController extends Controller
 
         return redirect()->back()->with($data);
 
+    }
+
+
+    public function show_announcement(CellUser $circle, Announcement $announcement)
+    {
+        $messages = AnnouncementComment::where('cell_id', $circle->cell_id)->orderBy('id', 'desc')->get();
+
+        return view('staff.circles.show_announcement', compact('circle', 'announcement', 'messages'));
+    }
+
+
+    public function store_announcement_comment(Request $request, CellUser $circle, Announcement $announcement)
+    {
+        $formfields = $request->validate([
+            'message' => 'required'
+        ]);
+
+        try
+        {
+            $formfields['cell_id'] = $circle->cell_id;
+            $formfields['user_id'] = Auth::user()->id;
+
+            AnnouncementComment::create($formfields);
+        }
+        catch(\Exception $e)
+        {
+
+        }
+
+        return redirect()->back();
     }
 
 

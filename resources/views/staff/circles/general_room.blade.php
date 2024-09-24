@@ -39,7 +39,7 @@
 
         <section class="py-2 mt-2">
             <div class="flex flex-col md:flex-row border-0">
-                <div class="flex  md:w-[30%] border-0 px-2 py-2 overflow-y-auto h-100 mr-2"><!-- left panel //-->
+                <div class="flex md:w-[30%] border-0 px-2 py-2 overflow-y-auto h-100 mr-2"><!-- left panel //-->
                         
                     
                         <!-- Cell Users - Circle Members //-->
@@ -56,8 +56,13 @@
                                                                                                                        
                                                 </div>
                                                 <div class="flex flex-col py-2 w-full">
-                                                    <a href="{{ route('staff.profile.user_profile', ['fileno'=>$circle->user->staff->fileno]) }}" class="font-bold hover:underline">
-                                                        {{ $circle->user->staff->surname}}  {{ $circle->user->staff->firstname}}
+                                                    <a href="{{ route('staff.profile.email_user_profile', ['email'=>$circle->user->email]) }}" class="font-bold hover:underline">
+                                                        
+                                                        @php
+                                                            $surname = ucfirst(strtolower($circle->user->staff->surname))
+                                                        @endphp
+
+                                                        {{ $surname }}  {{ $circle->user->staff->firstname}}
                                                     </a>
 
                                                     @if ($circle->user->profile != null)
@@ -145,8 +150,12 @@
                                             
                                     </div>
                                     <div class="px-3 py-1 rounded-md bg-gray-100 w-full">
-                                            <a href="{{ route('staff.profile.user_profile', ['fileno'=>$message->sender->staff->fileno]) }}" class="font-semibold text-sm hover:underline">
-                                                    {{ $message->sender->surname }} {{ $message->sender->firstname }}
+                                            <a href="{{ route('staff.profile.email_user_profile', ['email'=>$message->sender->email]) }}" class="font-semibold text-sm hover:underline">
+                                                    @php
+                                                        $surname = ucfirst(strtolower($message->sender->surname));
+                                                    @endphp 
+
+                                                    {{  $surname }} {{ $message->sender->firstname }}
                                             </a>
                                             <div class="text-xs">
                                                     {{ $message->created_at->format('l jS F, Y @ g:i a') }}

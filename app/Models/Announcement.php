@@ -24,4 +24,9 @@ class Announcement extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function cell()
+    {
+        return $this->belongsTo(Cell::class, 'cell_id', 'id');
+    }
 }

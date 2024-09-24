@@ -1,7 +1,7 @@
 <x-admin-layout>
-    <div class="container border-0 border-blue-900 mx-auto">
+    <div class="flex flex-col w-full border-0 border-blue-900 mx-auto">
         <!-- page header //-->
-        <section class="flex flex-col w-[95%] md:w-[95%] py-1 mt-6 px-0 border-red-900 mx-auto">
+        <section class="flex flex-col w-[95%] md:w-[95%] py-1 mt-6 px-2 md:px-4 border-red-900 mx-auto">
         
             <div class="flex border-b border-gray-300 py-2 justify-between">
                     <div >
@@ -16,7 +16,7 @@
         <!-- end of page header //-->
 
         @if ($staffs->count())
-                <section class="flex flex-col py-2 px-0 justify-end w-[95%] mx-auto md:px-0">
+                <section class="flex flex-col py-2 px-2 justify-end w-[95%] mx-auto md:px-4">
                     <div class="flex justify-end border-0">
                     
                         <input type="text" name="search" class="w-4/5 md:w-2/5 border border-1 border-gray-400 bg-gray-50
@@ -32,7 +32,7 @@
                     </div>
                     
                 </section>
-                <section class="flex flex-col w-[95%] md:w-[95%] mx-auto px-0">
+                <section class="flex flex-col w-[95%] md:w-[95%] mx-auto px-2 md:px-4">
                     <table class="table-auto border-collapse border border-1 border-gray-200" 
                                 >
                         <thead>

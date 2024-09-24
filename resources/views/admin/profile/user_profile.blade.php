@@ -1,10 +1,19 @@
 <x-admin-layout>
-    <div class="flex flex-col container mx-4 md:mx-auto">
-        <section class="border-b border-gray-200 py-2 mt-2">
-                <div class="text-2xl font-semibold ">
-                    User Profile              
-                </div>                
-        </section>
+
+    
+    <div class="flex flex-col w-full mx-auto">
+         <!-- page header //-->
+         <section class="flex flex-col w-[95%] md:w-[95%] py-2 mt-6 px-2 md:px-4 border-0 border-red-900 mx-auto">
+        
+                <div class="flex border-b border-gray-300 py-2 justify-between">
+                        <div >
+                        <h1 class="text-2xl font-semibold font-serif text-gray-800">User Profile</h1>
+                        </div>
+                        
+                </div>
+         </section>
+    <!-- end of page header //-->
+     
 
         @if ( $userprofile == null)
             <section class="mx-auto">
