@@ -23,7 +23,11 @@
                                     <div class="flex flex-col md:flex-row border border-0 justify-between md:items-center ">
 
                                         <div class="text-xs">
-                                            Submitted by {{ $document->staff->surname}} {{ $document->staff->firstname}} @ {{ $document->created_at->format('l jS F, Y  g:i a') }}
+                                            @php
+                                                $surname = ucfirst(strtolower($document->staff->surname))
+                                            @endphp
+
+                                            Submitted by {{ $surname }} {{ $document->staff->firstname}} @ {{ $document->created_at->format('l jS F, Y  g:i a') }}
                                         </div>
 
                                         <div class="flex flex-row space-x-4 border border-0">
@@ -43,6 +47,10 @@
                                                         @elseif ($document->filetype == "PDF")
                                                         <img src="{{ asset('images/icon_pdf_50.jpg') }}" />
                                                         @elseif ($document->filetype == "Image | jpg")
+                                                        <img src="{{ asset('images/icon_image_50.jpg') }}"/>
+                                                        @elseif ($document->filetype == "Image | jpeg")
+                                                        <img src="{{ asset('images/icon_image_50.jpg') }}"/>
+                                                        @elseif ($document->filetype == "Image | png")
                                                         <img src="{{ asset('images/icon_image_50.jpg') }}"/>
                                                         @endif
                                                 </div>
@@ -111,11 +119,20 @@
                                                             @endif
                                                     </div>
                                                     <div class="flex flex-col py-2 w-full">
-                                                        <a href="{{ route('staff.profile.user_profile', ['fileno'=>$contributor->user->staff->fileno]) }}" class="font-bold hover:underline">
-                                                                {{ $contributor->user->staff->surname}}  {{ $contributor->user->staff->firstname}}
+                                                        <a href="{{ route('staff.profile.email_user_profile', ['email'=>$contributor->user->email]) }}" class="font-bold hover:underline">
+                                                                
+                                                                @php
+                                                                        $surname = ucfirst(strtolower($contributor->user->staff->surname))
+                                                                @endphp
+
+                                                                {{ $surname }}  {{ $contributor->user->staff->firstname}}
                                                         </a>
-                                                        <div>{{ $contributor->user->staff->department->department_name}}  ({{ $contributor->user->staff->department->department_code}})</div>
-                                                        <div>{{ $contributor->user->staff->department->ministry->name}} ({{ $contributor->user->staff->department->ministry->code}})</div>
+                                                        <div>
+                                                                 @if ($contributor->user->profile != null && $contributor->user->profile->designation != "" )
+                                                                        {{ $contributor->user->profile->designation}} 
+                                                                 @endif
+                                                        </div>
+                                                        
                                                         
                                                     </div>
                                             </div>

@@ -22,8 +22,7 @@ class Admin_CircleController extends Controller
     public function add_user(Request $request, Cell $cell)
     {
         $formFields = $request->validate([
-            'fileno' => 'required',
-            'role' => 'required'
+            'fileno' => 'required',            
         ]);
 
         $staff = Staff::where('fileno', $request->input('fileno'))->first();

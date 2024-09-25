@@ -205,6 +205,10 @@ Route::prefix('staff')->middleware(['auth', 'staff'])->group(function(){
     Route::get('/profile/user/{fileno}', [Staff_ProfileController::class, 'user_profile'])->name('staff.profile.user_profile');
     Route::get('/profile/user/{email}/user_profile', [Staff_ProfileController::class, 'email_user_profile'])->name('staff.profile.email_user_profile');
 
+    Route::get('/profile/change_password', [Staff_ProfileController::class, 'change_password'])->name('staff.profile.change_password');
+    Route::post('/profile/update_password', [Staff_ProfileController::class, 'update_password'])->name('staff.profile.update_password');
+
+
 
     // Categories
     Route::get('/categories/create', [Staff_CategoryController::class, 'create'])->name('staff.categories.create');

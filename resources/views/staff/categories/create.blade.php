@@ -63,7 +63,7 @@
                             </div><!-- end of category name //-->
 
 
-                            <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] mt-1">
+                            <div class="flex flex-col border-red-900 w-[80%] md:w-[80%] mt-1">
                                 <button type="submit" class="border border-1 bg-gray-400 py-4 text-white 
                                                hover:bg-gray-500
                                                rounded-md text-lg" style="font-family:'Lato';font-weight:500;">Create Category</button>

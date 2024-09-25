@@ -61,7 +61,7 @@
                             
                                 <!-- Dropdown Menu -->
                                 <div class="absolute right-0 hidden group-hover:block top-10 bg-white text-gray-800 mt-2 py-2 shadow-lg rounded-md z-10">
-                                    <a href="#" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Profile</a>
+                                    <a href="{{ route('staff.profile.myprofile') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Profile</a>
                                     <form action="{{ route('staff.auth.logout') }}" method="POST" class="flex flex-row w-full border-0 border-blue-900">
                                         @csrf
                                         <button type="submit" class="flex flex-row border-0 w-full text-left px-1 py-2 text-md text-gray-700

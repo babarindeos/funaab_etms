@@ -37,7 +37,7 @@
                                              
                                             @if ($pmessage->sender->profile!=null && $pmessage->sender->profile->avatar!="" )
                                             
-                                                <img src="{{ asset('storage/'.$pmessage->sender->profile->avatar)}}" class='w-12 h-10 rounded-full' />
+                                                <img src="{{ asset('storage/'.$pmessage->sender->profile->avatar)}}" class='w-12 h-12 rounded-full' />
                                         
                                             @else
                                                 <img class="w-12" src="{{ asset('images/avatar_64.jpg')}}" />  
@@ -45,7 +45,11 @@
                                     </div>
                                     <div class="px-3 py-1 rounded-md bg-gray-100 w-full">
                                             <div class="font-semibold text-sm">
-                                                    {{ $pmessage->sender->surname }} {{ $pmessage->sender->firstname }}
+                                                    @php
+                                                            $surname = ucfirst(strtolower($pmessage->sender>surname))
+                                                    @endphp
+
+                                                    {{ $surname }} {{ $pmessage->sender->firstname }}
                                             </div>
                                             <div class="text-xs">
                                                     {{ $pmessage->created_at->format('l jS F, Y @ g:i a') }}

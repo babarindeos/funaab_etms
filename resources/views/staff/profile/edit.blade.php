@@ -1,6 +1,7 @@
 <x-staff-layout>
-    <div class="flex flex-col w-4/5 border border-1 md:w-1/3 mx-auto items-center justify-center rounded-md mt-8 mb-8 shadow-md">
-        <form name="profile_create" action="{{ route('staff.profile.myprofile.update') }}" method="POST"  enctype="multipart/form-data" class="flex flex-col border border-1 justify-center items-center w-full">
+    <div class="flex flex-col w-4/5 md:w-1/3 mx-auto items-center justify-center rounded-md mt-8 mb-8">
+        <form name="profile_create" action="{{ route('staff.profile.myprofile.update') }}" method="POST"  enctype="multipart/form-data" 
+             class="flex flex-col border border-1 justify-center items-center w-full rounded-md shadow-md py-16">
             @csrf
             <div class="flex flex-col py-2 justify-center items-center font-semibold text-xl">
                     Edit Profile

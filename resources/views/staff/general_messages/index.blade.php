@@ -44,12 +44,19 @@
                                                                                                                        
                                                 </div>
                                                 <div class="flex flex-col py-2 w-full">
-                                                    <a href="{{ route('staff.profile.user_profile', ['fileno'=>$contributor->user->staff->fileno]) }}" class="font-bold hover:underline">
-                                                        {{ $contributor->user->staff->surname}}  {{ $contributor->user->staff->firstname}}
+                                                    <a href="{{ route('staff.profile.email_user_profile', ['email'=>$contributor->user->email]) }}" class="font-bold hover:underline">
+                                                        @php
+                                                                $surname = ucfirst(strtolower($contributor->user->staff->surname))
+                                                        @endphp
+                                                        {{ $surname}}  {{ $contributor->user->staff->firstname}}
                                                     </a>
 
-                                                    <div>{{ $contributor->user->staff->department->department_name}}  ({{ $contributor->user->staff->department->department_code}})</div>
-                                                    <div>{{ $contributor->user->staff->department->ministry->name}} ({{ $contributor->user->staff->department->ministry->code}})</div>
+                                                    <div>
+                                                                @if ($contributor->user->profile != null && $contributor->user->profile->designation != "" )
+                                                                                    {{ $contributor->user->profile->designation}} 
+                                                                @endif
+                                                    </div>
+                                                    
                                                     <div class="w-full">
                                                         @if (Auth::user()->id != $contributor->user_id)
                                                             <div class="flex text-end justify-end "> 
@@ -117,7 +124,7 @@
                                     <div class="px-3 border-0">
                                             @if ($message->sender->profile!=null && $message->sender->profile->avatar!="" )
                                             
-                                                <img src="{{ asset('storage/'.$message->sender->profile->avatar)}}" class='w-12 h-10 rounded-full' />
+                                                <img src="{{ asset('storage/'.$message->sender->profile->avatar)}}" class='w-12 h-11 rounded-full' />
                                                 
                                             @else
                                                 <img class="w-12" src="{{ asset('images/avatar_64.jpg')}}" />  
@@ -125,8 +132,11 @@
                                             
                                     </div>
                                     <div class="px-3 py-1 rounded-md bg-gray-100 w-full">
-                                            <a href="{{ route('staff.profile.user_profile', ['fileno'=>$message->sender->staff->fileno]) }}" class="font-semibold text-sm hover:underline">
-                                                    {{ $message->sender->surname }} {{ $message->sender->firstname }}
+                                            <a href="{{ route('staff.profile.email_user_profile', ['email'=>$message->sender->email]) }}" class="font-semibold text-sm hover:underline">
+                                                @php
+                                                    $surname = ucfirst(strtolower($message->sender->surname))
+                                                @endphp   
+                                                {{ $surname }} {{ $message->sender->firstname }}
                                             </a>
                                             <div class="text-xs">
                                                     {{ $message->created_at->format('l jS F, Y @ g:i a') }}

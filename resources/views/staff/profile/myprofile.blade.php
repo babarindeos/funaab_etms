@@ -41,10 +41,15 @@
 
             </div>
             <div class="flex flex-col justify-center md:border rounded-md md:w-[70%] py-2 px-4">
-                    <div class="flex justify-end px-4">
+                    <div class="flex justify-end px-4 space-x-2">
                             <a href="{{ route('staff.profile.myprofile.edit') }}" class="border px-4 py-1 rounded-md ring-0 
                                  border-gray-500 bg-gray-100 hover:shadow-md text-xs md:text-sm hover:font-semibold">
                                 Edit
+                            </a>
+
+                            <a href="{{ route('staff.profile.change_password') }}" class="border px-4 py-1 rounded-md ring-0 
+                                 border-gray-500 bg-gray-100 hover:shadow-md text-xs md:text-sm hover:font-semibold">
+                                Change Password
                             </a>
                     </div>
                     <div class="mb-4  mx-[10%] md:mx-0 ">
@@ -58,24 +63,42 @@
 
 
                     <div class="py-4 mx-[10%] md:mx-0">
-                            <div>
-                                    {{ Auth::user()->staff->department->ministry->name}} ({{ Auth::user()->staff->department->ministry->code}})
-                            </div>
-                            <div>
-                                    {{ Auth::user()->staff->department->department_name }} ({{ Auth::user()->staff->department->department_code}})
-                            </div>                            
+                                <div class="font-semibold py-1">
+                                        Contacts
+                                    </div>
+                                <div>
+                                        {{ Auth::user()->email }}
+                                </div>
+                                <div>
+                                        {{ Auth::user()->profile->phone}}
+                                </div>
                     </div>
+
+
+
+                    
+
 
 
                     <div class="py-4 mx-[10%] md:mx-0">
-                            <div>
-                                    {{ Auth::user()->email }}
-                            </div>
-                            <div>
-                                    {{ Auth::user()->profile->phone}}
-                            </div>
-
+                                    <!-- circles //--> 
+                                    <div class="font-semibold py-1">
+                                        Work Circles
+                                    </div>
+                                    @if (Auth::user()->circle->count())
+                                        @foreach(Auth::user()->circle as $circle)
+                                           <div>
+                                                {{ $circle->cell->name }} ({{$circle->cell->code}})
+                                           </div>
+                                        @endforeach
+                                       
+                                    @else
+                                        <div>
+                                                Currently in no Work Circle
+                                        </div>                                        
+                                    @endif                  
                     </div>
+
             </div>
         </section>
     

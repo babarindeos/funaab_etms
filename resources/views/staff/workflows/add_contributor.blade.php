@@ -23,7 +23,10 @@
                                     <div class="flex flex-col md:flex-row border border-0 justify-between md:items-center ">
 
                                         <div class="text-xs">
-                                            Submitted by {{ $document->staff->surname}} {{ $document->staff->firstname}} @ {{ $document->created_at->format('l jS F, Y  g:i a') }}
+                                            @php
+                                                $surname = ucfirst(strtolower($document->staff->surname))
+                                            @endphp
+                                            Submitted by {{ $surname}} {{ $document->staff->firstname}} @ {{ $document->created_at->format('l jS F, Y  g:i a') }}
                                         </div>
 
                                        
@@ -41,6 +44,10 @@
                                                                 @elseif ($document->filetype == "PDF")
                                                                 <img src="{{ asset('images/icon_pdf_50.jpg') }}" />
                                                                 @elseif ($document->filetype == "Image | jpg")
+                                                                <img src="{{ asset('images/icon_image_50.jpg') }}"/>
+                                                                @elseif ($document->filetype == "Image | jpeg")
+                                                                <img src="{{ asset('images/icon_image_50.jpg') }}"/>
+                                                                @elseif ($document->filetype == "Image | png")
                                                                 <img src="{{ asset('images/icon_image_50.jpg') }}"/>
                                                                 @endif
                                                         </div>
@@ -136,7 +143,7 @@
                                                                                                     <div class="rounded-full w-50 h-50 bg-gray-200">
                                                                                                         @if ($staff->profile!=null && $staff->profile->avatar!="" )
                                                                             
-                                                                                                        <img src="{{ asset('storage/'.$staff->profile->avatar)}}" class='w-12 h-10 rounded-full' />
+                                                                                                        <img src="{{ asset('storage/'.$staff->profile->avatar)}}" class='w-12 h-12 rounded-full' />
                                                                                                     
                                                                                                         @else
                                                                                                             <img class="w-12" src="{{ asset('images/avatar_64.jpg')}}" />  
@@ -146,9 +153,18 @@
                                                                                             </div>
                                                                                             <div>
                                                                                                     <div>
-                                                                                                            <div class='font-semibold'>{{ $staff->title}} {{$staff->surname}} {{$staff->firstname}}, {{$staff->fileno}}</div>
-                                                                                                            <div>{{$staff->department->department_name}}</div>
-                                                                                                            <div>{{$staff->department->ministry->name}}</div>
+                                                                                                            <div class='font-semibold'>
+                                                                                                                @php
+                                                                                                                    $surname = ucfirst(strtolower($staff->surname))
+                                                                                                                @endphp
+                                                                                                                {{ $staff->title}} {{$surname}} {{$staff->firstname}}, {{$staff->fileno}}
+                                                                                                            </div>
+                                                                                                            <div>
+                                                                                                                @if ($staff->profile != null && $staff->profile->designation != "" )
+                                                                                                                        {{ $staff->profile->designation}} 
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                           
                                                                                                     </div>
 
                                                                                                     <form action="{{ route('staff.workflows.post_add_contributor',['document'=>$document->id]) }}" method="POST">
@@ -220,16 +236,25 @@
                                                                 
                                                                 @if ($contributor->user->profile!=null && $contributor->user->profile->avatar!="" )
                                                                             
-                                                                    <img src="{{ asset('storage/'.$contributor->user->profile->avatar)}}" class='w-12 h-10 rounded-full' />
+                                                                    <img src="{{ asset('storage/'.$contributor->user->profile->avatar)}}" class='w-12 h-11 rounded-full' />
                                                             
                                                                 @else
                                                                     <img class="w-12" src="{{ asset('images/avatar_64.jpg')}}" />  
                                                                 @endif                                                         
                                                         </div>
                                                         <div class="flex flex-col py-2 w-full">
-                                                            <div class="font-bold">{{ $contributor->user->staff->surname}}  {{ $contributor->user->staff->firstname}}</div>
-                                                            <div>{{ $contributor->user->staff->department->department_name}}  {{ $contributor->user->staff->department->department_code}}</div>
-                                                            <div>{{ $contributor->user->staff->department->ministry->name}}</div>
+                                                            <div class="font-bold">
+                                                                @php
+                                                                     $surname = ucfirst(strtolower($contributor->user->staff->surname))
+                                                                @endphp
+                                                                {{ $surname}}  {{ $contributor->user->staff->firstname}}
+                                                            </div>
+                                                            <div>
+                                                                    @if ($contributor->user->profile != null && $contributor->user->profile->designation != "" )
+                                                                        {{ $contributor->user->profile->designation}} 
+                                                                    @endif
+                                                            </div>
+                                                           
                                                             <div class="w-full">
                                                                 @if (Auth::user()->id == $contributor->add_initiator->id)
                                                                     <div class="flex text-end justify-end "> 

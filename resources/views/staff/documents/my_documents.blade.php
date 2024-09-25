@@ -121,12 +121,12 @@
 
                 </section>
         @else
-                <div class="my-16 border border-1 rounded md:w-1/2">
-                        <div class="flex p-8">
-                                You currently have no documents uploaded by you.
-                        </div>
-
+            <section class="flex flex-col w-[95%] md:w-[95%] mx-auto px-4">
+                <div class="flex flex-row border-0 justify-center 
+                            text-2xl font-semibold text-gray-300 py-8">
+                        You currently have no documents uploaded by you
                 </div>
+            </section>
         
         @endif
     </div>
