@@ -128,7 +128,7 @@
                                 <div class="flex flex-row py-3 space-x-2 border-b ">
                                         <div class="border-0 px-1">
                                                 @if($users->user->profile != null)
-                                                <img class="w-12 h-10 rounded-full" src="{{ asset('storage/'.$users->user->profile->avatar)}}" />
+                                                <img class="w-12 h-11 rounded-full" src="{{ asset('storage/'.$users->user->profile->avatar)}}" />
                                                 @else
                                                 <img class="w-12 h-10" src="{{ asset('images/avatar_64.jpg')}}" />
                                                 @endif
@@ -151,9 +151,10 @@
                                             <!-- links //-->
                                             <div class="flex flex-row border-0
                                                         justify-end space-x-2 text-sm">
-                                                <div class="underline">
+                                                <a class="underline" 
+                                                   href="{{ route('admin.circles.permissions', ['cell'=>$cell->id, 'user'=>$users->user->id]) }}">
                                                     Permissions
-                                                </div>
+                                                </a>
                                                 <div class="underline">
                                                     Edit
                                                 </div>

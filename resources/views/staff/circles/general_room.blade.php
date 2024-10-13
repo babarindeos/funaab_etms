@@ -75,16 +75,7 @@
                                                         </div>
                                                     @endif
 
-                                                    <div class="w-full">
-                                                        @if (Auth::user()->id != $circle->user_id)
-                                                            <div class="flex text-end justify-end "> 
-                                                                <a href="{{ route('staff.workflows.private_message.index', ['document'=>$document->id, 'recipient'=>$contributor->user_id]) }}" class="flex text-xs border border-1 border-green-500 px-2 py-1 rounded-md 
-                                                                        hover:bg-green-500 hover:text-white">   
-                                                                    Message
-                                                                </a>
-                                                            </div>
-                                                        @endif
-                                                    </div>
+                                                    
                                                 </div>
                                         </div>
                                 </div>

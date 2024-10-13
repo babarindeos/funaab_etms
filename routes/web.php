@@ -21,6 +21,8 @@ use App\Http\Controllers\Admin\Admin_CellController;
 use App\Http\Controllers\Admin\Admin_CellTypeController;
 use App\Http\Controllers\Admin\Admin_CircleController;
 
+use App\Http\Controllers\Admin\Admin_PermissionController;
+
 
 use App\Http\Controllers\Staff\Staff_AuthController;
 use App\Http\Controllers\Staff\Staff_DashboardController;
@@ -253,7 +255,10 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
     Route::get('circles/{cell}/show', [Admin_CircleController::class, 'show'])->name('admin.circles.show');
     Route::post('circles/{cell}/add_user', [Admin_CircleController::class, 'add_user'])->name('admin.circles.add_user');
 
-
+    Route::get('circles/{cell}/user/{user}/permissions', [Admin_PermissionController::class, 'index'])->name('admin.circles.permissions');
+    Route::post('circles/{cell}/user/{user}/permissions/create_announcement_set', [Admin_PermissionController::class, 'create_announcement_set'])->name('admin.circles.permissions.create_announcement_set');
+    Route::post('circles/{cell}/user/{user}/permissions/create_announcement_on', [Admin_PermissionController::class, 'create_announcement_on'])->name('admin.circles.permissions.create_announcement_on');
+    Route::post('circles/{cell}/user/{user}/permissions/create_announcement_off', [Admin_PermissionController::class, 'create_announcement_off'])->name('admin.circles.permissions.create_announcement_off');
     
     
     //college
