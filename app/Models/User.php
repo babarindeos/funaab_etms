@@ -65,5 +65,10 @@ class User extends Authenticatable
         return $this->hasMany(CellUser::class, 'user_id', 'id');
     }
 
+    public function announcement_permission()
+    {
+        return $this->hasOne(AnnouncementPermissions::class, 'user_id', 'id');
+    }
+
     
 }

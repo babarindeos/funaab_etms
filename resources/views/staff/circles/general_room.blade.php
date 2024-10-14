@@ -133,7 +133,7 @@
                                     <div class="px-3 border-0">
                                             @if ($message->sender->profile!=null && $message->sender->profile->avatar!="" )
                                             
-                                                <img src="{{ asset('storage/'.$message->sender->profile->avatar)}}" class='w-12 h-10 rounded-full' />
+                                                <img src="{{ asset('storage/'.$message->sender->profile->avatar)}}" class='w-12 h-11 rounded-full' />
                                                 
                                             @else
                                                 <img class="w-12" src="{{ asset('images/avatar_64.jpg')}}" />  

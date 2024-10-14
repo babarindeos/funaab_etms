@@ -42,9 +42,13 @@
         <section class="flex flex-col w-full py-2 mt-2 border-0">
                     <div class="flex flex-col">
                         <div class="flex justify-end py-1">
-                                <a href="{{ route('staff.circles.create_announcement', ['circle'=>$circle->id]) }}" class="flex border border-1 bg-green-400 py-1 px-4 text-white 
-                                hover:bg-green-500
-                                rounded-md text-md" style="font-family:'Lato';font-weight:500;">New Announcement</a>
+                                @if ($circle->user->announcement_permission != null && 
+                                     $circle->user->announcement_permission->cell_id == $circle->cell_id && 
+                                     $circle->user->announcement_permission == true)
+                                        <a href="{{ route('staff.circles.create_announcement', ['circle'=>$circle->id]) }}" class="flex border border-1 bg-green-400 py-1 px-4 text-white 
+                                            hover:bg-green-500
+                                            rounded-md text-md" style="font-family:'Lato';font-weight:500;">New Announcement</a>
+                                @endif
                         </div>
                     </div>
 

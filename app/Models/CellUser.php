@@ -20,4 +20,9 @@ class CellUser extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function announcement_permission()
+    {
+        return $this->hasMany(AnnouncementPermissions::class, 'cell_id', 'id');
+    }
 }
