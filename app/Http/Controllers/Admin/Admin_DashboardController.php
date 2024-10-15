@@ -29,7 +29,7 @@ class Admin_DashboardController extends Controller
                                     ->join("ministries", "departments.ministry_id", "ministries.id")
                                     ->select("users.*", "staff.*", "departments.*", "ministries.*", "uploader")->groupBy("users.id")->get(); */
 
-        $ministries_documents = DB::table("documents")
+        /* $ministries_documents = DB::table("documents")
                                 ->join("users", "documents.uploader","=", "users.id")
                                 ->join("staff", "users.id", "=", "staff.user_id")
                                 ->join("departments", "staff.department_id", "=", "departments.id")
@@ -52,10 +52,10 @@ class Admin_DashboardController extends Controller
                                 ->join("staff", "staff.department_id", "=", "departments.id")
                                 ->select("departments.department_name", DB::raw("COUNT(staff.id) as staff_count"))->groupBy("departments.department_name")->get();
        
-        
+         */
                 
 
-        // Ministry Document Chart Data
+        /* // Ministry Document Chart Data
         $ministries_documents_chart_data = [];
         $item = ['Ministry', 'Documents'];        
         array_push($ministries_documents_chart_data, $item);
@@ -67,11 +67,11 @@ class Admin_DashboardController extends Controller
             $item[1] = intval($mds->document_count);
             array_push($ministries_documents_chart_data, $item);
         }
-
+ */
        //dd($ministries_documents_chart_data);
 
 
-       // Department Document Chart Data
+      /*  // Department Document Chart Data
        $departments_documents_chart_data = [];
        $item = ['Department', 'Documents'];
        array_push($departments_documents_chart_data, $item);
@@ -113,7 +113,7 @@ class Admin_DashboardController extends Controller
        //dd($ministries_staff_chart_data);
 
 
-        
+         */
 
         return view('admin.dashboard')->with([
             "documents_count" => $documents_count,
@@ -121,10 +121,10 @@ class Admin_DashboardController extends Controller
             "staff_count" =>$staff_count,
             "workflows_count" => $workflows_count,
             "departments_count" => $departments_count,
-            "ministries_documents_chart_data" => $ministries_documents_chart_data,
+           /*  "ministries_documents_chart_data" => $ministries_documents_chart_data,
             "departments_documents_chart_data" => $departments_documents_chart_data,
             "ministries_staff_chart_data" => $ministries_staff_chart_data,
-            "departments_staff_chart_data" => $departments_staff_chart_data
+            "departments_staff_chart_data" => $departments_staff_chart_data */
         ]);
 
     }
