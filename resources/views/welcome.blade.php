@@ -4,7 +4,7 @@
     <div class="flex flex-col md:flex-row h-full">
             <!-- left  panel //-->
             <div class="flex flex-col border-0 py-16 h-full w-full md:w-[70%]"
-                style="background-image:url('{{asset('images/workplace.jpg')}}'); 
+                style="background-image:url('{{asset('images/frontimage.png')}}'); 
                        background-size: cover; 
                        background-repeat: repeat
                        background-position: right; background-color:#f1f1f1;"

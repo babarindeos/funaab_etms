@@ -144,7 +144,11 @@
                                                 @if ($users->user->profile != null)
                                                     {{ $users->user->profile->designation}}, 
                                                 @endif
-                                                {{ $users->role }},
+
+                                                @if ($users->role != null)
+                                                    {{ $users->role }},
+                                                @endif
+                                                
                                                 ({{ $users->user->staff->fileno}})
                                             </div>
 

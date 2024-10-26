@@ -11,8 +11,8 @@
             <!-- end of logo //-->
             <!-- Name //-->
             <div class="flex flex-col item-center justify-center">
-                    <div class="text-white font-bold text-2xl font-serif">FUNAAB WorkPlace</div>
-                    <div class="text-white font-semibold font-serif text-sm opacity-70">Where work happens...</div>
+                    <div class="text-white font-bold text-2xl font-serif">FUNAAB</div>
+                    <div class="text-white font-semibold font-serif">Exam Timetable Management System (ETMS)</div>
             </div>
             <!-- end of name //-->
         </div>

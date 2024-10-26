@@ -45,6 +45,9 @@ class Admin_CircleController extends Controller
         {
             $formFields['cell_id'] = $cell->id;
             $formFields['user_id'] = $staff->user_id;
+            $formFields['role'] = $request->input('role');
+
+            // or formFields['role'] = $request->role
            
             $add_user = CellUser::create($formFields);
 

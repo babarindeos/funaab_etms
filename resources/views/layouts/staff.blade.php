@@ -21,7 +21,7 @@
         <header>
             @include('partials._header_staff')
         </header>
-        <main class="flex flex-grow">
+        <main class="flex flex-col flex-grow">
             {{ $slot }}
         </main>
         <footer>

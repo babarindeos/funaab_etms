@@ -108,9 +108,11 @@ class Staff_CircleAnnouncementController extends Controller
 
     public function show_announcement(CellUser $circle, Announcement $announcement)
     {
-        $messages = AnnouncementComment::where('cell_id', $circle->cell_id)->orderBy('id', 'desc')->get();
+        $comments = AnnouncementComment::where('cell_id', $circle->cell_id)->orderBy('id', 'desc')->get();
 
-        return view('staff.circles.show_announcement', compact('circle', 'announcement', 'messages'));
+        $msg_body = $announcement->message;
+
+        return view('staff.circles.show_announcement', compact('circle', 'announcement', 'comments', 'msg_body'));
     }
 
 

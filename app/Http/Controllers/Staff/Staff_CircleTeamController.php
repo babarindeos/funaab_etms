@@ -13,7 +13,10 @@ class Staff_CircleTeamController extends Controller
     //
     public function team(CellUser $circle)
     {
-              
-        return view('staff.circles.team', compact('circle'));
+        //$circle = CellUser::with(['cell.users'])->find($circle->id);
+        $sortedUsers = $circle->cell->users->sortBy('surname');
+        $sortedTeam = $sortedUsers;
+    
+        return view('staff.circles.team', compact('circle', 'sortedTeam'));
     }
 }

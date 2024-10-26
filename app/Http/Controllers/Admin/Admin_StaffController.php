@@ -49,8 +49,7 @@ class Admin_StaffController extends Controller
             'fileno' => 'required|unique:staff,fileno',
             'title' => 'required',
             'surname' => 'required | string',
-            'firstname' => ['required', 'string'],
-            'middlename' => ['required', 'string'],            
+            'firstname' => ['required', 'string'],        
             'email' => 'required|email|unique:users,email',
             'role' => 'required | string'
         ]);
@@ -72,7 +71,7 @@ class Admin_StaffController extends Controller
 
         $formFields['surname'] = strtoupper($formFields['surname']);
         $formFields['firstname'] = ucfirst($formFields['firstname']);
-        $formFields['middlename'] = ucfirst($formFields['middlename']);
+        $formFields['middlename'] = ucfirst($request->input('middlename'));
         $formFields['email'] = strtolower($formFields['email']);
 
 

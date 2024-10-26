@@ -1,6 +1,6 @@
 <x-staff-layout>
 
-    <div class="flex flex-col container mx-4 md:mx-auto">
+    <div class="flex flex-col border-0 w-[95%] mx-auto">
         <section class="border-b border-gray-200 py-2 mt-2">
                 <div class="text-2xl font-semibold ">
                     My Profile              
@@ -77,7 +77,7 @@
                                 <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-1">
                                                         
                                                         
-                                    <input type="text" name="current_password" placeholder="Current Password" 
+                                    <input type="password" name="current_password" placeholder="Current Password" 
                                                                             class="border border-1 border-gray-400 bg-gray-50
                                                                             w-full p-3 rounded-md 
                                                                             focus:outline-none
@@ -103,7 +103,7 @@
                                 <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-1">
                                                         
                                                         
-                                    <input type="text" name="new_password" placeholder="New Password" 
+                                    <input type="password" name="new_password" placeholder="New Password" 
                                                                             class="border border-1 border-gray-400 bg-gray-50
                                                                             w-full p-3 rounded-md 
                                                                             focus:outline-none
@@ -128,7 +128,7 @@
                                 <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-1">
                                                         
                                                         
-                                    <input type="text" name="new_password_confirmation" placeholder="Confirm Password" 
+                                    <input type="password" name="new_password_confirmation" placeholder="Confirm Password" 
                                                                             class="border border-1 border-gray-400 bg-gray-50
                                                                             w-full p-3 rounded-md 
                                                                             focus:outline-none

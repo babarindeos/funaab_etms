@@ -1,6 +1,6 @@
 <x-staff-layout>
 
-    <div class="flex flex-col container mx-4 border border-0 md:mx-auto">
+    <div class="flex flex-col border-0 w-[95%] mx-auto">
         <section class="border-b border-gray-200 py-2 mt-2">
                 <div class="text-2xl font-semibold ">
                     Circles               
@@ -38,7 +38,7 @@
         <!-- section //-->
         <section class="py-4 border-0">
             <div class="flex flex-col md:flex-row md:flex-wrap w-full mx-auto justify-center gap-4">
-                @foreach ($circle->cell->users as $team)
+                @foreach ($sortedTeam as $team)
 
 
                     <!-- Team member //-->
@@ -59,7 +59,13 @@
                                 {{  $surname }} {{ $team->user->firstname }}
                             </a>
                             <div class="text-sm">
-                                {{ $team->user->profile->designation }}<br />{{ $team->role }}
+                                @if ($team->user->profile!=null)
+                                    {{ $team->user->profile->designation }}<br/>
+                                @endif
+
+                                @if ($team->role!=null)
+                                    {{ $team->role }}
+                                @endif
                             </div>
                         </div>
                     </div>

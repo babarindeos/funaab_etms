@@ -1,6 +1,6 @@
 <x-staff-layout>
 
-    <div class="flex flex-col container mx-4 border border-0 md:mx-auto">
+    <div class="flex flex-col border-0 w-[95%] mx-auto">
         <section class="border-b border-gray-200 py-2 mt-2">
                 <div class="text-2xl font-semibold ">
                     Circles               
@@ -95,7 +95,7 @@
 
                                 <!-- announcement body //-->
                                 <div class="py-8">
-                                    {{ $announcement->message }}
+                                    {!!  nl2br(e($announcement->message)) !!}
 
                                 </div>
                                 <!-- announcement body //-->
@@ -170,12 +170,12 @@
                     <!-- list of messages //-->
                     <div class="flex flex-col border-0 border-blue-900 h-50 overflow-y-auto py-2 mt-2">
 
-                            @foreach ($messages as $message)
+                            @foreach ($comments as $comment)
                                 <div class="flex flex-row my-2">
                                         <div class="px-3 border-0">
-                                                @if ($message->sender->profile!=null && $message->sender->profile->avatar!="" )
+                                                @if ($comment->sender->profile!=null && $comment->sender->profile->avatar!="" )
                                                 
-                                                    <img src="{{ asset('storage/'.$message->sender->profile->avatar)}}" class='w-12 h-10 rounded-full' />
+                                                    <img src="{{ asset('storage/'.$comment->sender->profile->avatar)}}" class='w-12 h-10 rounded-full' />
                                                     
                                                 @else
                                                     <img class="w-12" src="{{ asset('images/avatar_64.jpg')}}" />  
@@ -183,19 +183,19 @@
                                                 
                                         </div>
                                         <div class="px-3 py-1 rounded-md bg-gray-100 w-full">
-                                                <a href="{{ route('staff.profile.email_user_profile', ['email'=>$message->sender->email]) }}" class="font-semibold text-sm hover:underline">
+                                                <a href="{{ route('staff.profile.email_user_profile', ['email'=>$comment->sender->email]) }}" class="font-semibold text-sm hover:underline">
                                                         
                                                         @php
-                                                            $surname = ucfirst(strtolower($message->sender->surname));
+                                                            $surname = ucfirst(strtolower($comment->sender->surname));
                                                         @endphp
 
-                                                        {{ $surname }} {{ $message->sender->firstname }}
+                                                        {{ $surname }} {{ $comment->sender->firstname }}
                                                 </a>
                                                 <div class="text-xs">
-                                                        {{ $message->created_at->format('l jS F, Y @ g:i a') }}
+                                                        {{ $comment->created_at->format('l jS F, Y @ g:i a') }}
                                                 </div>
                                                 <div class="text-sm py-2">
-                                                        {{ $message->message}}
+                                                       {{ $comment->message }}
                                                 </div>
 
                                         </div>

