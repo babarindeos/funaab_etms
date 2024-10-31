@@ -5,32 +5,32 @@
             
             <div class="flex border-b border-gray-300 py-2 justify-between">
                     <div >
-                        <h1 class="text-2xl font-semibold font-serif text-gray-800">College</h1>
-                    </div>
+                        <h1 class="text-2xl font-semibold font-serif text-gray-800">Edit Course</h1>
+                    </div>  
                     <div>
-                            <a href="{{ route('admin.colleges.index') }}" class="bg-green-600 text-white py-2 px-4 
-                                            rounded-lg text-xs md:text-sm hover:bg-green-500"> Colleges</a>
+                            <a href="{{ route('admin.courses.index') }}" class="bg-green-600 text-white py-2 px-4 
+                                            rounded-lg text-xs md:text-sm hover:bg-green-500"> Courses</a>
 
-                            <a href="{{ route('admin.departments.index') }}" class="border border-green-600 text-green-600 py-2 px-4 
-                                            rounded-lg text-xs md:text-sm hover:bg-green-500 hover:text-white hover:border-green-500">Departments</a>
-                    </div>                  
+                           
+                    </div>              
             </div>
-            
             
         </section>
         <!-- end of page header //-->
 
 
 
-        <!-- edit college form //-->
+        <!-- new college form //-->
         <section>
                 <div>
-                    <form  action="{{ route('admin.colleges.update',["college"=>$college->id])}} " method="POST" class="flex flex-col mx-auto w-[90%] items-center justify-center">
-                           @csrf                       
+                    <form  action="{{ route('admin.courses.update',['course'=>$course->id]) }} " method="POST" class="flex flex-col mx-auto w-[90%] items-center justify-center">
+                        @csrf
+
+                        
 
                         <div class="flex flex-col w-[80%] md:w-[60%] py-2 md:py-4" style="font-family:'Lato'; font-size:18px; font-weight:400;">
-                            <h2 class="font-semibold text-xl py-1" >Edit College</h2>
-                            Provide College long and short names
+                            <h2 class="font-semibold text-xl py-1" >Edit Course</h2>
+                            Provide Course title and code
                         </div>
 
 
@@ -38,33 +38,33 @@
                         
                         
 
-                        <!-- College long name //-->
+                        <!-- Course title //-->
                         <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-3">
                         
                             
-                            <input type="text" name="name" class="border border-1 border-gray-400 bg-gray-50
+                            <input type="text" name="title" class="border border-1 border-gray-400 bg-gray-50
                                                                     w-full p-4 rounded-md 
                                                                     focus:outline-none
                                                                     focus:border-blue-500 
                                                                     focus:ring
-                                                                    focus:ring-blue-100" placeholder="College full name"
+                                                                    focus:ring-blue-100" placeholder="Course title"
                                                                     
-                                                                    value="{{ $college->name }}"
+                                                                    value="{{ $course->title }}"
                                                                     
                                                                     style="font-family:'Lato';font-size:16px;font-weight:500;"                                                                     
                                                                     required
                                                                     />  
                                                                                                                                         
 
-                                                                    @error('name')
+                                                                    @error('title')
                                                                         <span class="text-red-700 text-sm">
                                                                             {{$message}}
                                                                         </span>
                                                                     @enderror
                             
-                        </div><!-- end of college name //-->
+                        </div><!-- end of course title //-->
 
-                        <!-- College long name //-->
+                        <!-- Course code //-->
                         <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-3">
                         
                             
@@ -73,9 +73,9 @@
                                                                     focus:outline-none
                                                                     focus:border-blue-500 
                                                                     focus:ring
-                                                                    focus:ring-blue-100" placeholder="College code"
+                                                                    focus:ring-blue-100" placeholder="Course code"
                                                                     
-                                                                    value="{{ $college->code }}"
+                                                                    value="{{ $course->code }}"
                                                                     
                                                                     style="font-family:'Lato';font-size:16px;font-weight:500;"                                                                     
                                                                     required
@@ -88,19 +88,19 @@
                                                                         </span>
                                                                     @enderror
                             
-                        </div><!-- end of college code //-->
+                        </div><!-- end of course code //-->
 
                         <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] mt-4">
                             <button type="submit" class="border border-1 bg-gray-400 py-4 text-white 
                                            hover:bg-gray-500
-                                           rounded-md text-lg" style="font-family:'Lato';font-weight:500;">Update College</button>
+                                           rounded-md text-lg" style="font-family:'Lato';font-weight:500;">Update Course</button>
                         </div>
                         
-                    </form><!-- end of new college form //-->
+                    </form><!-- end of new course form //-->
                 <div>
         </section>
-        <!-- end of edit college form //-->
+        <!-- end of new course form //-->
 
 
-    </div><!-- end of container //--->
+    </div><!-- end of container //-->
 </x-admin-layout>

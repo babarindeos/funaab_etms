@@ -5,15 +5,14 @@
             
             <div class="flex border-b border-gray-300 py-2 justify-between">
                     <div >
-                        <h1 class="text-2xl font-semibold font-serif text-gray-800">Create Department</h1>
-                    </div>
+                        <h1 class="text-2xl font-semibold font-serif text-gray-800">Create Course</h1>
+                    </div>  
                     <div>
-                            <a href="{{ route('admin.departments.index') }}" class="bg-green-600 text-white py-2 px-4 
-                                            rounded-lg text-xs md:text-sm hover:bg-green-500"> Departments</a>
+                            <a href="{{ route('admin.courses.index') }}" class="bg-green-600 text-white py-2 px-4 
+                                            rounded-lg text-xs md:text-sm hover:bg-green-500"> Courses</a>
 
-                            <a href="{{ route('admin.colleges.index') }}" class="border border-green-600 text-green-600 py-2 px-4 
-                                            rounded-lg text-xs md:text-sm hover:bg-green-500 hover:text-white hover:border-green-500">Colleges</a>
-                    </div>                
+                           
+                    </div>              
             </div>
             
         </section>
@@ -21,28 +20,29 @@
 
 
 
-        <!-- new department form //-->
-        <section class="mb-8">
+        <!-- new college form //-->
+        <section>
                 <div>
-                    <form  action="{{ route('admin.departments.store')}} " method="POST" class="flex flex-col mx-auto w-[90%] items-center justify-center">
+                    <form  action="{{ route('admin.courses.store')}} " method="POST" class="flex flex-col mx-auto w-[90%] items-center justify-center">
                         @csrf
 
                         
 
                         <div class="flex flex-col w-[80%] md:w-[60%] py-2 md:py-4" style="font-family:'Lato'; font-size:18px; font-weight:400;">
-                            <h2 class="font-semibold text-xl py-1" >New Department</h2>
-                            Select College and Provide Department long and short names
+                            <h2 class="font-semibold text-xl py-1" >New Course</h2>
+                            Provide Course title and code
                         </div>
 
 
                         @include('partials._session_response')
+                        
 
-
+                        
                         <!-- College //-->
                         <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2">
                                 
                                 
-                            <select name="college" class="border border-1 border-gray-400 bg-gray-50
+                            <select name="college" id='college' class="border border-1 border-gray-400 bg-gray-50
                                                                      w-full p-4 rounded-md 
                                                                      focus:outline-none
                                                                      focus:border-blue-500 
@@ -68,36 +68,64 @@
                         
                         <!-- end of College //-->
 
+
                         
+                        <!-- Department //-->
+                        <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2">
+                                
+                                
+                            <select name="department" id='department' class="border border-1 border-gray-400 bg-gray-50
+                                                                     w-full p-4 rounded-md 
+                                                                     focus:outline-none
+                                                                     focus:border-blue-500 
+                                                                     focus:ring
+                                                                     focus:ring-blue-100"                                                                                                                                                                                                                                                                                                                                                
+                                                                     
+                                                                     style="font-family:'Lato';font-size:16px;font-weight:500;"
+                                                                     required
+                                                                     >
+                                                                    <option value=''>-- Select Department --</option>
+                                                                                                                                           
+                                                                    </select>
+
+                                                                     @error('department')
+                                                                        <span class="text-red-700 text-sm">
+                                                                            {{$message}}
+                                                                        </span>
+                                                                     @enderror
+                            
+                        </div>
+                        
+                        <!-- end of Department //-->
                         
 
-                        <!-- Department long name //-->
+                        <!-- Course title //-->
                         <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-3">
                         
                             
-                            <input type="text" name="name" class="border border-1 border-gray-400 bg-gray-50
+                            <input type="text" name="title" class="border border-1 border-gray-400 bg-gray-50
                                                                     w-full p-4 rounded-md 
                                                                     focus:outline-none
                                                                     focus:border-blue-500 
                                                                     focus:ring
-                                                                    focus:ring-blue-100" placeholder="Department full name"
+                                                                    focus:ring-blue-100" placeholder="Course title"
                                                                     
-                                                                    value="{{ old('name') }}"
+                                                                    value="{{ old('title') }}"
                                                                     
                                                                     style="font-family:'Lato';font-size:16px;font-weight:500;"                                                                     
                                                                     required
                                                                     />  
                                                                                                                                         
 
-                                                                    @error('name')
+                                                                    @error('title')
                                                                         <span class="text-red-700 text-sm">
                                                                             {{$message}}
                                                                         </span>
                                                                     @enderror
                             
-                        </div><!-- end of department name //-->
+                        </div><!-- end of course title //-->
 
-                        <!-- Department code //-->
+                        <!-- Course code //-->
                         <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-3">
                         
                             
@@ -106,7 +134,7 @@
                                                                     focus:outline-none
                                                                     focus:border-blue-500 
                                                                     focus:ring
-                                                                    focus:ring-blue-100" placeholder="Department code"
+                                                                    focus:ring-blue-100" placeholder="Course code"
                                                                     
                                                                     value="{{ old('code') }}"
                                                                     
@@ -121,19 +149,55 @@
                                                                         </span>
                                                                     @enderror
                             
-                        </div><!-- end of department code //-->
+                        </div><!-- end of course code //-->
 
                         <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] mt-4">
                             <button type="submit" class="border border-1 bg-gray-400 py-4 text-white 
                                            hover:bg-gray-500
-                                           rounded-md text-lg" style="font-family:'Lato';font-weight:500;">Create Department</button>
+                                           rounded-md text-lg" style="font-family:'Lato';font-weight:500;">Create Course</button>
                         </div>
                         
-                    </form><!-- end of new department form //-->
+                    </form><!-- end of new course form //-->
                 <div>
         </section>
-        <!-- end of new college form //-->
+        <!-- end of new course form //-->
 
 
     </div><!-- end of container //-->
 </x-admin-layout>
+
+
+
+// script
+<script>
+
+$(document).ready(function(){
+    
+    $('#college').bind('change', function(){
+        var college_id = $(this).val();
+        
+        if (college_id != '')
+        {
+            var url = "{{ url('admin/departments') }}" + '/' + college_id + '/get_departments_by_college';
+            
+
+            $.ajax({
+                url: url,
+                data: {'college': college_id},
+                dataType: 'html',
+                method: 'GET',
+                success: function(response){
+                    console.log(response);
+                    $("#department").html(response);
+
+                },
+                error: function(xhr, status, error){
+                    console.log(error);
+                }
+            });
+        }
+    })
+
+});
+
+</script>

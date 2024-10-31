@@ -5,12 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class College extends Model
+class AcademicSession extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'code'
-    ];
+    protected $fillable = ['name', 'current'];
 }

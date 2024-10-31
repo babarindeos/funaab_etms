@@ -23,6 +23,18 @@ use App\Http\Controllers\Admin\Admin_CircleController;
 
 use App\Http\Controllers\Admin\Admin_PermissionController;
 
+// AcademicSessionController
+use App\Http\Controllers\Admin\Admin_AcademicSessionController;
+
+// SemesterController
+use App\Http\Controllers\Admin\Admin_SemesterController;
+
+//use CourseController
+use App\Http\Controllers\Admin\Admin_CourseController;
+
+// use RemunerationRateController
+use App\Http\Controllers\Admin\Admin_RemunerationRateController;
+
 
 use App\Http\Controllers\Staff\Staff_AuthController;
 use App\Http\Controllers\Staff\Staff_DashboardController;
@@ -265,10 +277,12 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
     Route::get('/colleges', [Admin_CollegeController::class, 'index'])->name('admin.colleges.index');
     Route::get('/colleges/create', [Admin_CollegeController::class, 'create'])->name('admin.colleges.create');
     Route::post('colleges/store', [Admin_CollegeController::class, 'store'])->name('admin.colleges.store');
-
+    Route::get('colleges/{college}/show', [Admin_CollegeController::class, 'show'])->name('admin.colleges.show');
     Route::get('colleges/{college}/edit', [Admin_CollegeController::class, 'edit'])->name('admin.colleges.edit');
     Route::post('colleges/{college}/update', [Admin_CollegeController::class, 'update'])->name('admin.colleges.update');
-    Route::delete('college/{college}/destroy', [Admin_CollegeController::class, 'destroy'])->name('admin.colleges.destroy');
+    Route::get('college/{college}/confirm_delete', [Admin_CollegeController::class, 'confirm_delete'])->name('admin.colleges.confirm_delete');
+    Route::delete('college/{college}/delete', [Admin_CollegeController::class, 'destroy'])->name('admin.colleges.delete');
+
 
 
 
@@ -290,11 +304,13 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
     Route::get('/departments', [Admin_DepartmentController::class, 'index'])->name('admin.departments.index');
     Route::get('departments/create', [Admin_DepartmentController::class, 'create'])->name('admin.departments.create');
     Route::post('departments/store', [Admin_DepartmentController::class, 'store'])->name('admin.departments.store');
+    Route::get('departments/{department}/show', [Admin_DepartmentController::class, 'show'])->name('admin.departments.show');
     
     Route::get('departments/{department}/edit', [Admin_DepartmentController::class, 'edit'])->name('admin.departments.edit');
     Route::post('departments/{department}/update', [Admin_DepartmentController::class, 'update'])->name('admin.departments.update');
-
-    Route::post('departments/{department}/destroy', [Admin_DepartmentController::class, 'destroy'])->name('admin.departments.destroy');
+    Route::get('departments/{department}/confirm_delete', [Admin_DepartmentController::class, 'confirm_delete'])->name('admin.departments.confirm_delete');
+    Route::delete('departments/{department}/destroy', [Admin_DepartmentController::class, 'destroy'])->name('admin.departments.delete');
+    Route::get('departments/{college}/get_departments_by_college', [Admin_DepartmentController::class, 'get_departments_by_college'])->name('admin.departments.get_departments_by_college');
 
 
     // Staff
@@ -326,7 +342,53 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
     Route::get('dean/assign_dean', [Admin_DeanController::class, 'assign_dean'])->name('admin.deans.assign_dean');
     Route::post('dean/assign_dean', [Admin_DeanController::class, 'store_assign_dean'])->name('admin.deans.store_assign_dean');
 
-    
+
+    // Settings
+
+    // Academic Sessions
+    Route::get('academic_sessions', [Admin_AcademicSessionController::class, 'index'])->name('admin.academic_sessions.index');
+    Route::get('academic_sessions/create', [Admin_AcademicSessionController::class, 'create'])->name('admin.academic_sessions.create');
+    Route::post('academic_sessions/store', [Admin_AcademicSessionController::class, 'store'])->name('admin.academic_sessions.store');
+    Route::get('academic_sessions/{academic_session}/edit', [Admin_AcademicSessionController::class, 'edit'])->name('admin.academic_sessions.edit');
+    Route::post('academic_sessions/{academic_session}/update', [Admin_AcademicSessionController::class, 'update'])->name('admin.academic_sessions.update');
+    Route::get('academic_sessions/{academic_session}/confirm_delete', [Admin_AcademicSessionController::class, 'confirm_delete'])->name('admin.academic_sessions.confirm_delete');
+    Route::post('academic_sessions/{academic_session}/delete', [Admin_AcademicSessionController::class, 'destroy'])->name('admin.academic_sessions.destroy');
+    Route::post('academic_sessions/{academic_session}/seton_current_session', [Admin_AcademicSessionController::class, 'seton_current_session'])->name('admin.academic_sessions.seton_current_session');
+    Route::post('academic_sessions/{academic_session}/setoff_current_session', [Admin_AcademicSessionController::class, 'setoff_current_session'])->name('admin.academic_sessions.setoff_current_session');
+
+    // Semesters
+    Route::get('semesters', [Admin_SemesterController::class, 'index'])->name('admin.semesters.index');
+    Route::get('semesters/create', [Admin_SemesterController::class, 'create'])->name('admin.semesters.create');
+    Route::post('semesters/store', [Admin_SemesterController::class, 'store'])->name('admin.semesters.store');
+    Route::get('semesters/{semester}/edit', [Admin_SemesterController::class, 'edit'])->name('admin.semesters.edit');
+    Route::post('semesters/{semester}/update', [Admin_SemesterController::class, 'update'])->name('admin.semesters.update');
+    Route::get('semesters/{semester}/confirm_delete', [Admin_SemesterController::class, 'confirm_delete'])->name('admin.semesters.confirm_delete');
+    Route::post('semesters/{semester}/delete', [Admin_SemesterController::class, 'destroy'])->name('admin.semesters.delete');
+    Route::post('semesters/{semester}/seton_current_semester', [Admin_SemesterController::class, 'seton_current_semester'])->name('admin.semesters.seton_current_semester');
+    Route::post('semesters/{semester}/setoff_current_semester', [Admin_SemesterController::class, 'setoff_current_semester'])->name('admin.semesters.setoff_current_semester');
+
+    // Courses
+    Route::get('courses', [Admin_CourseController::class, 'index'])->name('admin.courses.index');
+    Route::get('courses/create', [Admin_CourseController::class, 'create'])->name('admin.courses.create');
+    Route::post('courses/store', [Admin_CourseController::class, 'store'])->name('admin.courses.store');
+    Route::get('courses/{course}/show', [Admin_CourseController::class, 'show'])->name('admin.courses.show');
+    Route::get('courses/{course}/edit', [Admin_CourseController::class, 'edit'])->name('admin.courses.edit');
+    Route::post('courses/{course}/update', [Admin_CourseController::class, 'update'])->name('admin.courses.update');
+    Route::get('courses/{course}/edit', [Admin_CourseController::class, 'edit'])->name('admin.courses.edit');
+    Route::get('courses/{course}/confirm_delete', [Admin_CourseController::class, 'confirm_delete'])->name('admin.courses.confirm_delete');
+    Route::post('courses/{course}/delete', [Admin_CourseController::class, 'destroy'])->name('admin.courses.delete');
+
+
+    // Remuneration rates
+    Route::get('remuneration_rates', [Admin_RemunerationRateController::class, 'index'])->name('admin.remuneration_rates.index');
+    Route::get('remuneration_rates/create', [Admin_RemunerationRateController::class, 'create'])->name('admin.remuneration_rates.create');
+    Route::post('remuneration_rates/store', [Admin_RemunerationRateController::class, 'store'])->name('admin.remuneration_rates.store');
+    Route::get('remuneration_rates/{rate}/show', [Admin_RemunerationRateController::class, 'show'])->name('admin.remuneration_rates.show');
+    Route::get('remuneration_rates/{rate}/edit', [Admin_RemunerationRateController::class, 'edit'])->name('admin.remuneration_rates.edit');
+    Route::post('remuneration_rates/{rate}/update', [Admin_RemunerationRateController::class, 'update'])->name('admin.remuneration_rates.update');
+    Route::get('remuneration_rates/{rate}/confirm_delete', [Admin_RemunerationRateController::class, 'confirm_delete'])->name('admin.remuneration_rates.confirm_delete');
+    Route::get('remuneration_rates/{rate}/destroy', [Admin_RemunerationRateController::class, 'destroy'])->name('admin.remuneration_rates.destroy');
+
 });
 
 

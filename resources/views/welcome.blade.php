@@ -7,7 +7,7 @@
                 style="background-image:url('{{asset('images/frontimage.png')}}'); 
                        background-size: cover; 
                        background-repeat: repeat
-                       background-position: right; background-color:#f1f1f1;"
+                       background-position: center; background-color:#f1f1f1;"
             >
                     <!-- <img src="{{ asset('images/goviflow_low.jpg') }}" /> //-->
             </div>

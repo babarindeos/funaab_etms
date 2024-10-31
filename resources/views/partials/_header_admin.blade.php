@@ -15,8 +15,8 @@
                     <!-- end of logo //-->
                     <!-- Name //-->
                     <div class="flex flex-col item-center justify-center">
-                            <div class="text-white font-bold text-2xl font-serif">FUNAAB WorkPlace</div>
-                            <div class="text-white font-semibold font-serif text-sm opacity-70">Where work happens...</div>
+                            <div class="text-white font-bold text-2xl font-serif">FUNAAB</div>
+                            <div class="text-white font-semibold font-serif">Exam Timetable Management System (ETMS)</div>
                                 
                     </div>
                     <!-- end of name //-->
@@ -35,21 +35,59 @@
 
                             <a href='{{ route('admin.dashboard.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Dashboard</a>
 
+                           
                             <div class="relative group">
                                 <button class="text-white px-1 py-2 rounded-md font-semibold">
-                                    Office
+                                    Exams
                                 </button>
                                 <!-- Sub-menu -->
-                                <div class="absolute hidden group-hover:block bg-white text-gray-800 mt-0 py-2 shadow-lg">
-                                    <a href="{{ route('admin.cells.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Cells</a>
-                                    <a href="#" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Admin</a>
-                                    <a href="{{ route('admin.staff.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Staff</a>
+                                <div class="absolute hidden group-hover:block bg-white text-gray-800 mt-0 py-2 shadow-lg w-[350%]">
+                                    <a href="{{ route('admin.cells.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Roaster</a>
+                                    <a href="{{ route('admin.cells.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Create Exam</a>
+                                    <a href="#" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Exam Scheduler</a>
+                                    <a href="{{ route('admin.staff.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Roles</a>
+                                    <a href="{{ route('admin.staff.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Assign Roles</a>
                                 </div>
                             </div>
-                            <a  href='{{ route('admin.staff.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-3 ">Users</a>
-                            <a  href='{{ route('admin.documents.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-3 ">Documents</a>
-                            <a  href='{{ route('admin.tracker.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-3 ">Tracker</a>
-                            <a  href='{{ route('admin.analytics.index')}}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-3 ">Analytics</a>
+                            <div class="relative group">
+                                <button class="text-white px-1 py-2 rounded-md font-semibold">
+                                    Users
+                                </button>
+                                <!-- Sub-menu -->
+                                <div class="absolute hidden group-hover:block bg-white text-gray-800 mt-0 py-2 shadow-lg w-[350%]">
+                                    <a href="{{ route('admin.cells.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Manage Users</a>
+                                    <a href="{{ route('admin.cells.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Titles</a>
+                                    <a href="#" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Statuses</a>
+                                    <a href="{{ route('admin.staff.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Roles</a>
+                                    <a href="{{ route('admin.staff.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Assign Roles</a>
+                                </div>
+                            </div>
+                            <div class="relative group">
+                                <button class="text-white px-1 py-2 rounded-md font-semibold">
+                                    Venues
+                                </button>
+                                <!-- Sub-menu -->
+                                <div class="absolute hidden group-hover:block bg-white text-gray-800 mt-0 py-2 shadow-lg w-[350%]">
+                                    <a href="{{ route('admin.cells.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Manage Venues</a>
+                                    <a href="{{ route('admin.cells.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Create Venue</a>
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="relative group">
+                                <button class="text-white px-1 py-2 rounded-md font-semibold">
+                                    Settings
+                                </button>
+                                <!-- Sub-menu -->
+                                <div class="absolute hidden group-hover:block bg-white text-gray-800 mt-0 py-2 shadow-lg w-[280%]">
+                                    <a href="{{ route('admin.academic_sessions.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Academic Sessions</a>
+                                    <a href="{{ route('admin.semesters.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Semesters</a>
+                                    <a href="{{ route('admin.colleges.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Colleges</a>
+                                    <a href="{{ route('admin.departments.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Departments</a>
+                                    <a href="{{ route('admin.courses.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Courses</a>
+                                    <a href="{{ route('admin.remuneration_rates.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Remuneration Rates</a>
+                                </div>
+                            </div>
                             <form action="{{ route('admin.auth.logout') }}" method="POST" class="flex items-center justify-center border-0">
                                 @csrf
                                 

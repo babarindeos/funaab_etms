@@ -5,7 +5,14 @@
             
             <div class="flex border-b border-gray-300 py-2 justify-between">
                     <div >
-                        <h1 class="text-2xl font-semibold font-serif text-gray-800">Departments & Agencies</h1>
+                        <h1 class="text-2xl font-semibold font-serif text-gray-800">Edit Department</h1>
+                    </div>
+                    <div>
+                            <a href="{{ route('admin.departments.index') }}" class="bg-green-600 text-white py-2 px-4 
+                                            rounded-lg text-xs md:text-sm hover:bg-green-500"> Departments</a>
+
+                            <a href="{{ route('admin.colleges.index') }}" class="border border-green-600 text-green-600 py-2 px-4 
+                                            rounded-lg text-xs md:text-sm hover:bg-green-500 hover:text-white hover:border-green-500">Colleges</a>
                     </div>                
             </div>
             
@@ -14,17 +21,17 @@
 
 
 
-        <!-- new college form //-->
+        <!-- new department form //-->
         <section class="mb-8">
                 <div>
-                    <form  action="{{ route('admin.departments.update', ['department' => $department->id])}} " method="POST" class="flex flex-col mx-auto w-[90%] items-center justify-center">
+                    <form  action="{{ route('admin.departments.update',['department'=>$department->id])}} " method="POST" class="flex flex-col mx-auto w-[90%] items-center justify-center">
                         @csrf
 
                         
 
                         <div class="flex flex-col w-[80%] md:w-[60%] py-2 md:py-4" style="font-family:'Lato'; font-size:18px; font-weight:400;">
-                            <h2 class="font-semibold text-xl py-1" >Edit Department or Agency</h2>
-                            Select Ministry and Provide Department or Agency long and short names
+                            <h2 class="font-semibold text-xl py-1" >Edit Department</h2>
+                            Select College and Provide Department long and short names
                         </div>
 
 
@@ -35,24 +42,23 @@
                         <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2">
                                 
                                 
-                            <select name="ministry" class="border border-1 border-gray-400 bg-gray-50
+                            <select name="college" class="border border-1 border-gray-400 bg-gray-50
                                                                      w-full p-4 rounded-md 
                                                                      focus:outline-none
                                                                      focus:border-blue-500 
                                                                      focus:ring
-                                                                     focus:ring-blue-100"
-                                                                     
+                                                                     focus:ring-blue-100"                                                                                                                                                                                                                                                                                                                                                
                                                                      
                                                                      style="font-family:'Lato';font-size:16px;font-weight:500;"
                                                                      required
                                                                      >
-                                                                    <option value=''>-- Select Ministry --</option>
-                                                                        @foreach($ministries as $ministry)
-                                                                            <option class='py-4' @if ($ministry->id == $department->ministry_id) selected @endif value="{{$ministry->id}}">{{$ministry->name}} ({{$ministry->code}})</option>
+                                                                    <option value=''>-- Select College --</option>
+                                                                        @foreach($colleges as $college)
+                                                                            <option class='py-4' value="{{$college->id}}" @if($college->id==$department->college_id) selected @endif>{{$college->name}} ({{$college->code}})</option>
                                                                         @endforeach                                                                    
                                                                     </select>
 
-                                                                     @error('ministry')
+                                                                     @error('college')
                                                                         <span class="text-red-700 text-sm">
                                                                             {{$message}}
                                                                         </span>
@@ -69,21 +75,21 @@
                         <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-3">
                         
                             
-                            <input type="text" name="department_name" class="border border-1 border-gray-400 bg-gray-50
+                            <input type="text" name="name" class="border border-1 border-gray-400 bg-gray-50
                                                                     w-full p-4 rounded-md 
                                                                     focus:outline-none
                                                                     focus:border-blue-500 
                                                                     focus:ring
                                                                     focus:ring-blue-100" placeholder="Department full name"
                                                                     
-                                                                    value="{{ $department->department_name }}"
+                                                                    value="{{ $department->name }}"
                                                                     
                                                                     style="font-family:'Lato';font-size:16px;font-weight:500;"                                                                     
                                                                     required
                                                                     />  
                                                                                                                                         
 
-                                                                    @error('department_name')
+                                                                    @error('name')
                                                                         <span class="text-red-700 text-sm">
                                                                             {{$message}}
                                                                         </span>
@@ -95,21 +101,21 @@
                         <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-3">
                         
                             
-                            <input type="text" name="department_code" class="border border-1 border-gray-400 bg-gray-50
+                            <input type="text" name="code" class="border border-1 border-gray-400 bg-gray-50
                                                                     w-full p-4 rounded-md 
                                                                     focus:outline-none
                                                                     focus:border-blue-500 
                                                                     focus:ring
                                                                     focus:ring-blue-100" placeholder="Department code"
                                                                     
-                                                                    value="{{ $department->department_code }}"
+                                                                    value="{{ $department->code }}"
                                                                     
                                                                     style="font-family:'Lato';font-size:16px;font-weight:500;"                                                                     
                                                                     required
                                                                     />  
                                                                                                                                         
 
-                                                                    @error('department_code')
+                                                                    @error('code')
                                                                         <span class="text-red-700 text-sm">
                                                                             {{$message}}
                                                                         </span>

@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('colleges', function (Blueprint $table) {
+        Schema::create('remuneration_rates', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('code')->unique();
+            $table->string('name');
+            $table->decimal('amount',8,2);
+            $table->decimal('point',8,2);
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('colleges');
+        Schema::dropIfExists('remuneration_rates');
     }
 };

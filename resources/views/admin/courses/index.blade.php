@@ -5,14 +5,12 @@
         
             <div class="flex border-b border-gray-300 py-2 justify-between">
                     <div>
-                        <h1 class="text-2xl font-semibold font-serif text-gray-800">Departments</h1>
+                        <h1 class="text-2xl font-semibold font-serif text-gray-800">Courses</h1>
                     </div>
                     <div>
-                            <a href="{{ route('admin.departments.create') }}" class="bg-green-600 text-white py-2 px-4 
-                                            rounded-lg text-xs md:text-sm hover:bg-green-500"><i class="fas fa-plus text-xs"></i> New Department</a>
+                            <a href="{{ route('admin.courses.create') }}" class="bg-green-600 text-white py-2 px-4 
+                                            rounded-lg text-xs md:text-sm hover:bg-green-500"><i class="fas fa-plus text-xs"></i> New Course</a>
 
-                            <a href="{{ route('admin.colleges.index') }}" class="border border-green-600 text-green-600 py-2 px-4 
-                                            rounded-lg text-xs md:text-sm hover:bg-green-500 hover:text-white hover:border-green-500">Colleges</a>
                     </div>
             </div>
         </section>
@@ -20,7 +18,7 @@
 
 
 
-        @if (count($departments) > 0)
+        @if (count($courses) > 0)
                 <section class="flex flex-col py-2 px-2 justify-end w-[95%] mx-auto md:px-4">
                     <div class="flex justify-end border-0">
                     
@@ -51,36 +49,36 @@
                         </thead>
                         <tbody>
                             @php
-                                $counter = ($departments->currentPage() -1 ) * $departments->perPage();
+                                $counter = ($courses->currentPage() -1 ) * $courses->perPage();
                             @endphp
 
-                                @foreach ($departments as $department)
+                                @foreach ($courses as $course)
                                 <tr class="border border-b border-gray-200">
                                     <td class='text-center py-4'>{{ ++$counter }}.</td>
                                     <td>
-                                        <a class="hover:underline" href="{{ route('admin.departments.show', ['department'=>$department->id]) }}">
-                                            {{ $department->name }} 
+                                        <a class="hover:underline" href="{{ route('admin.courses.show', ['course'=>$course->id]) }}">
+                                            {{ $course->title }} 
                                         </a>
 
                                         <div>
                                             <small>
-                                                {{ $department->college->name }}   
+                                                 
                                             </small>
                                         </div>
                                         
                                     </td>
                                     
                                     <td>
-                                        {{ $department->code }}
+                                        {{ $course->code }}
                                     </td>
                                     <td class="text-center">
                                         <span class="text-sm">
                                             <a class="hover:bg-blue-500 bg-blue-400 text-white rounded-md 
-                                                    px-4 py-1 text-xs" href="{{ route('admin.departments.edit', ['department'=>$department->id])}}">Edit</a>
+                                                    px-4 py-1 text-xs" href="{{ route('admin.courses.edit', ['course'=>$course->id])}}">Edit</a>
                                         </span>
                                         <span> 
                                             <a class="hover:bg-red-500 bg-red-400 text-white rounded-md 
-                                                    px-4 py-1 text-xs" href="{{ route('admin.departments.confirm_delete', ['department'=>$department->id]) }}"
+                                                    px-4 py-1 text-xs" href="{{ route('admin.courses.confirm_delete', ['course'=>$course->id]) }}"
                                             >Delete</a>
                                         </span>
                                     </td>
@@ -94,7 +92,7 @@
                     </table>
 
                     <div class="mt-1">
-                        {{ $departments->links() }}
+                        {{ $courses->links() }}
 
                     </div>
 
@@ -103,7 +101,7 @@
         @else
                 <section class="flex flex-col w-[95%] md:w-[95%] border-0 mx-auto px-4 py-6">
                         <div class="flex flex-row justify-center items-center text-2xl font-bold text-gray-300">
-                            There is currently no Department
+                            There is currently no Course
                         </div>
                 </section>
         @endif

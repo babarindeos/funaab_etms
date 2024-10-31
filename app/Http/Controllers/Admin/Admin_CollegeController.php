@@ -10,7 +10,7 @@ class Admin_CollegeController extends Controller
 {
     //
     public function index(){
-        $colleges = College::orderBy('id', 'desc')->get();
+        $colleges = College::orderBy('id', 'desc')->paginate(10);
         return view('admin.college.index', compact('colleges'));
     }
 
@@ -20,16 +20,12 @@ class Admin_CollegeController extends Controller
 
     public function store(Request $request){
         $formFields = $request->validate([
-            'college_name' => 'required | string',
-            'college_code' => 'required | string'
+            'name' => 'required|string|unique:colleges,name',
+            'code' => 'required|string|unique:colleges,code'
         ]);
 
-        $college_name = $request->input('college_name');
-        $college_code = strtoupper($request->input('college_code'));
-
-        $isCollegeExist = College::where('college_name',$college_name)
-                                    ->where('college_code', $college_code)->exists();
         
+        /* 
         if ($isCollegeExist){
        
             $data = [
@@ -38,25 +34,36 @@ class Admin_CollegeController extends Controller
                 'message' => 'A College with that name already exist'
             ];
             return redirect()->back()->with($data)->withInput();
+        } */
+
+        try
+        {
+            $create = College::create($formFields);
+
+            if ($create){
+                $data = [
+                    'error' => true,
+                    'status' => 'success',
+                    'message' => 'The College has been successfully created'
+                ];               
+            }
+            else
+            {
+                $data = [
+                    'error' => true,
+                    'status' => 'fail',
+                    'message' => 'An error occurred creating the College'
+                ];
+            }
         }
-
-        $create = College::create($formFields);
-
-        if (!$create){
+        catch(\Exception $e)
+        {
             $data = [
                 'error' => true,
                 'status' => 'fail',
-                'message' => 'An error occurred creating the College'
+                'message' => $e->getMessage()
             ];
-
-            return redirect()->back()->with($data);
-        }
-
-            $data = [
-                'error' => true,
-                'status' => 'success',
-                'message' => 'The College has been successfully created'
-            ];
+        }           
 
             return redirect()->back()->with($data);
 
@@ -72,30 +79,52 @@ class Admin_CollegeController extends Controller
     public function update(Request $request, College $college)
     {
         $formFields = $request->validate([
-            'college_name' => 'required | string',
-            'college_code' => ['required', 'string']
+            'name' => 'required | string',
+            'code' => ['required', 'string']
         ]);
 
-        $update = $college->update($formFields);
+       
+        try
+        {
+            $update = $college->update($formFields);
 
-        if ($update){
-            $data = [
-                'error' => true,
-                'status' => 'success',
-                'message' => 'Record has been succesfully updated'
-            ];
-        }else{
+            if ($update){
+                $data = [
+                    'error' => true,
+                    'status' => 'success',
+                    'message' => 'College has been succesfully updated'
+                ];
+            }else{
+                $data = [
+                    'error' => true,
+                    'status' => 'fail',
+                    'message' => 'An error occurred updating the College'
+                ];
+            }
+        }
+        catch(\Exception $e)
+        {
             $data = [
                 'error' => true,
                 'status' => 'fail',
-                'message' => 'An error occurred updating the record'
+                'message' => $e->getMessage()
             ];
-        }
+        }        
 
         return redirect()->back()->with($data);
+    }
+
+    
+
+    public function confirm_delete(College $college)
+    {
+        return view('admin.college.confirm_delete', compact('college'));
+
     }
 
     public function destroy(Request $request, College $college){
 
     }
+
+    
 }
