@@ -37,7 +37,7 @@
                                 >
                         <thead>
                             <tr class="bg-gray-200">
-                                <th class="text-center font-semibold py-2 w-16">SN</th>
+                                <th width='7%' class="text-center font-semibold py-2">SN</th>
                                 <th class="font-semibold py-2 text-left">Staff No</th>
                                 <th class="font-semibold py-2 text-left">Full name</th>                    
                                 <th class="font-semibold py-2 text-left">Department</th>
@@ -56,12 +56,18 @@
                                     <tr class="border border-b border-gray-200 ">
                                         <td class='text-center py-4'>{{ ++$counter }}.</td>
                                         <td>{{ $staff->fileno }}</td>
-                                        <td>{{ $staff->surname }} {{ $staff->firstname }} {{ $staff->middlename }}</td>
+                                        <td>
+                                            {{ $staff->surname }} {{ $staff->firstname }} {{ $staff->middlename }}
+                                            <div class='text-xs'>
+                                                    @if ( $staff->profile != null)
+                                                        {{ $staff->profile->designation }}
+                                                    @endif
+                                            </div>
+
+                                        </td>
 
                                         <td>
-                                            @if ( $staff->profile != null)
-                                                {{ $staff->profile->designation }}
-                                            @endif
+                                                {{ $staff->department->name }} ({{$staff->department->code}})
                                         </td>
                                         <td class="text-center">
                                             <span class="px-1">

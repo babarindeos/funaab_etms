@@ -14,12 +14,18 @@ return new class extends Migration
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');        
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');      
+            $table->unsignedBigInteger('title_id');
+            $table->foreign('title_id')->references('id')->on('staff_titles')->onDelete('cascade');
+            $table->unsignedBigInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('staff_statuses')->onDelete('cascade');  
             $table->string('fileno')->unique();
             $table->string('title');
             $table->string('surname');
             $table->string('firstname');
             $table->string('middlename');
+            $table->unsignedBigInteger('department_id');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
             $table->timestamps();
         });
     }

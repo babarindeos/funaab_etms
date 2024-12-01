@@ -56,13 +56,13 @@
                                 <tr class="border border-b border-gray-200">
                                     <td class='text-center py-4'>{{ ++$counter }}.</td>
                                     <td>
-                                        <a class="hover:underline" href="{{ route('admin.courses.show', ['course'=>$course->id]) }}">
-                                            {{ $course->title }} 
-                                        </a>
+                                            <a class="hover:underline" href="{{ route('admin.courses.show', ['course'=>$course->id]) }}">
+                                                {{ $course->title }}                                             
+                                            </a>
 
                                         <div>
                                             <small>
-                                                 
+                                                 {{ $course->department->code}}, {{ $course->department->college->code}}
                                             </small>
                                         </div>
                                         

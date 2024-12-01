@@ -35,35 +35,7 @@
                          
 
 
-                        <!-- Department //-->
-                        <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2">
-                                
-                                
-                            <select name="department" class="border border-1 border-gray-400 bg-gray-50
-                                                                     w-full p-4 rounded-md 
-                                                                     focus:outline-none
-                                                                     focus:border-blue-500 
-                                                                     focus:ring
-                                                                     focus:ring-blue-100"
-                                                                     
-                                                                     
-                                                                     style="font-family:'Lato';font-size:16px;font-weight:500;"
-                                                                     required
-                                                                     >
-                                                                    <option value=''>-- Select Department --</option>
-                                                                        @foreach($departments as $department)
-                                                                            <option class='py-4' @if($department->id == $staff->department_id) selected @endif value="{{$department->id}}">{{$department->department_name}} ({{$department->department_code}})</option>
-                                                                        @endforeach                                                                    
-                                                                    </select>
-
-                                                                     @error('department')
-                                                                        <span class="text-red-700 text-sm">
-                                                                            {{$message}}
-                                                                        </span>
-                                                                     @enderror
-                            
-                        </div>                        
-                        <!-- end of Department //-->
+                        
 
 
                         <!-- Title //-->
@@ -82,12 +54,9 @@
                                                                      required
                                                                      >
                                                                     <option value=''>-- Select Title --</option>
-                                                                            <option @if ($staff->title == "Prof.") selected @endif value="Prof.">Professor</option>
-                                                                            <option @if ($staff->title == "Assoc. Prof.") selected @endif value="Assoc. Prof.">Associate Professor</option>
-                                                                            <option @if ($staff->title == "Dr.") selected @endif value="Dr.">Doctor</option> 
-                                                                            <option @if ($staff->title == "Mr.") selected @endif value="Mr.">Mr.</option> 
-                                                                            <option value="Mrs.">Mrs.</option> 
-                                                                            <option value="Ms">Ms.</option>                                                                   
+                                                                    @foreach($titles as $title)
+                                                                        <option value="{{ $title->id }}" @if($staff->title_id==$title->id) selected  @endif >{{ $title->title }}</option>
+                                                                    @endforeach
                                                                     </select>
 
                                                                      @error('title')
@@ -98,6 +67,38 @@
                             
                         </div>                        
                         <!-- end of Title //-->
+
+
+                        <!-- Status //-->
+                        <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2">
+                                
+                                
+                            <select name="status" class="border border-1 border-gray-400 bg-gray-50
+                                                                     w-full p-4 rounded-md 
+                                                                     focus:outline-none
+                                                                     focus:border-blue-500 
+                                                                     focus:ring
+                                                                     focus:ring-blue-100"
+                                                                     
+                                                                     
+                                                                     style="font-family:'Lato';font-size:16px;font-weight:500;"
+                                                                     required
+                                                                     >
+                                                                    <option value=''>-- Select Status --</option>
+                                                                    @foreach($statuses as $status)
+                                                                        <option value="{{ $status->id }}" @if($staff->status_id==$status->id) selected @endif >{{ $status->name }}</option>
+                                                                    @endforeach
+                                                                    </select>
+
+                                                                     @error('status')
+                                                                        <span class="text-red-700 text-sm">
+                                                                            {{$message}}
+                                                                        </span>
+                                                                     @enderror
+                            
+                        </div>                        
+                        <!-- end of Status //-->
+
 
                         <!-- Staff No. //-->
                         <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-3">
@@ -205,6 +206,97 @@
                                                                     @enderror
                             
                         </div><!-- end of middlename //-->
+
+
+                         <!-- Department //-->
+                         <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2">
+                                
+                                
+                                <select name="department" class="border border-1 border-gray-400 bg-gray-50
+                                                                         w-full p-4 rounded-md 
+                                                                         focus:outline-none
+                                                                         focus:border-blue-500 
+                                                                         focus:ring
+                                                                         focus:ring-blue-100"
+                                                                         
+                                                                         
+                                                                         style="font-family:'Lato';font-size:16px;font-weight:500;"
+                                                                         required
+                                                                         >
+                                                                        <option value=''>-- Select Department --</option>
+                                                                        @foreach($departments as $department)      
+                                                                            <option value='{{ $department->id }}'  @if($staff->department_id==$department->id) selected  @endif >{{ $department->name }}</option>
+                                                                        @endforeach
+                                                                        </select>
+    
+                                                                         @error('role')
+                                                                            <span class="text-red-700 text-sm">
+                                                                                {{$message}}
+                                                                            </span>
+                                                                         @enderror
+                                
+                         </div>                        
+                         <!-- end of Department //-->
+
+
+                          <!-- Email //-->
+                        <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-3">
+                        
+                            
+                                <input type="email" name="email" class="border border-1 border-gray-400 bg-gray-50
+                                                                        w-full p-4 rounded-md 
+                                                                        focus:outline-none
+                                                                        focus:border-blue-500 
+                                                                        focus:ring
+                                                                        focus:ring-blue-100" placeholder="Email"
+                                                                        
+                                                                        value="{{ $staff->user->email }}"
+                                                                        
+                                                                        style="font-family:'Lato';font-size:16px;font-weight:500;"                                                                     
+                                                                        required
+                                                                        />  
+                                                                                                                                            
+
+                                                                        @error('email')
+                                                                            <span class="text-red-700 text-sm">
+                                                                                {{$message}}
+                                                                            </span>
+                                                                        @enderror
+                        
+                        </div><!-- end of email //-->
+    
+
+
+                        <!-- Role //-->
+                        <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2">
+                                
+                                
+                            <select name="role" class="border border-1 border-gray-400 bg-gray-50
+                                                                     w-full p-4 rounded-md 
+                                                                     focus:outline-none
+                                                                     focus:border-blue-500 
+                                                                     focus:ring
+                                                                     focus:ring-blue-100"
+                                                                     
+                                                                     
+                                                                     style="font-family:'Lato';font-size:16px;font-weight:500;"
+                                                                     required
+                                                                     >
+                                                                    <option value=''>-- Select Role --</option>
+                                                                        <option  @if($staff->user->role=='staff') selected @endif value='staff'>Staff</option> 
+                                                                        <option  @if($staff->user->role=='admin') selected @endif value='admin'>Admin</option>                                                                   
+                                                                    </select>
+
+                                                                     @error('role')
+                                                                        <span class="text-red-700 text-sm">
+                                                                            {{$message}}
+                                                                        </span>
+                                                                     @enderror
+                            
+                        </div>                        
+                        <!-- end of Role //-->
+
+
 
 
 

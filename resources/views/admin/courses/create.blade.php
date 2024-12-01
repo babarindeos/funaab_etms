@@ -85,6 +85,11 @@
                                                                      required
                                                                      >
                                                                     <option value=''>-- Select Department --</option>
+                                                                
+                                                                    @foreach($departments as $department)
+                                                                        <option class='py-4' value="{{$department->id}}">{{$department->name}} ({{$department->code}})</option>
+                                                                    @endforeach                                                                    
+                                                                    
                                                                                                                                            
                                                                     </select>
 
@@ -168,31 +173,30 @@
 
 
 
-// script
+<!-- // script
 <script>
 
 $(document).ready(function(){
     
     $('#college').bind('change', function(){
         var college_id = $(this).val();
+
+        
         
         if (college_id != '')
         {
-            var url = "{{ url('admin/departments') }}" + '/' + college_id + '/get_departments_by_college';
-            
+            //var url = "{{ url('admin/departments') }}" + '/' + college_id + '/get_departments_by_college';
+            var url = "{{ url('admin/departments/get_departments_by_college') }}";
+           
 
             $.ajax({
-                url: url,
-                data: {'college': college_id},
+                url: url,                
                 dataType: 'html',
                 method: 'GET',
                 success: function(response){
                     console.log(response);
                     $("#department").html(response);
 
-                },
-                error: function(xhr, status, error){
-                    console.log(error);
                 }
             });
         }
@@ -200,4 +204,4 @@ $(document).ready(function(){
 
 });
 
-</script>
+</script> -->

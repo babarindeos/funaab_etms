@@ -1,4 +1,4 @@
-<?php
+                                                                                                                                                                                                                                                                                                                                            <?php
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +34,17 @@ use App\Http\Controllers\Admin\Admin_CourseController;
 
 // use RemunerationRateController
 use App\Http\Controllers\Admin\Admin_RemunerationRateController;
+
+use App\Http\Controllers\Admin\Admin_VenueTypeController;
+use App\Http\Controllers\Admin\Admin_VenueCategoryController;
+use App\Http\Controllers\Admin\Admin_VenueCategoryGroupController;
+
+use App\Http\Controllers\Admin\Admin_VenueController;
+use App\Http\Controllers\Admin\Admin_StaffTitleController;
+use App\Http\Controllers\Admin\Admin_StaffStatusController;
+
+use App\Http\Controllers\Admin\Admin_StaffRoleController;
+
 
 
 use App\Http\Controllers\Staff\Staff_AuthController;
@@ -310,7 +321,7 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
     Route::post('departments/{department}/update', [Admin_DepartmentController::class, 'update'])->name('admin.departments.update');
     Route::get('departments/{department}/confirm_delete', [Admin_DepartmentController::class, 'confirm_delete'])->name('admin.departments.confirm_delete');
     Route::delete('departments/{department}/destroy', [Admin_DepartmentController::class, 'destroy'])->name('admin.departments.delete');
-    Route::get('departments/{college}/get_departments_by_college', [Admin_DepartmentController::class, 'get_departments_by_college'])->name('admin.departments.get_departments_by_college');
+    Route::get('departments/get_departments_by_college', [Admin_DepartmentController::class, 'get_departments_by_college'])->name('admin.departments.get_departments_by_college');
 
 
     // Staff
@@ -387,8 +398,95 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
     Route::get('remuneration_rates/{rate}/edit', [Admin_RemunerationRateController::class, 'edit'])->name('admin.remuneration_rates.edit');
     Route::post('remuneration_rates/{rate}/update', [Admin_RemunerationRateController::class, 'update'])->name('admin.remuneration_rates.update');
     Route::get('remuneration_rates/{rate}/confirm_delete', [Admin_RemunerationRateController::class, 'confirm_delete'])->name('admin.remuneration_rates.confirm_delete');
-    Route::get('remuneration_rates/{rate}/destroy', [Admin_RemunerationRateController::class, 'destroy'])->name('admin.remuneration_rates.destroy');
+    Route::post('remuneration_rates/{rate}/delete', [Admin_RemunerationRateController::class, 'destroy'])->name('admin.remuneration_rates.delete');
 
+
+
+    // Venue Types
+    Route::get('venue_types', [Admin_VenueTypeController::class, 'index'])->name('admin.venue_types.index');
+    Route::get('venue_types/create', [Admin_VenueTypeController::class, 'create'])->name('admin.venue_types.create');
+    Route::post('venue_types/store', [Admin_VenueTypeController::class, 'store'])->name('admin.venue_types.store');
+    Route::get('venue_types/{venue_type}/edit', [Admin_VenueTypeController::class, 'edit'])->name('admin.venue_types.edit');
+    Route::post('venue_types/{venue_type}/update', [Admin_VenueTypeController::class, 'update'])->name('admin.venue_types.update');
+    Route::get('venue_types/{venue_type}/confirm_delete', [Admin_VenueTypeController::class, 'confirm_delete'])->name('admin.venue_types.confirm_delete');
+    Route::delete('venue_types/{venue_type}/delete', [Admin_VenueTypeController::class, 'delete'])->name('admin.venue_types.delete');
+
+
+    // Venue Category
+    Route::get('venue_categories', [Admin_VenueCategoryController::class, 'index'])->name('admin.venue_categories.index');
+    Route::get('venue_categories/create', [Admin_VenueCategoryController::class, 'create'])->name('admin.venue_categories.create');
+    Route::post('venue_categories/store', [Admin_VenueCategoryController::class, 'store'])->name('admin.venue_categories.store');
+    Route::get('venue_categories/{venue_category}/edit', [Admin_VenueCategoryController::class, 'edit'])->name('admin.venue_categories.edit');
+    Route::post('venue_categories/{venue_category}/update', [Admin_VenueCategoryController::class, 'update'])->name('admin.venue_categories.update');
+    Route::get('venue_categories/{venue_category}/confirm_delete', [Admin_VenueCategoryController::class, 'confirm_delete'])->name('admin.venue_categories.confirm_delete');
+    Route::delete('venue_categories/{venue_category}/delete', [Admin_VenueCategoryController::class, 'delete'])->name('admin.venue_categories.delete');
+    
+
+    // Venue Category Group
+    Route::get('venue_categories_group', [Admin_VenueCategoryGroupController::class, 'index'])->name('admin.venue_categories_group.index');
+    Route::get('venue_categories_group/create', [Admin_VenueCategoryGroupController::class, 'create'])->name('admin.venue_categories_group.create');
+    Route::post('venue_categories_group/store', [Admin_VenueCategoryGroupController::class, 'store'])->name('admin.venue_categories_group.store');
+    Route::get('venue_categories_group/{group}/show', [Admin_VenueCategoryGroupController::class, 'show'])->name('admin.venue_categories_group.show');
+    Route::get('venue_categories_group/{group}/edit', [Admin_VenueCategoryGroupController::class, 'edit'])->name('admin.venue_categories_group.edit');
+    Route::post('venue_categories_group/{group}/update', [Admin_VenueCategoryGroupController::class, 'update'])->name('admin.venue_categories_group.update');
+    Route::get('venue_categories_group/{group}/confirm_delete', [Admin_VenueCategoryGroupController::class, 'confirm_delete'])->name('admin.venue_categories_group.confirm_delete');
+    Route::delete('venue_categories_group/{group}/delete', [Admin_VenueCategoryGroupController::class, 'delete'])->name('admin.venue_categories_group.delete');
+
+
+    Route::get('venue_categories_group/{group}/add_category', [Admin_VenueCategoryGroupController::class, 'add_category'])->name('admin.venue_categories_group.add_category');
+    Route::post('venue_categories_group/{group}/add_category', [Admin_VenueCategoryGroupController::class, 'store_category'])->name('admin.venue_categories_group.store_category');
+    Route::post('venue_categories_group/{group_item}/remove_category', [Admin_VenueCategoryGroupController::class, 'remove_category'])->name('admin.venue_categories_group.remove_category');
+
+
+
+    // Creare Venue
+    Route::get('venues', [Admin_VenueController::class, 'index'])->name('admin.venues.index');
+    Route::get('venues/create', [Admin_VenueController::class, 'create'])->name('admin.venues.create');
+    Route::post('venues/store', [Admin_VenueController::class, 'store'])->name('admin.venues.store');
+    Route::get('venues/{venue}/edit', [Admin_VenueController::class, 'edit'])->name('admin.venues.edit');
+    Route::post('venues/{venue}/update', [Admin_VenueController::class, 'update'])->name('admin.venues.update');
+    Route::get('venues/{venue}/confirm_delete', [Admin_VenueController::class, 'confirm_delete'])->name('admin.venues.confirm_delete');
+    Route::delete('venues/{venue}/delete', [Admin_VenueController::class, 'destroy'])->name('admin.venues.delete');
+
+
+    // Staff Title
+    Route::get('staff/titles', [Admin_StaffTitleController::class, 'index'])->name('admin.staff.titles.index');
+    Route::get('staff/titles/create', [Admin_StaffTitleController::class, 'create'])->name('admin.staff.titles.create');
+    Route::get('staff/titles/{title}/show', [Admin_StaffTitleController::class, 'show'])->name('admin.staff.titles.show');
+    Route::post('staff/titles/store', [Admin_StaffTitleController::class, 'store'])->name('admin.staff.titles.store');
+    Route::get('staff/titles/{title}/edit', [Admin_StaffTitleController::class, 'edit'])->name('admin.staff.titles.edit');
+    Route::post('staff/titles/{title}/update', [Admin_StaffTitleController::class, 'update'])->name('admin.staff.titles.update');
+    Route::get('staff/titles/{title}/confirm_delete', [Admin_StaffTitleController::class, 'confirm_delete'])->name('admin.staff.titles.confirm_delete');
+    Route::delete('staff/titles/{title}/delete', [Admin_StaffTitleController::class, 'destroy'])->name('admin.staff.titles.destroy');
+
+
+
+    // Staff Status
+    Route::get('staff/statuses', [Admin_StaffStatusController::class, 'index'])->name('admin.staff.statuses.index');
+    Route::get('staff/statuses/create', [Admin_StaffStatusController::class, 'create'])->name('admin.staff.statuses.create');
+    Route::get('staff/statuses/{status}/show', [Admin_StaffStatusController::class, 'show'])->name('admin.staff.statuses.show');
+    Route::post('staff/statuses/store', [Admin_StaffStatusController::class, 'store'])->name('admin.staff.statuses.store');
+    Route::get('staff/statuses/{status}/edit', [Admin_StaffStatusController::class, 'edit'])->name('admin.staff.statuses.edit');
+    Route::post('staff/statuses/{status}/update', [Admin_StaffStatusController::class, 'update'])->name('admin.staff.statuses.update');
+    Route::get('staff/statuses/{status}/confirm_delete', [Admin_StaffStatusController::class, 'confirm_delete'])->name('admin.staff.statuses.confirm_delete');
+    Route::delete('staff/statuses/{status}/delete', [Admin_StaffStatusController::class, 'destroy'])->name('admin.staff.statuses.destroy');
+
+
+     // Staff Role
+     Route::get('staff/roles', [Admin_StaffRoleController::class, 'index'])->name('admin.staff.roles.index');
+     Route::get('staff/roles/create', [Admin_StaffRoleController::class, 'create'])->name('admin.staff.roles.create');
+     Route::get('staff/roles/{role}/show', [Admin_StaffRoleController::class, 'show'])->name('admin.staff.roles.show');
+     Route::post('staff/roles/store', [Admin_StaffRoleController::class, 'store'])->name('admin.staff.roles.store');
+     Route::get('staff/roles/{role}/edit', [Admin_StaffRoleController::class, 'edit'])->name('admin.staff.roles.edit');
+     Route::post('staff/roles/{role}/update', [Admin_StaffRoleController::class, 'update'])->name('admin.staff.roles.update');
+     Route::get('staff/roles/{role}/confirm_delete', [Admin_StaffRoleController::class, 'confirm_delete'])->name('admin.staff.roles.confirm_delete');
+     Route::delete('staff/roles/{role}/delete', [Admin_StaffRoleController::class, 'destroy'])->name('admin.staff.roles.destroy');
+
+
+     // Assign Role
+     Route::get('staff/roles/assign_role/create', [Admin_StaffRoleController::class, 'assign_role'])->name('admin.staff.roles.assign_role');
+     Route::post('staff/roles/assign_role/store', [Admin_StaffStatusController::class, 'store_assign_role'])->name('admin.staff.roles.store_assign_role');
+    
 });
 
 
@@ -403,4 +501,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+//require __DIR__.'/auth.php';

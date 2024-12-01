@@ -124,8 +124,13 @@ class Admin_DepartmentController extends Controller
 
     }
 
-    public function get_departments_by_college(College $college)
+    public function get_departments_by_college( College $college)
     {
 
+    }
+
+    public function show(Department $department)
+    {
+        return view('admin.departments.show')->with(['department'=>$department]);
     }
 }

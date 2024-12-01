@@ -126,5 +126,10 @@ class Admin_CollegeController extends Controller
 
     }
 
+
+    public function show(College $college)
+    {
+        return view('admin.college.show')->with(['college' => $college]);
+    }
     
-}
+}   

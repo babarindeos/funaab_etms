@@ -11,19 +11,17 @@ class Staff extends Model
 
     protected $fillable = [
         'user_id',
-        'department_id',
+        'title_id',
+        'status_id',       
         'fileno',
         'title',
         'surname',
         'firstname',
-        'middlename'
+        'middlename',
+        'department_id',
     ];
 
 
-    public function ministry()
-    {
-        return $this->belongsTo(Ministry::class, 'ministry_id', 'id');
-    }
 
     public function department()
     {

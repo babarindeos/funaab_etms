@@ -13,4 +13,11 @@ class College extends Model
         'name',
         'code'
     ];
+
+    public function departments()
+    {
+        return $this->hasMany(Department::class, 'college_id', 'id');
+    }
+
+    
 }

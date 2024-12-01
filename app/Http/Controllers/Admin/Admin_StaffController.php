@@ -13,6 +13,9 @@ use App\Models\User;
 use Mail;
 use Illuminate\Support\Facades\DB;
 use App\Mail\NewUserEmail;
+use App\Models\StaffTitle;
+use App\Models\StaffStatus;
+
 
 
 class Admin_StaffController extends Controller
@@ -31,9 +34,10 @@ class Admin_StaffController extends Controller
     public function create(){
 
         //$colleges = College::orderBy('college_name', 'asc')->get();
-        $ministries = Ministry::orderBy('name', 'asc')->get();
-        $departments = Department::orderBy('department_name', 'asc')->get();
-        return view('admin.staff.create')->with(['ministries'=>$ministries, 'departments'=>$departments]);
+        $statuses = StaffStatus::orderBy('name', 'asc')->get();
+        $titles = StaffTitle::orderBy('title', 'asc')->get();
+        $departments = Department::orderBy('name', 'asc')->get();
+        return view('admin.staff.create')->with(['statuses'=>$statuses, 'titles' => $titles, 'departments'=>$departments]);
 
     }
 
@@ -45,11 +49,15 @@ class Admin_StaffController extends Controller
 
        // dd($password);
 
-        $formFields = $request->validate([           
+        $formFields = $request->validate([    
+            'title' => 'required',
+            'status' => 'required',        
             'fileno' => 'required|unique:staff,fileno',
             'title' => 'required',
             'surname' => 'required | string',
-            'firstname' => ['required', 'string'],        
+            'firstname' => ['required', 'string'],  
+            'middlename' => ['required', 'string'],
+            'department' => ['required'],      
             'email' => 'required|email|unique:users,email',
             'role' => 'required | string'
         ]);
@@ -73,6 +81,9 @@ class Admin_StaffController extends Controller
         $formFields['firstname'] = ucfirst($formFields['firstname']);
         $formFields['middlename'] = ucfirst($request->input('middlename'));
         $formFields['email'] = strtolower($formFields['email']);
+        $formFields['title_id'] = $request->input('title');
+        $formFields['status_id'] = $request->input('status');
+        $formFields['department_id'] = $request->input('department');
 
 
         DB::beginTransaction();
@@ -85,7 +96,7 @@ class Admin_StaffController extends Controller
                 'middlename' => $formFields['middlename'],
                 'email' => $formFields['email'],
                 'password' => bcrypt($password),
-                'role' => 'staff'
+                'role' => $request->role
             ];
 
             
@@ -158,25 +169,31 @@ class Admin_StaffController extends Controller
 
 
     public function edit(Request $request, Staff $staff){
-        $departments = Department::orderBy('department_name', 'asc')->get();
-        $colleges = College::orderBy('college_name', 'asc')->get();
+        $departments = Department::orderBy('name', 'asc')->get();
+        $statuses = StaffStatus::orderBy('name', 'asc')->get();
+        $titles = StaffTitle::orderBy('title', 'asc')->get();
 
-        return view('admin.staff.edit', compact('staff', 'colleges', 'departments'));
+        return view('admin.staff.edit', compact('staff', 'titles', 'statuses', 'departments'));
     }
 
     
     public function update(Request $request, Staff $staff){
         $formFields = $request->validate([            
-            'department' => ['required'],
-            'title' => ['required', 'string'],
+            'title' => 'required|string',
+            'status' => 'required|string',
             'fileno' => 'required | string',
             'surname' => 'required | string',
             'firstname' => 'required | string',
             'middlename' => 'required | string',
+            'department' => ['required'],
+            'role' => 'required | string'
         ]);
 
         
         $formFields['department_id'] = $request->input('department');
+        $formFields['title_id'] = $request->input('title');
+        $formFields['status_id'] = $request->input('status');
+        
 
         try{
             $update = $staff->update($formFields);

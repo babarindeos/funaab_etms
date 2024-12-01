@@ -48,12 +48,9 @@
                                                                      required
                                                                      >
                                                                     <option value=''>-- Select Title --</option>
-                                                                            <option value="Prof.">Professor</option>
-                                                                            <option value="Assoc. Prof.">Associate Professor</option>
-                                                                            <option value="Dr.">Doctor</option> 
-                                                                            <option value="Mr.">Mr.</option> 
-                                                                            <option value="Mrs.">Mrs.</option> 
-                                                                            <option value="Ms">Ms.</option>                                                                   
+                                                                    @foreach($titles as $title)
+                                                                        <option value="{{ $title->id }}">{{ $title->title }}</option>
+                                                                    @endforeach
                                                                     </select>
 
                                                                      @error('title')
@@ -64,6 +61,38 @@
                             
                         </div>                        
                         <!-- end of Title //-->
+
+
+                        <!-- Status //-->
+                        <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2">
+                                
+                                
+                            <select name="status" class="border border-1 border-gray-400 bg-gray-50
+                                                                     w-full p-4 rounded-md 
+                                                                     focus:outline-none
+                                                                     focus:border-blue-500 
+                                                                     focus:ring
+                                                                     focus:ring-blue-100"
+                                                                     
+                                                                     
+                                                                     style="font-family:'Lato';font-size:16px;font-weight:500;"
+                                                                     required
+                                                                     >
+                                                                    <option value=''>-- Select Status --</option>
+                                                                    @foreach($statuses as $status)
+                                                                        <option value="{{ $status->id }}">{{ $status->name }}</option>
+                                                                    @endforeach
+                                                                    </select>
+
+                                                                     @error('status')
+                                                                        <span class="text-red-700 text-sm">
+                                                                            {{$message}}
+                                                                        </span>
+                                                                     @enderror
+                            
+                        </div>                        
+                        <!-- end of Status //-->
+
 
                         <!-- Staff No. //-->
                         <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-3">
@@ -173,31 +202,66 @@
                         </div><!-- end of middlename //-->
 
 
-                        <!-- Email //-->
+                       
+
+
+                         <!-- Department //-->
+                         <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2">
+                                
+                                
+                                <select name="department" class="border border-1 border-gray-400 bg-gray-50
+                                                                         w-full p-4 rounded-md 
+                                                                         focus:outline-none
+                                                                         focus:border-blue-500 
+                                                                         focus:ring
+                                                                         focus:ring-blue-100"
+                                                                         
+                                                                         
+                                                                         style="font-family:'Lato';font-size:16px;font-weight:500;"
+                                                                         required
+                                                                         >
+                                                                        <option value=''>-- Select Department --</option>
+                                                                        @foreach($departments as $department)      
+                                                                            <option value='{{ $department->id }}'>{{ $department->name }}</option>
+                                                                        @endforeach
+                                                                        </select>
+    
+                                                                         @error('role')
+                                                                            <span class="text-red-700 text-sm">
+                                                                                {{$message}}
+                                                                            </span>
+                                                                         @enderror
+                                
+                         </div>                        
+                         <!-- end of Department //-->
+
+
+                          <!-- Email //-->
                         <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-3">
                         
                             
-                            <input type="email" name="email" class="border border-1 border-gray-400 bg-gray-50
-                                                                    w-full p-4 rounded-md 
-                                                                    focus:outline-none
-                                                                    focus:border-blue-500 
-                                                                    focus:ring
-                                                                    focus:ring-blue-100" placeholder="Email"
-                                                                    
-                                                                    value="{{ old('email') }}"
-                                                                    
-                                                                    style="font-family:'Lato';font-size:16px;font-weight:500;"                                                                     
-                                                                    required
-                                                                    />  
-                                                                                                                                        
+                                <input type="email" name="email" class="border border-1 border-gray-400 bg-gray-50
+                                                                        w-full p-4 rounded-md 
+                                                                        focus:outline-none
+                                                                        focus:border-blue-500 
+                                                                        focus:ring
+                                                                        focus:ring-blue-100" placeholder="Email"
+                                                                        
+                                                                        value="{{ old('email') }}"
+                                                                        
+                                                                        style="font-family:'Lato';font-size:16px;font-weight:500;"                                                                     
+                                                                        required
+                                                                        />  
+                                                                                                                                            
 
-                                                                    @error('email')
-                                                                        <span class="text-red-700 text-sm">
-                                                                            {{$message}}
-                                                                        </span>
-                                                                    @enderror
-                            
+                                                                        @error('email')
+                                                                            <span class="text-red-700 text-sm">
+                                                                                {{$message}}
+                                                                            </span>
+                                                                        @enderror
+                        
                         </div><!-- end of email //-->
+    
 
 
                         <!-- Role //-->

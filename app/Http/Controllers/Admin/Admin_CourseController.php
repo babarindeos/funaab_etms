@@ -8,6 +8,9 @@ use App\Models\Course;
 use App\Models\College;
 use App\Models\Department;
 
+use App\Http\Classes\AcademicSessionClass;
+
+
 class Admin_CourseController extends Controller
 {
     //
@@ -20,16 +23,20 @@ class Admin_CourseController extends Controller
     public function create()
     {
         $colleges = College::orderBy('name', 'desc')->get();
-        return view('admin.courses.create', compact('colleges'));
+        $departments = Department::orderBy('name', 'desc')->get();
+        return view('admin.courses.create', compact('colleges', 'departments'));
     }
 
     public function store(Request $request)
     {
         
         $formFields = $request->validate([
+            'department' => 'required|string',
             'title' => 'required|string|unique:courses,title',
             'code' => ['required', 'string', 'unique:courses,code']
         ]);
+
+        $formFields['department_id'] = $request->input('department');
 
         try
         {
@@ -67,15 +74,20 @@ class Admin_CourseController extends Controller
 
     public function edit(Course $course)
     {
-        return view('admin.courses.edit', compact('course'));
+        $departments = Department::orderBy('name', 'desc')->get();
+        return view('admin.courses.edit', compact('course', 'departments'));
     }
 
     public function update(Request $request, Course $course)
     {
+        
         $formFields = $request->validate([
+            'department' => 'required|string',
             'title' => 'required|string',
             'code' => ['required', 'string']
         ]);
+
+        $formFields['department_id'] = $request->input('department');
 
         try
         {
@@ -121,18 +133,18 @@ class Admin_CourseController extends Controller
 
     }
 
-    public function get_departments_by_college(Request $request, $college)
+    public function get_departments_by_college(Request $request)
     {
-       //  $request->query('category_type');    -- by GET 
-       $departments= Department::where('college_id', $college->id)->get();
+       
+    }
 
-       $data = "<option value=''>-- Select Department --</option>";
+    public function show(Course $course)
+    {
+        $current_academic_session = AcademicSessionClass::getCurrentSession();
+        //dd($current_academic_session);
 
-       foreach( $departments as $department)
-       {
-            $data .= "<option value='{$department->id}'>{$department->name}</option>"; 
-       }
+        
 
-       return $data;
+        return view('admin.courses.show', compact('course'))->with(['current_session'=>$current_academic_session]);
     }
 }
