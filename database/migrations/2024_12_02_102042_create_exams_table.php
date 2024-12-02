@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('exam_days', function (Blueprint $table) {
+        Schema::create('exams', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('semester_id');
+            $table->foreign('semester_id')->references('id')->on('semesters')->onDelete('cascade');
+            $table->string('name');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->timestamps();
         });
     }
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('exam_days');
+        Schema::dropIfExists('exams');
     }
 };

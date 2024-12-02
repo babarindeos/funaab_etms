@@ -47,6 +47,9 @@ use App\Http\Controllers\Admin\Admin_StaffRoleController;
 
 use App\Http\Controllers\Admin\Admin_ExamTypeController;
 use App\Http\Controllers\Admin\Admin_ExamTimePeriodController;
+use App\Http\Controllers\Admin\Admin_ExamDayController;
+
+use App\Http\Controllers\Admin\Admin_ExamController;
 
 
 
@@ -505,8 +508,7 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
      Route::delete('exams/exam_types/{exam_type}/delete', [Admin_ExamTypeController::class, 'destroy'])->name('admin.exams.exam_types.delete');
 
 
-     // Exam Time Period
-     
+     // Exam Time Period     
      Route::get('exams/exam_time_periods', [Admin_ExamTimePeriodController::class, 'index'])->name('admin.exams.exam_time_periods.index');
      Route::get('exams/exam_time_periods/create', [Admin_ExamTimePeriodController::class, 'create'])->name('admin.exams.exam_time_periods.create');
      Route::post('exams/exam_time_periods/store', [Admin_ExamTimePeriodController::class, 'store'])->name('admin.exams.exam_time_periods.store');
@@ -515,6 +517,36 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
      Route::get('exams/exam_time_periods/{exam_time_period}/confirm_delete', [Admin_ExamTimePeriodController::class, 'confirm_delete'])->name('admin.exams.exam_time_periods.confirm_delete');
      Route::delete('exams/exam_time_periods/{exam_time_period}/delete', [Admin_ExamTimePeriodController::class, 'destroy'])->name('admin.exams.exam_time_periods.delete');
 
+
+      // Exam Day    
+      Route::get('exams/exam_days', [Admin_ExamDayController::class, 'index'])->name('admin.exams.exam_days.index');
+      Route::get('exams/exam_days/create', [Admin_ExamDayController::class, 'create'])->name('admin.exams.exam_days.create');
+      Route::post('exams/exam_days/store', [Admin_ExamDayController::class, 'store'])->name('admin.exams.exam_days.store');
+      Route::get('exams/exam_days/{exam_day}/edit', [Admin_ExamDayController::class, 'edit'])->name('admin.exams.exam_days.edit');
+      Route::post('exams/exam_days/{exam_day}/update', [Admin_ExamDayController::class, 'update'])->name('admin.exams.exam_days.update');
+      Route::get('exams/exam_days/{exam_day}/confirm_delete', [Admin_ExamDayController::class, 'confirm_delete'])->name('admin.exams.exam_days.confirm_delete');
+      Route::delete('exams/exam_days/{exam_day}/delete', [Admin_ExamDayController::class, 'destroy'])->name('admin.exams.exam_days.delete');
+ 
+
+      // Exams
+      Route::get('exams', [Admin_ExamController::class, 'index'])->name('admin.exams.index');
+      Route::get('exams/create', [Admin_ExamController::class, 'create'])->name('admin.exams.create');
+      Route::post('exams/store', [Admin_ExamController::class, 'store'])->name('admin.exams.store');
+      Route::get('exams/{exam}/show', [Admin_ExamController::class, 'show'])->name('admin.exams.show');
+      Route::get('exams/{exam}/edit', [Admin_ExamController::class, 'edit'])->name('admin.exams.edit');
+      Route::post('exams/{exam}/update', [Admin_ExamController::class, 'update'])->name('admin.exams.update');
+      Route::get('exams/{exam}/confirm_delete', [Admin_ExamController::class, 'confirm_delete'])->name('admin.exams.confirm_delete');
+      Route::delete('exams/{exam}/delete', [Admin_ExamController::class, 'destroy'])->name('admin.exams.delete');
+
+
+      // Exam Day
+      Route::get('exams/{exam}/days', [Admin_ExamDayController::class, 'index'])->name('admin.exams.days.index');
+      Route::get('exams/{exam}/days/create', [Admin_ExamDayController::class, 'create'])->name('admin.exams.days.create');
+      Route::post('exams/{exam}/days/store', [Admin_ExamDayController::class, 'store'])->name('admin.exams.days.store');
+      Route::get('exams/{exam}/days/{day}/edit', [Admin_ExamDayController::class, 'edit'])->name('admin.exams.days.edit');
+      Route::post('exams/{exam}/days/{day}/update', [Admin_ExamDayController::class, 'update'])->name('admin.exams.days.update');
+      Route::get('exams/{exam}/days/{day}/confirm_delete', [Admin_ExamDayController::class, 'confirm_delete'])->name('admin.exams.days.confirm_delete');
+      Route::delete('exams/{exam}/days/{day}/delete', [Admin_ExamDayController::class, 'destroy'])->name('admin.exams.days.delete');
 });
 
 

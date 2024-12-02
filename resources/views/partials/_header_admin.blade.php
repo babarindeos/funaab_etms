@@ -53,13 +53,13 @@
                                 <button class="text-white px-1 py-2 rounded-md font-semibold">
                                     Exams
                                 </button>
-                                <!-- Sub-menu -->
+                                <!-- Sub-menu -->   
                                 <div class="absolute hidden group-hover:block bg-white text-gray-800 mt-0 py-2 shadow-lg w-[400%]">
                                     <a href="{{ route('admin.cells.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Roaster</a>
-                                    <a href="{{ route('admin.cells.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Create Exam</a>
+                                    <a href="{{ route('admin.exams.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Exams</a>
                                     <a href="#" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Exam Scheduler</a>
                                     <a href="{{ route('admin.exams.exam_types.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Exam Types</a>
-                                    <a href="{{ route('admin.staff.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Exam Days</a>
+                                    <a href="{{ route('admin.exams.exam_days.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Exam Days</a>
                                     <a href="{{ route('admin.exams.exam_time_periods.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Exam Time Periods</a>
                                     <a href="{{ route('admin.staff.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Chief Allocation</a>
                                     <a href="{{ route('admin.staff.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Invigilator Allocation</a>
