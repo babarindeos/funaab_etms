@@ -45,6 +45,9 @@ use App\Http\Controllers\Admin\Admin_StaffStatusController;
 
 use App\Http\Controllers\Admin\Admin_StaffRoleController;
 
+use App\Http\Controllers\Admin\Admin_ExamTypeController;
+use App\Http\Controllers\Admin\Admin_ExamTimePeriodController;
+
 
 
 use App\Http\Controllers\Staff\Staff_AuthController;
@@ -484,9 +487,34 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
 
 
      // Assign Role
-     Route::get('staff/roles/assign_role/create', [Admin_StaffRoleController::class, 'assign_role'])->name('admin.staff.roles.assign_role');
-     Route::post('staff/roles/assign_role/store', [Admin_StaffStatusController::class, 'store_assign_role'])->name('admin.staff.roles.store_assign_role');
+     Route::get('staff/roles/assign_role/create', [Admin_StaffRoleController::class, 'assign_role'])->name('admin.staff.roles.assign_role.create');
+     Route::get('staff/roles/{role}/assign_role', [Admin_StaffRoleController::class, 'assign_role'])->name('admin.staff.roles.assign_role');
+     Route::post('staff/roles/{role}/assign_role/store', [Admin_StaffRoleController::class, 'store_assign_role'])->name('admin.staff.roles.store_assign_role');
+
+
+     Route::post('staff/roles/{assigned_role}/remove', [Admin_StaffRoleController::class, 'remove_assigned_role'])->name('admin.staff.roles.remove_assigned_role');
     
+
+     // Exam Types
+     Route::get('exams/exam_types', [Admin_ExamTypeController::class, 'index'])->name('admin.exams.exam_types.index');
+     Route::get('exams/exam_types/create', [Admin_ExamTypeController::class, 'create'])->name('admin.exams.exam_types.create');
+     Route::post('exams/exam_types/store', [Admin_ExamTypeController::class, 'store'])->name('admin.exams.exam_types.store');
+     Route::get('exams/exam_types/{exam_type}/edit', [Admin_ExamTypeController::class, 'edit'])->name('admin.exams.exam_types.edit');
+     Route::post('exams/exam_types/{exam_type}/update', [Admin_ExamTypeController::class, 'update'])->name('admin.exams.exam_types.update');
+     Route::get('exams/exam_types/{exam_type}/confirm_delete', [Admin_ExamTypeController::class, 'confirm_delete'])->name('admin.exams.exam_types.confirm_delete');
+     Route::delete('exams/exam_types/{exam_type}/delete', [Admin_ExamTypeController::class, 'destroy'])->name('admin.exams.exam_types.delete');
+
+
+     // Exam Time Period
+     
+     Route::get('exams/exam_time_periods', [Admin_ExamTimePeriodController::class, 'index'])->name('admin.exams.exam_time_periods.index');
+     Route::get('exams/exam_time_periods/create', [Admin_ExamTimePeriodController::class, 'create'])->name('admin.exams.exam_time_periods.create');
+     Route::post('exams/exam_time_periods/store', [Admin_ExamTimePeriodController::class, 'store'])->name('admin.exams.exam_time_periods.store');
+     Route::get('exams/exam_time_periods/{exam_time_period}/edit', [Admin_ExamTimePeriodController::class, 'edit'])->name('admin.exams.exam_time_periods.edit');
+     Route::post('exams/exam_time_periods/{exam_time_period}/update', [Admin_ExamTimePeriodController::class, 'update'])->name('admin.exams.exam_time_periods.update');
+     Route::get('exams/exam_time_periods/{exam_time_period}/confirm_delete', [Admin_ExamTimePeriodController::class, 'confirm_delete'])->name('admin.exams.exam_time_periods.confirm_delete');
+     Route::delete('exams/exam_time_periods/{exam_time_period}/delete', [Admin_ExamTimePeriodController::class, 'destroy'])->name('admin.exams.exam_time_periods.delete');
+
 });
 
 
