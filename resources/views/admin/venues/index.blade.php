@@ -117,7 +117,7 @@
         @else
                     <section class="flex flex-col w-[95%] md:w-[95%] border-0 mx-auto px-4 py-6">
                             <div class="flex flex-row justify-center items-center text-2xl font-bold text-gray-300">
-                                There is currently no Remuneration Rates
+                                There is currently no Venues
                             </div>
                     </section>
         @endif

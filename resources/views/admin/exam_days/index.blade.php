@@ -86,9 +86,11 @@
                                                     
                                                     
                                                     <td class="text-center">
-                                                        <span class="text-sm">
+                                                        <span class="text-sm px-1">
                                                             <a class="hover:bg-purple-500 bg-purple-400 text-white rounded-md 
-                                                                    px-4 py-1 text-xs" href="#">Scheduler</a>
+                                                                    px-4 py-1 text-xs" href="{{ route('admin.exams.exam_scheduler.scheduler',['exam_day'=>$exam_day->id]) }}">
+                                                                    Scheduler
+                                                            </a>
                                                         </span>
                                                         <span class="text-sm">
                                                             <a class="hover:bg-blue-500 bg-blue-400 text-white rounded-md 

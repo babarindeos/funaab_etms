@@ -5,11 +5,11 @@
         
             <div class="flex border-b border-gray-300 py-2 justify-between">
                     <div>
-                        <h1 class="text-2xl font-semibold font-serif text-gray-800">Venue Categories Group</h1>
+                        <h1 class="text-2xl font-semibold font-serif text-gray-800">Venue Categories</h1>
                     </div>
                     <div>
-                            <a href="{{ route('admin.venue_categories_group.create') }}" class="bg-green-600 text-white py-2 px-4 
-                                            rounded-lg text-xs md:text-sm hover:bg-green-500"><i class="fas fa-plus text-xs"></i> New Categories Group</a>
+                            <a href="{{ route('admin.venue_categories.create') }}" class="bg-green-600 text-white py-2 px-4 
+                                            rounded-lg text-xs md:text-sm hover:bg-green-500"><i class="fas fa-plus text-xs"></i> New Categories</a>
 
                             
                     </div>
@@ -99,7 +99,7 @@
         @else
                 <section class="flex flex-col w-[95%] md:w-[95%] border-0 mx-auto px-4 py-6">
                         <div class="flex flex-row justify-center items-center text-2xl font-bold text-gray-300">
-                            There is currently no Venue Categories Group
+                            There is currently no Venue Categories
                         </div>
                 </section>
         @endif

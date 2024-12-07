@@ -10,4 +10,9 @@ class ExamDay extends Model
     use HasFactory;
 
     protected $fillable = ['exam_id', 'name', 'date'];
+
+    public function exam()
+    {
+        return $this->belongsTo(Exam::class, 'exam_id', 'id');
+    }
 }

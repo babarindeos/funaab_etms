@@ -50,6 +50,8 @@ use App\Http\Controllers\Admin\Admin_ExamTimePeriodController;
 use App\Http\Controllers\Admin\Admin_ExamDayController;
 
 use App\Http\Controllers\Admin\Admin_ExamController;
+use App\Http\Controllers\Admin\Admin_ExamSchedulerController;
+use App\Http\Controllers\Admin\Admin_InvigilatorAllocationController;
 
 
 
@@ -547,7 +549,26 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
       Route::post('exams/{exam}/days/{day}/update', [Admin_ExamDayController::class, 'update'])->name('admin.exams.days.update');
       Route::get('exams/{exam}/days/{day}/confirm_delete', [Admin_ExamDayController::class, 'confirm_delete'])->name('admin.exams.days.confirm_delete');
       Route::delete('exams/{exam}/days/{day}/delete', [Admin_ExamDayController::class, 'destroy'])->name('admin.exams.days.delete');
-});
+
+
+      // Exam Scheduler
+      Route::get('exams/exam_scheduler/exam_day/select', [Admin_ExamSchedulerController::class, 'select_exam_day'])->name('admin.exams.exam_scheduler.select_exam_day');
+      Route::post('exams/exam_scheduler/exam_day/select', [Admin_ExamSchedulerController::class, 'load_scheduler'])->name('admin.exams.exam_scheduler.load_scheduler');
+      Route::get('exams/exam_scheduler/{exam_day}/scheduler', [Admin_ExamSchedulerController::class, 'scheduler'])->name('admin.exams.exam_scheduler.scheduler');
+      Route::post('exams/exam_scheduler/{exam_day}/scheduler', [Admin_ExamSchedulerController::class, 'post_scheduler'])->name('admin.exams.exam_scheduler.post_scheduler');
+      Route::get('exams/exam_scheduler/scheduler/{schedule}/edit', [Admin_ExamSchedulerController::class, 'edit_schedule'])->name('admin.exams.exam_scheduler.schedule.edit');
+      Route::post('exams/exam_scheduler/scheduler/{schedule}/update', [Admin_ExamSchedulerController::class, 'update_schedule'])->name('admin.exams.exam_scheduler.schedule.update');
+      Route::delete('exams/exam_scheduler/scheduler/{schedule}/destroy', [Admin_ExamSchedulerController::class, 'destroy'])->name('admin.exams.exam_scheduler.schedule.delete');
+
+
+      // Invigilator Allocation
+      Route::get('exams/invigilator_allocation/exam_day/select', [Admin_InvigilatorAllocationController::class, 'select_exam_day'] )->name('admin.exams.invigilator_allocation.select_exam_day');
+      Route::post('exams/invigilator_allocation/exam_day/select', [Admin_InvigilatorAllocationController::class, 'load_allocator'] )->name('admin.exams.invigilator_allocation.load_invigilator_allocator');
+      Route::get('exams/invigilator_allocation/{exam_day}/allocator', [Admin_InvigilatorAllocationController::class, 'allocator'] )->name('admin.exams.invigilator_allocation.allocator');
+      Route::post('exams/invigilator_allocation/{exam_day}/allocator', [Admin_InvigilatorAllocationController::class, 'post_allocator'] )->name('admin.exams.invigilator_allocation.post_allocator');
+      Route::get('exams/invigilator_allocation/allocator/{allocation}/edit', [Admin_InvigilatorAllocationController::class, 'update_allocation'] )->name('admin.exams.invigilator_allocation.update_allocation');
+      Route::delete('exams/invigilator_allocation/allocator/{allocation}/destroy', [Admin_InvigilatorAllocationController::class, 'destroy'] )->name('admin.exams.invigilator_allocation.destroy');
+}); 
 
 
 
