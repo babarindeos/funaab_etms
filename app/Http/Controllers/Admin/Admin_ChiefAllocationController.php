@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Exam;
 use App\Models\ExamDay;
-use App\Models\Staff;
+use App\Models\ChiefAllocation;
 use App\Models\Venue;
+use App\Models\Staff;
 use App\Models\ExamTimePeriod;
-use App\Models\InvigilatorAllocation;
-use Illuminate\Support\Facades\Auth;
 use App\Models\AssignRole;
+use App\Models\VenueCategoryGroup;
+use Illuminate\Support\Facades\Auth;
 
 
     // AssignRole model - assign_roles table
@@ -23,7 +23,7 @@ use App\Models\AssignRole;
     // 4. Chief - CHF
 
 
-class Admin_InvigilatorAllocationController extends Controller
+class Admin_ChiefAllocationController extends Controller
 {
     //
     public function select_exam_day(Request $request)
@@ -46,11 +46,10 @@ class Admin_InvigilatorAllocationController extends Controller
         }
 
         $exams = Exam::orderBy('created_at', 'desc')->get();
-        return view('admin.invigilator_allocations.select_exam_day', compact('exams'))->with(['isPostBack'=>$isPostBack, 
+        return view('admin.chief_allocations.select_exam_day', compact('exams'))->with(['isPostBack'=>$isPostBack, 
                                                                                      'exam_selected'=>$exam_selected,
                                                                                      'exam_days_data'=>$exam_days_data]);
     }
-
 
     public function load_allocator(Request $request)
     {
@@ -59,31 +58,31 @@ class Admin_InvigilatorAllocationController extends Controller
         ]);
 
 
-        return redirect()->route('admin.exams.invigilator_allocation.allocator', ['exam_day'=>$request->exam_day]);
+        return redirect()->route('admin.exams.chief_allocation.allocator', ['exam_day'=>$request->exam_day]);
     }
 
     public function allocator(ExamDay $exam_day)
     {
-        $invigilators = AssignRole::where('staff_role_id', '1')->get();
-        $venues = Venue::orderBy('name', 'asc')->get();
+        $chiefs = AssignRole::where('staff_role_id', '4')->get();
+        $venue_category_groups = VenueCategoryGroup::orderBy('name', 'asc')->get();
         $exam_time_periods = ExamTimePeriod::orderBy('name', 'asc')->get();
 
 
-        $invigilation_day_exams = InvigilatorAllocation::where('exam_day_id', $exam_day->id)
+        $chief_day_exams = ChiefAllocation::where('exam_day_id', $exam_day->id)
                                             ->orderBy('created_at', 'desc')
                                             ->get();
 
-        $invigilation_exams_count = InvigilatorAllocation::where('exam_id', $exam_day->exam->id)
+        $chief_exams_count = ChiefAllocation::where('exam_id', $exam_day->exam->id)
                                             ->count();
 
        
         
-        return view('admin.invigilator_allocations.allocator', compact('exam_day'))
-                    ->with(['invigilators'=>$invigilators, 
-                            'venues'=>$venues, 
+        return view('admin.chief_allocations.allocator', compact('exam_day'))
+                    ->with(['chiefs'=>$chiefs, 
+                            'venue_category_groups'=>$venue_category_groups, 
                             'exam_time_periods'=>$exam_time_periods,
-                            'invigilation_day_exams'=>$invigilation_day_exams,
-                            'invigilation_exams_count'=>$invigilation_exams_count
+                            'chief_day_exams'=>$chief_day_exams,
+                            'chief_exams_count'=>$chief_exams_count
                         ]);
 
     }
@@ -92,7 +91,7 @@ class Admin_InvigilatorAllocationController extends Controller
     public function post_allocator(Request $request, ExamDay $exam_day)
     {
         $formFields = $request->validate([
-            'invigilator' => 'required',
+            'chief' => 'required',
             'venue' => 'required',
             'time_period' => 'required'
         ]);
@@ -101,22 +100,22 @@ class Admin_InvigilatorAllocationController extends Controller
         $formFields['semester_id'] = $exam_day->exam->semester->id;
         $formFields['exam_id'] = $exam_day->exam->id;
         $formFields['exam_day_id'] = $exam_day->id;
-        $formFields['invigilator_id'] = $request->invigilator;
-        $formFields['venue_id'] = $request->venue;
+        $formFields['chief_id'] = $request->chief;
+        $formFields['venue_category_group_id'] = $request->venue;
         $formFields['time_period_id'] = $request->time_period;
         $formFields['user_id'] = Auth::user()->id;
 
-        $is_invigilator_alloted = InvigilatorAllocation::where('invigilator_id', $request->invigilator)
+        $is_chief_alloted = ChiefAllocation::where('chief_id', $request->chief)
                                                         ->where('exam_id', $exam_day->exam->id)
                                                         ->where('exam_day_id', $exam_day->id)
                                                         ->where('time_period_id', $request->time_period)
                                                         ->first();
-        if ($is_invigilator_alloted)
+        if ($is_chief_alloted)
         {
             $data = [
                 'error' => true,
                 'status' => 'fail',
-                'message' => 'The invigilator has already been alloted to the venue ['. $is_invigilator_alloted->venue->name.'] at the same day and time'
+                'message' => 'The Chief has already been alloted at the same day and time'
             ];
 
             return redirect()->back()->with($data);
@@ -124,14 +123,14 @@ class Admin_InvigilatorAllocationController extends Controller
 
         try
         {
-            $create = InvigilatorAllocation::create($formFields);
+            $create = ChiefAllocation::create($formFields);
 
             if ($create)
             {
                 $data = [
                     'error' => true,
                     'status' => 'success',
-                    'message' => 'The Invigilator has been successfully allocated'
+                    'message' => 'The Chief has been successfully allocated'
                 ];
             }
             else
@@ -139,7 +138,7 @@ class Admin_InvigilatorAllocationController extends Controller
                 $data = [
                     'error' => true,
                     'status' => 'fail',
-                    'message' => 'An error occurred allocating the invigilator'
+                    'message' => 'An error occurred allocating the Chief'
                 ];
             }
         }
@@ -155,12 +154,12 @@ class Admin_InvigilatorAllocationController extends Controller
         return redirect()->back()->with($data);
     }
 
-    public function destroy(InvigilatorAllocation $allocation)
+
+    public function destroy(ChiefAllocation $allocation)
     {
         $allocation->delete();
 
         return redirect()->back();
     }
-
 
 }

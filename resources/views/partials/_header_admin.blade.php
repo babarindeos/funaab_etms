@@ -35,6 +35,8 @@
 
                             <a href='{{ route('admin.dashboard.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Dashboard</a>
 
+                            <a href='{{ route('admin.dashboard.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Announcements</a>
+
                             <div class="relative group">
                                 <button class="text-white px-1 py-2 rounded-md font-semibold">
                                     Monitoring
@@ -46,6 +48,8 @@
                                     <a href="#" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Invigilation</a>
                                     <a href="{{ route('admin.staff.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Attendance</a>
                                     <a href="{{ route('admin.staff.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Remuneration</a>
+                                    <a href="{{ route('admin.staff.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Reports</a>
+                                    <a href="{{ route('admin.staff.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Malpractice Incidence</a>
                                 </div>
                             </div>
                            
@@ -61,8 +65,9 @@
                                     <a href="{{ route('admin.exams.exam_types.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Exam Types</a>
                                     <a href="{{ route('admin.exams.exam_days.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Exam Days</a>
                                     <a href="{{ route('admin.exams.exam_time_periods.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Exam Time Periods</a>
-                                    <a href="{{ route('admin.staff.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Chief Allocation</a>
+                                    <a href="{{ route('admin.exams.chief_allocation.select_exam_day') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Chief Allocation</a>
                                     <a href="{{ route('admin.exams.invigilator_allocation.select_exam_day') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Invigilator Allocation</a>
+                                    <a href="{{ route('admin.exams.invigilator_allocation.select_exam_day') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">TIMTEC Allocation</a>
                                 </div>
                             </div>
                             <div class="relative group">

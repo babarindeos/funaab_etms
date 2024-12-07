@@ -53,6 +53,8 @@ use App\Http\Controllers\Admin\Admin_ExamController;
 use App\Http\Controllers\Admin\Admin_ExamSchedulerController;
 use App\Http\Controllers\Admin\Admin_InvigilatorAllocationController;
 
+use App\Http\Controllers\Admin\Admin_ChiefAllocationController;
+
 
 
 use App\Http\Controllers\Staff\Staff_AuthController;
@@ -568,6 +570,15 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
       Route::post('exams/invigilator_allocation/{exam_day}/allocator', [Admin_InvigilatorAllocationController::class, 'post_allocator'] )->name('admin.exams.invigilator_allocation.post_allocator');
       Route::get('exams/invigilator_allocation/allocator/{allocation}/edit', [Admin_InvigilatorAllocationController::class, 'update_allocation'] )->name('admin.exams.invigilator_allocation.update_allocation');
       Route::delete('exams/invigilator_allocation/allocator/{allocation}/destroy', [Admin_InvigilatorAllocationController::class, 'destroy'] )->name('admin.exams.invigilator_allocation.destroy');
+
+
+       // Chief  Allocation
+       Route::get('exams/chief_allocation/exam_day/select', [Admin_ChiefAllocationController::class, 'select_exam_day'] )->name('admin.exams.chief_allocation.select_exam_day');
+       Route::post('exams/chief_allocation/exam_day/select', [Admin_ChiefAllocationController::class, 'load_allocator'] )->name('admin.exams.chief_allocation.load_chief_allocator');
+       Route::get('exams/chief_allocation/{exam_day}/allocator', [Admin_ChiefAllocationController::class, 'allocator'] )->name('admin.exams.chief_allocation.allocator');
+       Route::post('exams/chief_allocation/{exam_day}/allocator', [Admin_ChiefAllocationController::class, 'post_allocator'] )->name('admin.exams.chief_allocation.post_allocator');
+       Route::get('exams/chief_allocation/allocator/{allocation}/edit', [Admin_ChiefAllocationController::class, 'update_allocation'] )->name('admin.exams.chief_allocation.update_allocation');
+       Route::delete('exams/chief_allocation/allocator/{allocation}/destroy', [Admin_ChiefAllocationController::class, 'destroy'] )->name('admin.exams.chief_allocation.destroy');
 }); 
 
 

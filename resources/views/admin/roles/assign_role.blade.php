@@ -19,7 +19,7 @@
 
 
 
-        
+            
 
                     
                     
@@ -78,7 +78,22 @@
                                                                                                     >
                                                                                                     <option value=''>-- Select Staff --</option>
                                                                                                         @foreach($staff as $person)
-                                                                                                            <option class='py-4' value="{{$person->user_id}}">{{$person->surname}} {{$person->firstname}} ({{$person->fileno}})</option>
+                                                                                                            @php
+                                                                                                                $is_assigned = false;
+                                                                                                            @endphp
+
+                                                                                                            @foreach($assigned as $assignee)
+                                                                                                                @if($assignee->user_id == $person->user_id)
+                                                                                                                        @php
+                                                                                                                                $is_assigned = true;
+                                                                                                                        @endphp
+                                                                                                                @endif
+                                                                                                            @endforeach
+                                                                                                            
+                                                                                                            @if ($is_assigned == false)
+                                                                                                                <option class='py-4' value="{{$person->user_id}}">{{$person->surname}} {{$person->firstname}} ({{$person->fileno}})</option>
+                                                                                                            @endif
+                                                                                                            
                                                                                                         @endforeach                                                                    
                                                                                                     </select>
                                 

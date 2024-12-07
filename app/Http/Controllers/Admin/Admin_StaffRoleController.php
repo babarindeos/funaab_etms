@@ -19,8 +19,11 @@ class Admin_StaffRoleController extends Controller
 
     public function assign_role(StaffRole $role)
     {
+        
         $staff = Staff::orderBy('surname', 'asc')->get();
-        $assigned = AssignRole::orderBy('created_at', 'desc')->get();
+        
+        $assigned = AssignRole::where('staff_role_id', $role->id)
+                                ->orderBy('created_at', 'desc')->get();
 
         return view('admin.roles.assign_role', compact('staff', 'role', 'assigned'));
     }

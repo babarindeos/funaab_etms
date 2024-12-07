@@ -5,7 +5,7 @@
             
             <div class="flex border-b border-gray-300 py-2 justify-between">
                     <div >
-                        <h1 class="text-2xl font-semibold font-serif text-gray-800">Invigilation Allocator</h1>
+                        <h1 class="text-2xl font-semibold font-serif text-gray-800">Chief Allocator</h1>
                     </div>  
                     <div>
                             <a href="{{ route('admin.exams.index') }}" class="bg-green-600 text-white py-2 px-4 
@@ -22,7 +22,7 @@
         <!-- new exam type form //-->
         <section>
                 <div>
-                    <form  action="{{ route('admin.exams.invigilator_allocation.post_allocator',['exam_day'=>$exam_day->id])}} " method="POST" class="flex flex-col mx-auto w-[90%] items-center justify-center">
+                    <form  action="{{ route('admin.exams.chief_allocation.post_allocator',['exam_day'=>$exam_day->id])}} " method="POST" class="flex flex-col mx-auto w-[90%] items-center justify-center">
                         @csrf                        
 
                         <div class="flex flex-col w-[80%] md:w-[60%] py-2 md:py-4" style="font-family:'Lato'; font-size:18px; font-weight:400;">
@@ -40,12 +40,12 @@
 
                         @include('partials._session_response')
                                     
-                                <!-- Course //-->
+                                <!-- Chief //-->
                                 <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2">
                                         
                                     
                                 
-                                    <select name="invigilator" class="border border-1 border-gray-400 bg-gray-50
+                                    <select name="chief" class="border border-1 border-gray-400 bg-gray-50
                                                                             w-full p-4 rounded-md 
                                                                             focus:outline-none
                                                                             focus:border-blue-500 
@@ -56,16 +56,16 @@
                                                                             required
                                                                             >
                                                                             
-                                                                            <option value=''>-- Select Invigilator --</option>
-                                                                            @foreach($invigilators as $invigilator)
-                                                                                    <option class='py-4' value="{{$invigilator->user->id}}" >{{ $invigilator->user->staff->surname }} {{ $invigilator->user->staff->firstname }} ({{ $invigilator->user->staff->fileno }})</option>
+                                                                            <option value=''>-- Select Chief --</option>
+                                                                            @foreach($chiefs as $chief)
+                                                                                    <option class='py-4' value="{{$chief->user->id}}" >{{ $chief->user->surname }} {{ $chief->user->firstname }} ({{ $chief->user->staff->fileno }})</option>
                                                                                 
 
                                                                                 @endforeach               
                                                                                                                      
                                                                             </select>
 
-                                                                            @error('invigilator')
+                                                                            @error('chief')
                                                                                 <span class="text-red-700 text-sm">
                                                                                     {{$message}}
                                                                                 </span>
@@ -73,7 +73,7 @@
                                     
                                 </div>
                                 
-                                <!-- end of Course //-->  
+                                <!-- end of Chief //-->  
                                  
                                 
                                 <!-- Venue //-->
@@ -92,9 +92,9 @@
                                                                             required
                                                                             >
                                                                             
-                                                                            <option value=''>-- Select Venue --</option>
-                                                                                @foreach($venues as $venue)
-                                                                                    <option class='py-4' value="{{$venue->id}}" >{{$venue->name}} ({{ $venue->venue_type->name }}: {{$venue->student_capacity}} student caps) - {{$venue->venue_category->name}}</option>
+                                                                            <option value=''>-- Select Venue Category Group --</option>
+                                                                                @foreach($venue_category_groups as $venue_category_group)
+                                                                                    <option class='py-4' value="{{$venue_category_group->id}}" >{{ $venue_category_group->name }}</option>
                                                                                 @endforeach                                      
                                                                             </select>
 
@@ -194,17 +194,17 @@
              <div class="flex flex-col border-red-900 w-[80%] md:w-[100%] py-2 border-0 mt-0">
                 
                 <div class="flex flex-row w-full py-2 border-b text-lg font-semibold py-1">
-                    Invigilation Day Exam ({{ $invigilation_day_exams->count() }} of {{ $invigilation_exams_count }})
+                    Chief Day Exam ({{ $chief_day_exams->count() }} of {{ $chief_exams_count }})
                 </div>
 
-                @if (count($invigilation_day_exams))
+                @if (count($chief_day_exams))
                     
                         <table class="table-auto border-collapse border border-1 border-gray-200" >
                                         <thead>
                                             <tr class="bg-gray-200">
                                                 <th width='5%' class="text-center font-semibold py-2">SN</th>
-                                                <th width='25%' class="font-semibold py-2 text-left">Invigilator</th> 
-                                                <th width='20%' class="font-semibold py-2 text-left">Venue</th> 
+                                                <th width='25%' class="font-semibold py-2 text-left">Chief</th> 
+                                                <th width='20%' class="font-semibold py-2 text-left">Venue Category Group</th> 
                                                 <th width='20%' class="font-semibold py-2 text-left">Time Period</th>                                      
                                                 <th width='10%' class="font-semibold py-2 text-center">Action</th>
                                             </tr>
@@ -214,32 +214,32 @@
                                                 $counter = 0;
                                             @endphp
 
-                                                @foreach ($invigilation_day_exams as $invigilation)
+                                                @foreach ($chief_day_exams as $chief_allocation)
                                                 <tr class="border border-b border-gray-200">
                                                     <td class='text-center py-4'>{{ ++$counter }}.</td>
                                                     <td>        
                                                             <a href="#" class="hover:underline">                                
-                                                                    {{ $invigilation->invigilator->staff->surname }}  
-                                                                    {{ $invigilation->invigilator->staff->firstname }}
-                                                                    ({{ $invigilation->invigilator->staff->fileno }})                                                      
+                                                                    {{ $chief_allocation->chief->staff->surname }}  
+                                                                    {{ $chief_allocation->chief->staff->firstname }}
+                                                                    ({{ $chief_allocation->chief->staff->fileno }})                                                      
                                                             </a>         
                                                                               
                                                         
                                                     </td>
                                                     <td>
                                                             <a href="#" class="hover:underline">                                
-                                                                    {{ $invigilation->venue->name }}  ( {{$invigilation->venue->venue_category->name }} )                                                     
+                                                                {{ $chief_allocation->venue_category_group->name }}                                                   
                                                             </a>  
                                                             <div class='text-sm'>
-                                                                    {{ $invigilation->venue->venue_type->name }}: {{$invigilation->venue->student_capacity}} student caps 
+                                                                    
                                                             </div>
                                                     </td>
                                                     <td>
                                                             <div>
-                                                                    {{$invigilation->time_period->name}}
+                                                                    {{$chief_allocation->time_period->name}}
                                                             </div>
                                                             <div class="text-sm">
-                                                                    {{ \Carbon\Carbon::parse($invigilation->time_period->start_time)->format('g:i a') }} - {{\Carbon\Carbon::parse($invigilation->time_period->end_time)->format('g:i a') }} 
+                                                                    {{ \Carbon\Carbon::parse($chief_allocation->time_period->start_time)->format('g:i a') }} - {{\Carbon\Carbon::parse($chief_allocation->time_period->end_time)->format('g:i a') }} 
 
                                                             </div>
                                                     </td>
@@ -250,7 +250,7 @@
                                                                 
 
                                                                 <div class="text-sm">
-                                                                    <form action="{{ route('admin.exams.invigilator_allocation.destroy',['allocation'=>$invigilation->id]) }}" method="POST">
+                                                                    <form action="{{ route('admin.exams.chief_allocation.destroy',['allocation'=>$chief_allocation->id]) }}" method="POST">
                                                                         @csrf
                                                                         @method("delete")
                                                                         <button class="hover:bg-red-500 bg-red-400 text-white rounded-md 

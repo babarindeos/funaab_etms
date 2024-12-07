@@ -9,6 +9,11 @@ class AssignRole extends Model
 {
     use HasFactory;
 
+    // 1. Invigilator - INV
+    // 2. Observer - OBS
+    // 3. TIMTEC Member - TTC
+    // 4. Chief - CHF
+
     protected $fillable = [ 'staff_role_id', 'user_id'];
 
     public function user()
