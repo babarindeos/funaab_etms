@@ -5,7 +5,7 @@
             
             <div class="flex border-b border-gray-300 py-2 justify-between">
                     <div >
-                        <h1 class="text-2xl font-semibold font-serif text-gray-800">Exam Scheduler</h1>
+                        <h1 class="text-2xl font-semibold font-serif text-gray-800">Timtec Allocator</h1>
                     </div>  
                     <div>
                             <a href="{{ route('admin.exams.index') }}" class="bg-green-600 text-white py-2 px-4 
@@ -22,7 +22,7 @@
         <!-- new exam type form //-->
         <section>
                 <div>
-                    <form  action="{{ route('admin.exams.exam_scheduler.post_scheduler',['exam_day'=>$exam_day->id])}} " method="POST" class="flex flex-col mx-auto w-[90%] items-center justify-center">
+                    <form  action="{{ route('admin.exams.timtec_allocation.post_allocator',['exam_day'=>$exam_day->id])}} " method="POST" class="flex flex-col mx-auto w-[90%] items-center justify-center">
                         @csrf                        
 
                         <div class="flex flex-col w-[80%] md:w-[60%] py-2 md:py-4" style="font-family:'Lato'; font-size:18px; font-weight:400;">
@@ -40,12 +40,12 @@
 
                         @include('partials._session_response')
                                     
-                                <!-- Course //-->
+                                <!-- Chief //-->
                                 <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2">
                                         
                                     
                                 
-                                    <select name="course" class="border border-1 border-gray-400 bg-gray-50
+                                    <select name="timtec_member" class="border border-1 border-gray-400 bg-gray-50
                                                                             w-full p-4 rounded-md 
                                                                             focus:outline-none
                                                                             focus:border-blue-500 
@@ -56,28 +56,16 @@
                                                                             required
                                                                             >
                                                                             
-                                                                            <option value=''>-- Select Course --</option>
-                                                                                @foreach($courses as $course)
-                                                                                    @php
-                                                                                            $is_scheduled = false;
-                                                                                    @endphp
-                                                                                    @foreach( $scheduled_exams as $scheduled_exam)
-                                                                                        @if ($scheduled_exam->course_id == $course->id)
-                                                                                            @php
-                                                                                                $is_scheduled = true;
-                                                                                            @endphp
-                                                                                        @endif
-                                                                                    @endforeach
-                                                                                   
+                                                                            <option value=''>-- Select Timtec Member --</option>
+                                                                            @foreach($timtec_members as $timtec)
+                                                                                    <option class='py-4' value="{{$timtec->user->id}}" >{{ $timtec->user->surname }} {{ $timtec->user->firstname }} ({{ $timtec->user->staff->fileno }})</option>
+                                                                                
 
-                                                                                    @if ($is_scheduled == false)
-                                                                                        <option class='py-4' value="{{$course->id}}" >{{ $course->title }} ({{ $course->code }})</option>
-                                                                                    @endif
-
-                                                                                @endforeach                                                    
+                                                                                @endforeach               
+                                                                                                                     
                                                                             </select>
 
-                                                                            @error('course')
+                                                                            @error('timtec_member')
                                                                                 <span class="text-red-700 text-sm">
                                                                                     {{$message}}
                                                                                 </span>
@@ -85,43 +73,7 @@
                                     
                                 </div>
                                 
-                                <!-- end of Course //-->  
-
-
-                                <!-- Exam Types //-->
-                                <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2">
-                                        
-                                    
-                                
-                                    <select name="exam_type" class="border border-1 border-gray-400 bg-gray-50
-                                                                            w-full p-4 rounded-md 
-                                                                            focus:outline-none
-                                                                            focus:border-blue-500 
-                                                                            focus:ring
-                                                                            focus:ring-blue-100"                                                                                                                                                                                                                                                                                                                                                
-                                                                            
-                                                                            style="font-family:'Lato';font-size:16px;font-weight:500;"
-                                                                            required
-                                                                            >
-                                                                            
-                                                                            <option value=''>-- Select Exam Type --</option>
-                                                                                @foreach($exam_types as $exam_type)                                                                                    
-                                                                     
-                                                                                        <option class='py-4' value="{{$exam_type->id}}" >{{ $exam_type->name }} </option>
-                                                                                    
-                                                                                @endforeach                                                    
-                                                                            </select>
-
-                                                                            @error('exam_type')
-                                                                                <span class="text-red-700 text-sm">
-                                                                                    {{$message}}
-                                                                                </span>
-                                                                            @enderror
-                                    
-                                </div>
-                                
-                                <!-- end of Exam Types //-->  
-                                
+                                <!-- end of Chief //-->  
                                  
                                 
                                 <!-- Venue //-->
@@ -140,9 +92,9 @@
                                                                             required
                                                                             >
                                                                             
-                                                                            <option value=''>-- Select Venue --</option>
-                                                                                @foreach($venues as $venue)
-                                                                                    <option class='py-4' value="{{$venue->id}}" >{{$venue->name}} ({{ $venue->venue_type->name }}: {{$venue->student_capacity}} student caps) - {{$venue->venue_category->name}}</option>
+                                                                            <option value=''>-- Select Venue Category Group --</option>
+                                                                                @foreach($venue_category_groups as $venue_category_group)
+                                                                                    <option class='py-4' value="{{$venue_category_group->id}}" >{{ $venue_category_group->name }}</option>
                                                                                 @endforeach                                      
                                                                             </select>
 
@@ -197,7 +149,7 @@
                                 <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] mt-4">
                                     <button type="submit" class="border border-1 bg-gray-400 py-4 text-white 
                                                 hover:bg-gray-500
-                                                rounded-md text-lg" style="font-family:'Lato';font-weight:500;">Schedule</button>
+                                                rounded-md text-lg" style="font-family:'Lato';font-weight:500;">Allocate</button>
                                 </div>
                         
                         
@@ -242,19 +194,18 @@
              <div class="flex flex-col border-red-900 w-[80%] md:w-[100%] py-2 border-0 mt-0">
                 
                 <div class="flex flex-row w-full py-2 border-b text-lg font-semibold py-1">
-                    Scheduled Day Exam ({{ $scheduled_day_exams->count() }} of {{ $scheduled_exams->count() }})
+                    Timtec Day Exam ({{ $timtec_day_exams->count() }} of {{ $timtec_exams_count }})
                 </div>
 
-                @if (count($scheduled_day_exams))
+                @if (count($timtec_day_exams))
                     
                         <table class="table-auto border-collapse border border-1 border-gray-200" >
                                         <thead>
                                             <tr class="bg-gray-200">
                                                 <th width='5%' class="text-center font-semibold py-2">SN</th>
-                                                <th width='25%' class="font-semibold py-2 text-left">Course</th> 
-                                                <th width='15%' class="font-semibold py-2 text-left">Exam Type</th> 
-                                                <th width='20%' class="font-semibold py-2 text-left">Venue</th> 
-                                                <th width='15%' class="font-semibold py-2 text-left">Time Period</th>                                      
+                                                <th width='25%' class="font-semibold py-2 text-left">Timtec Member</th> 
+                                                <th width='20%' class="font-semibold py-2 text-left">Venue Category Group</th> 
+                                                <th width='20%' class="font-semibold py-2 text-left">Time Period</th>                                      
                                                 <th width='10%' class="font-semibold py-2 text-center">Action</th>
                                             </tr>
                                         </thead>
@@ -263,33 +214,30 @@
                                                 $counter = 0;
                                             @endphp
 
-                                                @foreach ($scheduled_day_exams as $day_exam)
+                                                @foreach ($timtec_day_exams as $timtec_allocation)
                                                 <tr class="border border-b border-gray-200">
                                                     <td class='text-center py-4'>{{ ++$counter }}.</td>
                                                     <td>        
                                                             <a href="#" class="hover:underline">                                
-                                                                    {{ $day_exam->course->title }}  ({{ $day_exam->course->code }})                                                      
+                                                                {{ $timtec_allocation->timtec_member->staff->surname }} {{ $timtec_allocation->timtec_member->staff->firstname }} ({{ $timtec_allocation->timtec_member->staff->fileno }})                                    
                                                             </a>         
                                                                               
                                                         
                                                     </td>
                                                     <td>
-                                                            {{ $day_exam->exam_type->name }}
-                                                    </td>
-                                                    <td>
                                                             <a href="#" class="hover:underline">                                
-                                                                    {{ $day_exam->venue->name }}  ( {{$day_exam->venue->venue_category->name }} )                                                     
+                                                                {{ $timtec_allocation->venue_category_group->name }}                                                   
                                                             </a>  
                                                             <div class='text-sm'>
-                                                                    {{ $day_exam->venue->venue_type->name }}: {{$day_exam->venue->student_capacity}} student caps 
+                                                                    
                                                             </div>
                                                     </td>
                                                     <td>
                                                             <div>
-                                                                    {{$time_period->name}}
+                                                                    {{$timtec_allocation->time_period->name}}
                                                             </div>
                                                             <div class="text-sm">
-                                                                    {{ \Carbon\Carbon::parse($day_exam->time_period->start_time)->format('g:i a') }} - {{\Carbon\Carbon::parse($day_exam->time_period->end_time)->format('g:i a') }} 
+                                                                    {{ \Carbon\Carbon::parse($timtec_allocation->time_period->start_time)->format('g:i a') }} - {{\Carbon\Carbon::parse($timtec_allocation->time_period->end_time)->format('g:i a') }} 
 
                                                             </div>
                                                     </td>
@@ -297,16 +245,10 @@
                                                     
                                                     <td class="text-center">
                                                         <div class='flex flex-row space-x-1 justify-center items-center'>
-                                                                <div class="text-sm">
-                                                                    <form action="{{ route('admin.exams.exam_scheduler.schedule.edit',['schedule'=>$day_exam->id]) }}" method="GET">
-                                                                        @csrf
-                                                                        <button class="hover:bg-blue-500 bg-blue-400 text-white rounded-md 
-                                                                            px-4 py-1 text-xs" href="">Edit</button>
-                                                                    </form>
-                                                                </div>
+                                                                
 
                                                                 <div class="text-sm">
-                                                                    <form action="{{ route('admin.exams.exam_scheduler.schedule.delete', ['schedule'=>$day_exam->id]) }}" method="POST">
+                                                                    <form action="{{ route('admin.exams.timtec_allocation.destroy',['allocation'=>$timtec_allocation->id]) }}" method="POST">
                                                                         @csrf
                                                                         @method("delete")
                                                                         <button class="hover:bg-red-500 bg-red-400 text-white rounded-md 

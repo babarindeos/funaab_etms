@@ -11,6 +11,7 @@ use App\Models\Venue;
 use App\Models\ExamTimePeriod;
 use App\Models\ExamScheduler;
 use Illuminate\Support\Facades\Auth;
+use App\Models\ExamType;
 
 class Admin_ExamSchedulerController extends Controller
 {
@@ -53,6 +54,7 @@ class Admin_ExamSchedulerController extends Controller
     public function scheduler(ExamDay $exam_day)
     {
         $courses = Course::orderBy('code', 'asc')->get();
+        $exam_types = ExamType::orderBy('name', 'asc')->get();
         $venues = Venue::orderBy('name', 'asc')->get();
         $exam_time_periods = ExamTimePeriod::orderBy('name', 'asc')->get();
 
@@ -68,7 +70,8 @@ class Admin_ExamSchedulerController extends Controller
        
 
         return view('admin.exam_scheduler.scheduler', compact('exam_day'))
-                    ->with(['courses'=>$courses, 
+                    ->with(['courses'=>$courses,
+                            'exam_types'=>$exam_types, 
                             'venues'=>$venues, 
                             'exam_time_periods'=>$exam_time_periods,
                             'scheduled_day_exams'=>$scheduled_day_exams,
@@ -80,6 +83,7 @@ class Admin_ExamSchedulerController extends Controller
     {
         $formFields = $request->validate([
             'course' => 'required',
+            'exam_type' => 'required',
             'venue' => 'required',
             'time_period' => 'required'
         ]);
@@ -89,6 +93,7 @@ class Admin_ExamSchedulerController extends Controller
         $formFields['exam_id'] = $exam_day->exam->id;
         $formFields['exam_day_id'] = $exam_day->id;
         $formFields['course_id'] = $request->course;
+        $formFields['exam_type_id'] = $request->exam_type;
         $formFields['venue_id'] = $request->venue;
         $formFields['time_period_id'] = $request->time_period;
         $formFields['user_id'] = Auth::user()->id;
@@ -130,9 +135,10 @@ class Admin_ExamSchedulerController extends Controller
     {
         $exam_days = ExamDay::where('exam_id', $schedule->exam_id)->orderBy('created_at', 'asc')->get();
         $courses = Course::orderBy('code', 'asc')->get();
+        $exam_types = ExamType::orderBy('name', 'asc')->get();
         $venues = Venue::orderBy('name', 'asc')->get();
         $exam_time_periods = ExamTimePeriod::orderBy('name', 'asc')->get();
-        return view('admin.exam_scheduler.edit', compact('schedule', 'exam_days', 'courses','venues', 'exam_time_periods'));
+        return view('admin.exam_scheduler.edit', compact('schedule', 'exam_days', 'courses', 'exam_types', 'venues', 'exam_time_periods'));
     }
 
     public function update_schedule(Request $request, ExamScheduler $schedule)
@@ -140,12 +146,14 @@ class Admin_ExamSchedulerController extends Controller
         $formFields = $request->validate([
             'exam_day' => 'required',
             'course' => 'required',
+            'exam_type' => 'required',
             'venue' => 'required',
             'time_period' => 'required'
         ]);
 
         $formFields['exam_day_id'] = $request->exam_day;
         $formFields['course_id'] = $request->course;
+        $formFields['exam_type_id'] = $request->exam_type;
         $formFields['venue_id'] = $request->venue;
         $formFields['time_period_id'] = $request->time_period;
 

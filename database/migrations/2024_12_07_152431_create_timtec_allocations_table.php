@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('exam_schedulers', function (Blueprint $table) {
-                $table->id();
-                $table->unsignedBigInteger('academic_session_id');
+        Schema::create('timtec_allocations', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('academic_session_id');
                 $table->unsignedBigInteger('semester_id');
                 $table->unsignedBigInteger('exam_id');
                 $table->unsignedBigInteger('exam_day_id');
-                $table->unsignedBigInteger('course_id');
-                $table->unsignedBigInteger('exam_type_id');
-                $table->unsignedBigInteger('venue_id');
+                $table->unsignedBigInteger('timtec_member_id');
+                $table->unsignedBigInteger('venue_category_group_id');
                 $table->unsignedBigInteger('time_period_id');
                 $table->unsignedBigInteger('user_id');
 
@@ -44,20 +43,14 @@ return new class extends Migration
                     ->on('exam_days')
                     ->onDelete('cascade');
 
-                $table->foreign('course_id')
+                $table->foreign('timtec_member_id')
                     ->references('id')
-                    ->on('courses')
+                    ->on('users')
                     ->onDelete('cascade');
 
-                
-                $table->foreign('exam_type_id')
+                $table->foreign('venue_category_group_id')
                     ->references('id')
-                    ->on('exam_types')
-                    ->onDelete('cascade');
-
-                $table->foreign('venue_id')
-                    ->references('id')
-                    ->on('venues')
+                    ->on('venue_category_groups')
                     ->onDelete('cascade');
 
                 $table->foreign('time_period_id')
@@ -70,7 +63,7 @@ return new class extends Migration
                     ->on('users')
                     ->onDelete('cascade');
 
-                $table->timestamps();
+            $table->timestamps();
         });
     }
 
@@ -79,6 +72,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('exam_schedulers');
+        Schema::dropIfExists('timtec_allocations');
     }
 };

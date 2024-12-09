@@ -54,6 +54,7 @@ use App\Http\Controllers\Admin\Admin_ExamSchedulerController;
 use App\Http\Controllers\Admin\Admin_InvigilatorAllocationController;
 
 use App\Http\Controllers\Admin\Admin_ChiefAllocationController;
+use App\Http\Controllers\Admin\Admin_TimtecAllocationController;
 
 
 
@@ -531,6 +532,10 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
       Route::get('exams/exam_days/{exam_day}/confirm_delete', [Admin_ExamDayController::class, 'confirm_delete'])->name('admin.exams.exam_days.confirm_delete');
       Route::delete('exams/exam_days/{exam_day}/delete', [Admin_ExamDayController::class, 'destroy'])->name('admin.exams.exam_days.delete');
  
+      Route::get('exams/exam_days/select_exam_days', [Admin_ExamDayController::class, 'select_exam_days'])->name('admin.exams.exam_days.select_exam_days');
+      Route::post('exams/exam_days/select_exam_days', [Admin_ExamDayController::class, 'load_exam_day_schedule'])->name('admin.exams.exam_days.load_exam_day_schedule');
+      Route::get('exams/exam_days/day/{exam_day}/exam_schedule', [Admin_ExamDayController::class, 'exam_day_schedule'])->name('admin.exams.exam_days.exam_day_schedule');  
+
 
       // Exams
       Route::get('exams', [Admin_ExamController::class, 'index'])->name('admin.exams.index');
@@ -543,7 +548,8 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
       Route::delete('exams/{exam}/delete', [Admin_ExamController::class, 'destroy'])->name('admin.exams.delete');
 
 
-      // Exam Day
+    //   // Exam Day
+      //Route::get('exams/days', [Admin_ExamDayController::class, 'index'])->name('admin.exams.days.index');
       Route::get('exams/{exam}/days', [Admin_ExamDayController::class, 'index'])->name('admin.exams.days.index');
       Route::get('exams/{exam}/days/create', [Admin_ExamDayController::class, 'create'])->name('admin.exams.days.create');
       Route::post('exams/{exam}/days/store', [Admin_ExamDayController::class, 'store'])->name('admin.exams.days.store');
@@ -579,6 +585,15 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
        Route::post('exams/chief_allocation/{exam_day}/allocator', [Admin_ChiefAllocationController::class, 'post_allocator'] )->name('admin.exams.chief_allocation.post_allocator');
        Route::get('exams/chief_allocation/allocator/{allocation}/edit', [Admin_ChiefAllocationController::class, 'update_allocation'] )->name('admin.exams.chief_allocation.update_allocation');
        Route::delete('exams/chief_allocation/allocator/{allocation}/destroy', [Admin_ChiefAllocationController::class, 'destroy'] )->name('admin.exams.chief_allocation.destroy');
+
+
+       // TIMTEC  Allocation
+       Route::get('exams/timtec_allocation/exam_day/select', [Admin_TimtecAllocationController::class, 'select_exam_day'] )->name('admin.exams.timtec_allocation.select_exam_day');
+       Route::post('exams/timtec_allocation/exam_day/select', [Admin_TimtecAllocationController::class, 'load_allocator'] )->name('admin.exams.timtec_allocation.load_timtec_allocator');
+       Route::get('exams/timtec_allocation/{exam_day}/allocator', [Admin_TimtecAllocationController::class, 'allocator'] )->name('admin.exams.timtec_allocation.allocator');
+       Route::post('exams/timtec_allocation/{exam_day}/allocator', [Admin_TimtecAllocationController::class, 'post_allocator'] )->name('admin.exams.timtec_allocation.post_allocator');
+       Route::get('exams/timtec_allocation/allocator/{allocation}/edit', [Admin_TimtecAllocationController::class, 'update_allocation'] )->name('admin.exams.timtec_allocation.update_allocation');
+       Route::delete('exams/timtec_allocation/allocator/{allocation}/destroy', [Admin_TimtecAllocationController::class, 'destroy'] )->name('admin.exams.timtec_allocation.destroy');
 }); 
 
 

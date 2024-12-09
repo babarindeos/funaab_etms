@@ -22,6 +22,10 @@ class Staff extends Model
     ];
 
 
+    public function staff_title()
+    {
+        return $this->belongsTo(StaffTitle::class, 'title_id', 'id');
+    }
 
     public function department()
     {

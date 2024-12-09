@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ExamScheduler extends Model
+class TimtecAllocation extends Model
 {
     use HasFactory;
 
@@ -13,26 +13,20 @@ class ExamScheduler extends Model
                            'semester_id', 
                            'exam_id', 
                            'exam_day_id', 
-                           'course_id', 
-                           'exam_type_id',
-                           'venue_id', 
+                           'timtec_member_id', 
+                           'venue_category_group_id', 
                            'time_period_id',
                            'user_id'
                           ];
 
-    public function course()
+    public function timtec_member()
     {
-        return $this->belongsTo(Course::class, 'course_id', 'id');
+        return $this->belongsTo(User::class, 'timtec_member_id', 'id');
     }
 
-    public function exam_type()
+    public function venue_category_group()
     {
-        return $this->belongsTo(ExamType::class, 'exam_type_id', 'id');
-    }
-
-    public function venue()
-    {
-        return $this->belongsTo(Venue::class, 'venue_id', 'id');
+        return $this->belongsTo(VenueCategoryGroup::class, 'venue_category_group_id', 'id');
     }
 
     public function time_period()
