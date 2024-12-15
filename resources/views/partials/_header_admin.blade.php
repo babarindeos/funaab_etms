@@ -43,7 +43,7 @@
                                 </button>
                                 <!-- Sub-menu -->
                                 <div class="absolute hidden group-hover:block bg-white text-gray-800 mt-0 py-2 shadow-lg w-[250%]">
-                                    <a href="{{ route('admin.cells.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Chief Supervision</a>
+                                    <a href="{{ route('admin.monitoring.chiefs.select_exam_chief') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Chief Supervision</a>
                                     <a href="{{ route('admin.cells.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">TIMTEC Observance</a>
                                     <a href="#" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Invigilation</a>
                                     <a href="{{ route('admin.staff.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Attendance</a>

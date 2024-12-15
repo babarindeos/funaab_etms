@@ -59,6 +59,11 @@ use App\Http\Controllers\Admin\Admin_TimtecAllocationController;
 use App\Http\Controllers\Admin\Admin_HodController;
 
 use App\Http\Controllers\Admin\Admin_CourseCoordinatorController;
+use App\Http\Controllers\Admin\Admin_MonitoringChiefController;
+
+use App\Http\Controllers\Admin\Admin_MonitoringInvigilatorController;
+use App\Http\Controllers\Admin\Admin_MonitoringTimtecController;
+
 
 
 
@@ -614,6 +619,10 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
        Route::get('courses/{course}/coordinators/create', [Admin_CourseCoordinatorController::class, 'create'])->name('admin.courses.coordinators.create');
        Route::post('courses/{course}/coordinators/store', [Admin_CourseCoordinatorController::class, 'store'])->name('admin.courses.coordinators.store');
        Route::delete('course/{course}/coordinators/{coordinator}/delete', [Admin_CourseCoordinatorController::class, 'destroy'])->name('admin.courses.coordinators.delete');
+
+
+       // Monitoring
+       Route::get('monitoring/chiefs/select_exam_chief', [Admin_MonitoringChiefController::class, 'select_exam_chief'])->name('admin.monitoring.chiefs.select_exam_chief');
     });    
 
 
