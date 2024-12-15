@@ -107,6 +107,7 @@
                                     <a href="{{ route('admin.semesters.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Semesters</a>
                                     <a href="{{ route('admin.colleges.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Colleges</a>
                                     <a href="{{ route('admin.departments.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Departments</a>
+                                    <a href="{{ route('admin.departments.hods.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">HODs</a>
                                     <a href="{{ route('admin.courses.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Courses</a>
                                     <a href="{{ route('admin.remuneration_rates.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Remuneration Rates</a>
                                 </div>

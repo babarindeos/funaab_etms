@@ -55,7 +55,7 @@
                                                                     <option value=''>-- Select College --</option>
                                                                         @foreach($colleges as $college)
                                                                             <option class='py-4' value="{{$college->id}}">{{$college->name}} ({{$college->code}})</option>
-                                                                        @endforeach                                                                    
+                                                                        @endforeach                                                                       
                                                                     </select>
 
                                                                      @error('college')

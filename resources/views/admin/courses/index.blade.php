@@ -42,8 +42,9 @@
                         <thead>
                             <tr class="bg-gray-200">
                                 <th width='10%' class="text-center font-semibold py-2">SN</th>
-                                <th width='50%' class="font-semibold py-2 text-left">Name</th>                                
+                                <th width='35%' class="font-semibold py-2 text-left">Name</th>                                
                                 <th width='10%' class="font-semibold py-2 text-left">Code</th>
+                                <th width='25%' class="font-semibold py-2 text-left">Coordinator</th>
                                 <th width='30%' class="font-semibold py-2 text-center">Action</th>
                             </tr>
                         </thead>
@@ -71,7 +72,32 @@
                                     <td>
                                         {{ $course->code }}
                                     </td>
+                                    <td>
+                                        @if ($course->coordinators)
+                                            @foreach($course->coordinators as $coordinator)
+                                                <div>
+                                                    <a href="{{ route('admin.profile.user_profile',['fileno' => $coordinator->coordinator->staff->fileno]) }}" class='hover:underline'>
+                                                        {{ $coordinator->coordinator->staff->staff_title->title }} 
+                                                        {{ ucfirst(strtolower($coordinator->coordinator->staff->surname)) }} 
+                                                        {{ $coordinator->coordinator->staff->firstname }} ({{ $coordinator->coordinator->staff->fileno }} )
+                                                    </a>
+                                                </div>
+                                            @endforeach
+                                        @endif
+                                    </td>
                                     <td class="text-center">
+                                        @if ($course->coordinator== null)
+                                                <span class="text-sm">
+                                                    <a class="hover:bg-purple-500 bg-purple-400 text-white rounded-md 
+                                                            px-4 py-1 text-xs" href="{{ route('admin.courses.coordinators.create', ['course'=>$course->id])}}">Add Coordinator</a>
+                                                </span>
+                                        @else
+                                                <span class="text-sm">
+                                                    <a class="hover:bg-purple-500 bg-purple-400 text-white rounded-md 
+                                                            px-4 py-1 text-xs" href="{{ route('admin.courses.coordinators.create', ['course'=>$course->id])}}">Coordinator</a>
+                                                </span>
+
+                                        @endif
                                         <span class="text-sm">
                                             <a class="hover:bg-blue-500 bg-blue-400 text-white rounded-md 
                                                     px-4 py-1 text-xs" href="{{ route('admin.courses.edit', ['course'=>$course->id])}}">Edit</a>

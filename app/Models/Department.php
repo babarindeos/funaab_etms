@@ -24,5 +24,9 @@ class Department extends Model
         return $this->hasMany(Staff::class, 'department_id', 'id');
     }
 
+    public function hod()
+    {
+        return $this->hasOne(Hod::class, 'department_id', 'id');
+    }
    
 }

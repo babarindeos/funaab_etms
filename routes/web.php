@@ -56,6 +56,10 @@ use App\Http\Controllers\Admin\Admin_InvigilatorAllocationController;
 use App\Http\Controllers\Admin\Admin_ChiefAllocationController;
 use App\Http\Controllers\Admin\Admin_TimtecAllocationController;
 
+use App\Http\Controllers\Admin\Admin_HodController;
+
+use App\Http\Controllers\Admin\Admin_CourseCoordinatorController;
+
 
 
 use App\Http\Controllers\Staff\Staff_AuthController;
@@ -159,6 +163,7 @@ Route::get('testmailbody', function(){
 
 
 Route::get('/', function () {
+    
     return view('welcome');
 })->name('welcome');
 
@@ -450,7 +455,7 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
 
 
 
-    // Creare Venue
+    // Create Venue
     Route::get('venues', [Admin_VenueController::class, 'index'])->name('admin.venues.index');
     Route::get('venues/create', [Admin_VenueController::class, 'create'])->name('admin.venues.create');
     Route::post('venues/store', [Admin_VenueController::class, 'store'])->name('admin.venues.store');
@@ -594,7 +599,27 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
        Route::post('exams/timtec_allocation/{exam_day}/allocator', [Admin_TimtecAllocationController::class, 'post_allocator'] )->name('admin.exams.timtec_allocation.post_allocator');
        Route::get('exams/timtec_allocation/allocator/{allocation}/edit', [Admin_TimtecAllocationController::class, 'update_allocation'] )->name('admin.exams.timtec_allocation.update_allocation');
        Route::delete('exams/timtec_allocation/allocator/{allocation}/destroy', [Admin_TimtecAllocationController::class, 'destroy'] )->name('admin.exams.timtec_allocation.destroy');
-}); 
+
+
+       // HOD
+       Route::get('departments/hods', [Admin_HodController::class, 'index'])->name('admin.departments.hods.index');
+       Route::get('departments/{department}/hods/create', [Admin_HodController::class, 'create'])->name('admin.departments.hods.create');
+       Route::post('departments/{department}/hods/store', [Admin_HodController::class, 'store'])->name('admin.departments.hods.store');
+       Route::get('departments/{department}/hods/{hod}/edit', [Admin_HodController::class, 'edit'])->name('admin.departments.hods.edit');
+       Route::post('departments/{department}/hods/{hod}/update', [Admin_HodController::class, 'update'])->name('admin.departments.hods.update');
+
+
+       // Course Coordinator
+       Route::get('courses/coordinators', [Admin_CourseCoordinatorController::class, 'index'])->name('admin.courses.coordinators.index');
+       Route::get('courses/{course}/coordinators/create', [Admin_CourseCoordinatorController::class, 'create'])->name('admin.courses.coordinators.create');
+       Route::post('courses/{course}/coordinators/store', [Admin_CourseCoordinatorController::class, 'store'])->name('admin.courses.coordinators.store');
+       Route::delete('course/{course}/coordinators/{coordinator}/delete', [Admin_CourseCoordinatorController::class, 'destroy'])->name('admin.courses.coordinators.delete');
+    });    
+
+
+
+
+
 
 
 

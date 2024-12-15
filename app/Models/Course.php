@@ -15,4 +15,9 @@ class Course extends Model
     {
         return $this->belongsTo(Department::class, 'department_id', 'id');
     }
+
+    public function coordinators()
+    {
+        return $this->hasMany(CourseCoordinator::class, 'course_id', 'id');
+    }
 }
