@@ -8,6 +8,10 @@ use App\Models\Workflow;
 use App\Models\PrivateMessage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Profile;
+use App\Http\Classes\AcademicSessionClass;
+use App\Models\InvigilatorAllocation;
+use App\Models\ChiefAllocation;
+use App\Models\TimtecAllocation;
 
 class Staff_DashboardController extends Controller
 {
@@ -45,8 +49,47 @@ class Staff_DashboardController extends Controller
         //dd($current_user);
 
         $recent_workflows = Workflow::where('recipient_id','=', $current_user)->latest()->take(5)->get();
+
         
-        return view('staff.dashboard', compact('workflow_notifications', 'recent_workflows', 'private_message_notifications'));
+
+        
+        // get current academic_session
+        $current_semester = AcademicSessionClass::getCurrentSemester();
+
+        $invigilator = null;
+        $chief = null;
+        $timtec = null;
+        
+        if ($current_semester != null)
+        {
+                $invigilator = InvigilatorAllocation::where('semester_id', $current_semester->id)
+                                            ->where('invigilator_id', Auth::user()->id)
+                                            ->orderBy('exam_day_id', 'asc')
+                                            ->orderBy('time_period_id', 'asc')
+                                            ->get();
+                
+                $chief = ChiefAllocation::where('semester_id', $current_semester->id)
+                                            ->where('chief_id', Auth::user()->id)
+                                            ->orderBy('exam_day_id', 'asc')
+                                            ->orderBy('time_period_id', 'asc')
+                                            ->get();
+
+                $timtec = TimtecAllocation::where('semester_id', $current_semester->id)
+                                            ->where('timtec_member_id', Auth::user()->id)
+                                            ->orderBy('exam_day_id', 'asc')
+                                            ->orderBy('time_period_id', 'asc')
+                                            ->get();
+        }      
+
+
+        
+        return view('staff.dashboard', compact('workflow_notifications', 
+                                               'recent_workflows', 
+                                               'private_message_notifications',
+                                               'current_semester',
+                                               'invigilator',
+                                               'chief',
+                                               'timtec'));
 
     }
 }

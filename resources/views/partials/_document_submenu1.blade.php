@@ -1,20 +1,31 @@
 <section class="flex flex-col md:flex-row md:space-x-4">
-    <a href="{{ route('staff.documents.mydocuments') }}" class="border border-green-600 py-2 px-4 rounded-md mt-1 font-semibold 
-                hover:bg-green-600 hover:text-white hover:shadow-md">
-            My Documents
-    </a>
+    @if ($invigilator != null)
+        <a href="{{ route('staff.documents.mydocuments') }}" class="border border-green-600 py-2 px-4 rounded-md mt-1 font-semibold 
+                    hover:bg-green-600 hover:text-white hover:shadow-md">
+                My Invigilation
+        </a>
+    @endif
 
-     @if (Auth::user()->role === 'manager')
+    @if ($chief != null)
 
-        <div class="border border-green-600 py-2 px-4 rounded-md mt-1 font-semibold 
+        <a href="#" class="border border-green-600 py-2 px-4 rounded-md mt-1 font-semibold 
                         hover:bg-green-600 hover:text-white hover:shadow-md">
-                Track Documents
-        </div>
+                Chief Invigilation
+        </a>
 
     @endif
 
+
+    @if ($timtec != null)
+        <a href="{{ route('staff.documents.create') }}" class="border border-green-600 py-2 px-4 rounded-md mt-1 font-semibold 
+                        hover:bg-green-600 hover:text-white hover:shadow-md">
+            My Supervision
+        </a>
+    @endif
+
+
     <a href="{{ route('staff.documents.create') }}" class="border border-green-600 py-2 px-4 rounded-md mt-1 font-semibold 
                      hover:bg-green-600 hover:text-white hover:shadow-md">
-        Upload Document
+        My Course
     </a>
 </section>

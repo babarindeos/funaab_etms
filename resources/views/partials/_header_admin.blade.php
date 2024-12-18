@@ -15,8 +15,8 @@
                     <!-- end of logo //-->
                     <!-- Name //-->
                     <div class="flex flex-col item-center justify-center">
-                            <div class="text-white font-bold text-2xl font-serif">FUNAAB</div>
-                            <div class="text-white font-semibold font-serif">Exam Timetable Management System (ETMS)</div>
+                            <div class="text-white font-bold text-2xl font-serif">TIMTEC</div>
+                            <div class="text-white font-semibold font-serif opacity-80">Exam Timetable Management System (ETMS)</div>
                                 
                     </div>
                     <!-- end of name //-->
@@ -33,9 +33,9 @@
                     @auth
                         @if (Auth::user()->role==='admin')
 
-                            <a href='{{ route('admin.dashboard.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Dashboard</a>
+                            <a href="{{ route('admin.dashboard.index') }}" class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Dashboard</a>
 
-                            <a href='{{ route('admin.dashboard.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Announcements</a>
+                            <a href="{{ route('admin.announcements.index') }}" class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Announcements</a>
 
                             <div class="relative group">
                                 <button class="text-white px-1 py-2 rounded-md font-semibold">
@@ -43,9 +43,9 @@
                                 </button>
                                 <!-- Sub-menu -->
                                 <div class="absolute hidden group-hover:block bg-white text-gray-800 mt-0 py-2 shadow-lg w-[250%]">
-                                    <a href="{{ route('admin.monitoring.chiefs.select_exam_chief') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Chief Supervision</a>
-                                    <a href="{{ route('admin.cells.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">TIMTEC Observance</a>
-                                    <a href="#" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Invigilation</a>
+                                    <!-- <a href="{{ route('admin.monitoring.chiefs.select_exam_chief') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Chief Supervision</a> -->
+                                    <a href="{{ route('admin.monitoring.timtecs.select_exam_timtec') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">TIMTEC Observers</a>
+                                    <a href="{{ route('admin.monitoring.invigilators.select_exam_invigilator') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Invigilators</a>
                                     <a href="{{ route('admin.staff.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Attendance</a>
                                     <a href="{{ route('admin.staff.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Remuneration</a>
                                     <a href="{{ route('admin.staff.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Reports</a>
@@ -59,13 +59,13 @@
                                 </button>
                                 <!-- Sub-menu -->   
                                 <div class="absolute hidden group-hover:block bg-white text-gray-800 mt-0 py-2 shadow-lg w-[400%]">
-                                    <a href="{{ route('admin.cells.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Roaster</a>
+                                    <a href="{{ route('admin.cells.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Roster</a>
                                     <a href="{{ route('admin.exams.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200 hover:border-l-yellow-500 hover:border-l-4 pr-8">Exams</a>
                                     <a href="{{ route('admin.exams.exam_scheduler.select_exam_day') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Exam Scheduler</a>
                                     <a href="{{ route('admin.exams.exam_types.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Exam Types</a>
                                     <a href="{{ route('admin.exams.exam_days.select_exam_days') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Exam Days</a>
                                     <a href="{{ route('admin.exams.exam_time_periods.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Exam Time Periods</a>
-                                    <a href="{{ route('admin.exams.chief_allocation.select_exam_day') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Chief Allocation</a>
+                                    <!-- <a href="{{ route('admin.exams.chief_allocation.select_exam_day') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Chief Allocation</a> -->
                                     <a href="{{ route('admin.exams.invigilator_allocation.select_exam_day') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Invigilator Allocation</a>
                                     <a href="{{ route('admin.exams.timtec_allocation.select_exam_day') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">TIMTEC Allocation</a>
                                 </div>

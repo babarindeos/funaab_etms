@@ -38,4 +38,9 @@ class InvigilatorAllocation extends Model
         {
             return $this->belongsTo(Exam::class, 'exam_id', 'id');
         }
+
+        public function exam_schedule()
+        {
+            return $this->hasOne(ExamScheduler::class, 'exam_id', 'exam_id');
+        }
 }

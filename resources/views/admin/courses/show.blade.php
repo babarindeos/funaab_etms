@@ -28,7 +28,7 @@
                         
                     </div>
                     <div>
-                        {{ $course->department->name}} ({{ $course->department->code}})
+                        {{ $course->department->name}} ({{ $course->department->code}}), {{ $course->department->college->code }}
                     </div>
             </div>
 
@@ -47,13 +47,32 @@
              <div class="flex flex-col md:flex-row w-full md:space-x-4 space-y-4 md:space-y-0">
 
                     <!-- Course Lecturer Information //-->
-                    <div class="border rounded-md w-full md:w-3/5 p-4">
+                    <div class="border rounded-md w-full md:w-1/2 p-4">
                             <div class="py-3 border-b">
-                                Course Lecturer
+                                Course Lecturer ({{ $course->coordinators->count() }})
                             </div>
 
                             <div>
-
+                                        <table width='100%' class="">
+                                                <tbody>
+                                                    @foreach($course->coordinators as $coordinator)
+                                                            @php
+                                                                $counter = 0;
+                                                            @endphp
+                                                            <tr class='border-b'>
+                                                                <td width='10%' class='text-center py-4'> {{ ++$counter }}. </td>
+                                                                <td>
+                                                                    <a class='hover:underline' href="{{ route('admin.profile.user_profile',['fileno'=>$coordinator->coordinator->staff->fileno]) }}">
+                                                                        {{ $coordinator->coordinator->staff->staff_title->title }} 
+                                                                        {{ ucfirst(strtolower($coordinator->coordinator->surname)) }}
+                                                                        {{ ucfirst(strtolower($coordinator->coordinator->firstname)) }} 
+                                                                        {{ ucfirst(strtolower($coordinator->coordinator->fileno)) }}
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                    @endforeach                               
+                                                </tbody>
+                                        </table>
 
 
 
@@ -64,18 +83,92 @@
 
 
                     <!-- Enrollment //-->
-                    <div class="border rounded-md w-full md:w-2/5 p-4">
-                            <div class="py-3">
+                    <div class="border rounded-md w-full md:w-1/2 p-4">
+                            <!-- form //-->
+                            <form action="{{ route('admin.courses.enrolments.set_enrolment', ['course'=>$course->id]) }}" method="POST">
+                                @csrf
+                                    <div class="py-3">
+                                                    @include('partials._session_response')
 
-                                        Current Enrolment - 
-                                    
-                            </div>
+                                                    Current Enrolment
+                                                
+                                                        @foreach($current_session->semesters as $semester)
+                                                            @if ($semester->current)
+                                                                <input type='hidden' name='semester_id' value="{{ $semester->id }}" />
+                                                                <div class='text-sm'>
+                                                                    {{ $semester->academic_session->name }} {{ ucfirst($semester->name) }} Semester
+                                                                </div>
+                                                            @endif
+                                                        @endforeach
+                                                    
+
+                                                    <!-- Course title //-->
+                                                    <div class="flex flex-row border-red-900 w-[80%] md:w-[40%] py-3 space-x-0">
+                                                        
+                                                            
+                                                        <input type="number" name="enrolment" class="border border-1 border-gray-400 bg-gray-50
+                                                                                                w-full p-4 rounded-l-md 
+                                                                                                focus:outline-none
+                                                                                                focus:border-blue-500 
+                                                                                                focus:ring
+                                                                                                focus:ring-blue-100" placeholder="Course Enrolment"
+                                                                                                
+                                                                                                @if ($course_enrolment != null)
+                                                                                                    value="{{ $course_enrolment->enrolment }}"
+                                                                                                @endif
+                                                                                                
+                                                                                                style="font-family:'Lato';font-size:16px;font-weight:500;"                                                                     
+                                                                                                required
+                                                                                                />  
+                                                                                                                                                                    
+
+                                                                                                @error('enrolment')
+                                                                                                    <span class="text-red-700 text-sm">
+                                                                                                        {{$message}}
+                                                                                                    </span>
+                                                                                                @enderror
+                                                                                    <button class="border px-4 bg-gray-400 hover:bg-gray-500 text-white rounded-r">
+                                                                                            Submit
+                                                                                    </button>
+                                                        
+                                                    </div><!-- end of course title //-->
+
+                                            
+                                    </div>
+                            </form><!-- end of form //-->
 
 
                             <div class="py-4">
-                                        Other Academic Sessions
-                                    </div>
+                                Enrolments By Academic Sessions and Semesters
                             </div>
+
+                            <div>
+                                <table width='100%' class='border '>
+                                    <thead >
+                                        <tr class='bg-gray-100'>
+                                            <th width='12%' class='py-3 text-center'>SN</th>
+                                            <th width='40%' class='text-start'>Session</th>
+                                            <th class='text-start'>Semester</th>
+                                            <th class='text-center'>Enrolment</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                            $counter = 0;
+                                        @endphp
+                                        @foreach($semesters_enrolments as $enrolment)
+                                            <tr class='border-b'>
+                                                <td class='text-center py-3'>{{ ++$counter }}.</td>
+                                                <td>{{ $enrolment->semester->academic_session->name }}</td>
+                                                <td>{{ ucfirst(strtolower($enrolment->semester->name)) }} Semester</td>
+                                                <td class='text-center'>{{ $enrolment->enrolment }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            
 
                     </div>
                     <!-- end of enrolment //-->

@@ -64,6 +64,12 @@ use App\Http\Controllers\Admin\Admin_MonitoringChiefController;
 use App\Http\Controllers\Admin\Admin_MonitoringInvigilatorController;
 use App\Http\Controllers\Admin\Admin_MonitoringTimtecController;
 
+use App\Http\Controllers\Admin\Admin_AnnouncementController;
+
+use App\Http\Controllers\Admin\Admin_CourseEnrolmentController;
+
+
+
 
 
 
@@ -85,6 +91,8 @@ use App\Http\Controllers\Staff\Staff_CircleAnnouncementController;
 
 
 use App\Http\Controllers\Staff\Staff_CategoryController;
+
+//use App\Http\Controllers\Staff\
 
 use App\Http\Controllers\MailTestController;
 
@@ -259,6 +267,10 @@ Route::prefix('staff')->middleware(['auth', 'staff'])->group(function(){
     // Categories
     Route::get('/categories/create', [Staff_CategoryController::class, 'create'])->name('staff.categories.create');
     Route::post('/categories/store', [Staff_CategoryController::class, 'store'])->name('staff.categories.store');
+
+
+    //My Invigilation
+    //Route::get('exams/invigilations/{invigilation}/my_schedule')
 });
 
 
@@ -436,6 +448,7 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
     // Venue Category
     Route::get('venue_categories', [Admin_VenueCategoryController::class, 'index'])->name('admin.venue_categories.index');
     Route::get('venue_categories/create', [Admin_VenueCategoryController::class, 'create'])->name('admin.venue_categories.create');
+    Route::get('venue_categories/{category}/show', [Admin_VenueCategoryController::class, 'show'])->name('admin.venue_categories.show');
     Route::post('venue_categories/store', [Admin_VenueCategoryController::class, 'store'])->name('admin.venue_categories.store');
     Route::get('venue_categories/{venue_category}/edit', [Admin_VenueCategoryController::class, 'edit'])->name('admin.venue_categories.edit');
     Route::post('venue_categories/{venue_category}/update', [Admin_VenueCategoryController::class, 'update'])->name('admin.venue_categories.update');
@@ -621,8 +634,47 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
        Route::delete('course/{course}/coordinators/{coordinator}/delete', [Admin_CourseCoordinatorController::class, 'destroy'])->name('admin.courses.coordinators.delete');
 
 
-       // Monitoring
+       // Monitoring Chief
        Route::get('monitoring/chiefs/select_exam_chief', [Admin_MonitoringChiefController::class, 'select_exam_chief'])->name('admin.monitoring.chiefs.select_exam_chief');
+
+       // Monitoring Timtec
+       Route::get('monitoring/timtecs/select_exam_timtec', [Admin_MonitoringTimtecController::class, 'select_exam_timtec'])->name('admin.monitoring.timtecs.select_exam_timtec');
+
+       // Monitoring Invigilator
+       Route::get('monitoring/invigilators/select_exam_invigilator', [Admin_MonitoringInvigilatorController::class, 'select_exam_invigilator'])->name('admin.monitoring.invigilators.select_exam_invigilator');
+
+
+       // Create Announcement
+       Route::get('announcements', [Admin_AnnouncementController::class, 'index'])->name('admin.announcements.index');
+       Route::get('announcements/{announcement}/show', [Admin_AnnouncementController::class, 'show'])->name('admin.announcements.show');
+
+       Route::get('announcements/create', [Admin_AnnouncementController::class, 'create']
+        )->name('admin.announcements.create');
+
+       Route::post('announcements/store', [Admin_AnnouncementController::class, 'store']
+        )->name('admin.announcements.store');
+
+       Route::post('announcements/{announcement}/comments/store', [Admin_AnnouncementController::class, 'store_comment'])->name('admin.announcements.comments.store');
+       Route::delete('announcements/{comment}/comments/delete', [Admin_AnnouncementController::class, 'delete_comment'])->name('admin.announcements.comments.delete_comment');
+        
+       Route::get('announcements/{announcement}/notify', [Admin_AnnouncementController::class, 'notify'])->name('admin.announcements.notify');
+       Route::post('announcements/{announcement}/notify', [Admin_AnnouncementController::class, 'post_notify'])->name('admin.announcements.post_notify');
+
+       Route::get('announcements/{announcement}/edit', [Admin_AnnouncementController::class, 'edit'])->name('admin.announcements.edit');
+       Route::post('announcements/{announcement}/update', [Admin_AnnouncementController::class, 'update'])->name('admin.announcements.update');
+
+       Route::get('announcements/{announcement}/confirm_delete', [Admin_AnnouncementController::class, 'confirm_delete'])->name('admin.announcements.confirm_delete');
+       Route::delete('announcements/{announcement}/delete', [Admin_AnnouncementController::class, 'destroy'])->name('admin.announcements.delete');
+
+       Route::get('announcements/{announcement}/delete_file', [Admin_AnnouncementController::class, 'delete_file'])->name('admin.announcements.delete_file');
+
+
+
+       // Course Enrolment
+       Route::get('courses/{course}/enrolments/{semester}/enrolment', [Admin_CourseEnrolmentController::class, 'get_enrolment'])->name('admin.courses.enrolments.enrolment');
+       Route::post('courses/{course}/enrolments/enrolment', [Admin_CourseEnrolmentController::class, 'set_enrolment'])->name('admin.courses.enrolments.set_enrolment');
+
+
     });    
 
 

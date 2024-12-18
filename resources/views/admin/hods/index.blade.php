@@ -58,14 +58,18 @@
                                 <tr class="border border-b border-gray-200">
                                     <td class='text-center py-4'>{{ ++$counter }}.</td>
                                     <td>
-                                       {{ $hod->user->staff->staff_title->title }} 
-                                       {{ ucwords(strtolower($hod->user->staff->surname)) }} {{ $hod->user->staff->firstname }}
-                                       ({{ $hod->user->staff->fileno }})
+                                            <a class='hover:underline' href="{{ route('admin.profile.user_profile',['fileno'=>$hod->user->staff->fileno]) }}"'>
+                                                {{ $hod->user->staff->staff_title->title }} 
+                                                {{ ucwords(strtolower($hod->user->staff->surname)) }} {{ $hod->user->staff->firstname }}
+                                                ({{ $hod->user->staff->fileno }})
+                                            </a>
                                        
                                         
                                     </td>
                                     <td>
-                                        {{ $hod->department->name }} ({{ $hod->department->code }})
+                                        <a class='hover:underline' href="{{ route('admin.departments.show',['department'=>$hod->department_id]) }}">
+                                            {{ $hod->department->name }} ({{ $hod->department->code }})
+                                        </a>
                                     </td>
 
                                     <td class="text-center">

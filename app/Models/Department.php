@@ -28,5 +28,10 @@ class Department extends Model
     {
         return $this->hasOne(Hod::class, 'department_id', 'id');
     }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class, 'department_id', 'id');
+    }
    
 }

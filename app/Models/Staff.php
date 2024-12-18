@@ -18,6 +18,7 @@ class Staff extends Model
         'surname',
         'firstname',
         'middlename',
+        'gender',
         'department_id',
     ];
 

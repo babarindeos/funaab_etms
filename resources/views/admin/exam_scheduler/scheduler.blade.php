@@ -55,11 +55,13 @@
                                                                             style="font-family:'Lato';font-size:16px;font-weight:500;"
                                                                             required
                                                                             >
+
                                                                             
                                                                             <option value=''>-- Select Course --</option>
                                                                                 @foreach($courses as $course)
                                                                                     @php
                                                                                             $is_scheduled = false;
+                                                                                            $old_value = old('course');
                                                                                     @endphp
                                                                                     @foreach( $scheduled_exams as $scheduled_exam)
                                                                                         @if ($scheduled_exam->course_id == $course->id)
@@ -71,7 +73,7 @@
                                                                                    
 
                                                                                     @if ($is_scheduled == false)
-                                                                                        <option class='py-4' value="{{$course->id}}" >{{ $course->title }} ({{ $course->code }})</option>
+                                                                                        <option class='py-4' value="{{$course->id}}" @if ($old_value==$course->id) selected  @endif>{{ $course->title }} ({{ $course->code }})</option>
                                                                                     @endif
 
                                                                                 @endforeach                                                    
@@ -87,6 +89,7 @@
                                 
                                 <!-- end of Course //-->  
 
+                               
 
                                 <!-- Exam Types //-->
                                 <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2">
@@ -105,9 +108,14 @@
                                                                             >
                                                                             
                                                                             <option value=''>-- Select Exam Type --</option>
+                                                                                @php
+                                                                                    $old_value = old('exam_type');
+                                                                                    
+                                                                                @endphp
+                                                                                
                                                                                 @foreach($exam_types as $exam_type)                                                                                    
                                                                      
-                                                                                        <option class='py-4' value="{{$exam_type->id}}" >{{ $exam_type->name }} </option>
+                                                                                        <option class='py-4' value="{{$exam_type->id}}" @if($old_value==$exam_type->id) selected @endif >{{ $exam_type->name }} </option>
                                                                                     
                                                                                 @endforeach                                                    
                                                                             </select>
@@ -141,8 +149,12 @@
                                                                             >
                                                                             
                                                                             <option value=''>-- Select Venue --</option>
+                                                                                @php
+                                                                                    $old_value = old('venue');                                                                                    
+                                                                                @endphp
+
                                                                                 @foreach($venues as $venue)
-                                                                                    <option class='py-4' value="{{$venue->id}}" >{{$venue->name}} ({{ $venue->venue_type->name }}: {{$venue->student_capacity}} student caps) - {{$venue->venue_category->name}}</option>
+                                                                                    <option class='py-4' value="{{$venue->id}}"  @if($old_value==$venue->id) selected  @endif >{{$venue->name}} ({{ $venue->venue_type->name }}: {{$venue->student_capacity}} student caps) - {{$venue->venue_category->name}}</option>
                                                                                 @endforeach                                      
                                                                             </select>
 
@@ -175,8 +187,13 @@
                                                                             >
                                                                             
                                                                             <option value=''>-- Select Time Period --</option>
+
+                                                                                @php
+                                                                                      $old_value = old('time_period');                                                                                    
+                                                                                @endphp
+
                                                                                 @foreach($exam_time_periods as $time_period)
-                                                                                    <option class='py-4' value="{{$time_period->id}}" >
+                                                                                    <option class='py-4' value="{{$time_period->id}}" @if($old_value==$time_period->id) selected @endif >
                                                                                         {{$time_period->name}} 
                                                                                         ({{ \Carbon\Carbon::parse($time_period->start_time)->format('g:i a') }} - {{\Carbon\Carbon::parse($time_period->end_time)->format('g:i a') }} ) 
                                                                                     </option>
@@ -250,7 +267,7 @@
                         <table class="table-auto border-collapse border border-1 border-gray-200" >
                                         <thead>
                                             <tr class="bg-gray-200">
-                                                <th width='5%' class="text-center font-semibold py-2">SN</th>
+                                                <th width='5%' class="text-center font-semibold py-3">SN</th>
                                                 <th width='25%' class="font-semibold py-2 text-left">Course</th> 
                                                 <th width='15%' class="font-semibold py-2 text-left">Exam Type</th> 
                                                 <th width='20%' class="font-semibold py-2 text-left">Venue</th> 
@@ -265,11 +282,12 @@
 
                                                 @foreach ($scheduled_day_exams as $day_exam)
                                                 <tr class="border border-b border-gray-200">
-                                                    <td class='text-center py-4'>{{ ++$counter }}.</td>
+                                                    <td class='text-center py-8'>{{ ++$counter }}.</td>
                                                     <td>        
-                                                            <a href="#" class="hover:underline">                                
-                                                                    {{ $day_exam->course->title }}  ({{ $day_exam->course->code }})                                                      
-                                                            </a>         
+                                                            <a href="{{ route('admin.courses.show', ['course' => $day_exam->course->id]) }}" class="hover:underline">                                
+                                                                    {{ $day_exam->course->title }}  ({{ $day_exam->course->code }}) </a> - 
+                                                                    <span class='text-sm'>[enrolment: {{ $day_exam->course->enrolment->enrolment }} ]</span>                                                  
+                                                                     
                                                                               
                                                         
                                                     </td>

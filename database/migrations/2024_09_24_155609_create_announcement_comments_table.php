@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('announcement_comments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('cell_id');
-            $table->foreign('cell_id')->references('id')->on('cells')->onDelete('cascade');
+            $table->unsignedBigInteger('announcement_id');
+            $table->foreign('announcement_id')->references('id')->on('announcements')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('message');

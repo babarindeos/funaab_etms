@@ -94,7 +94,7 @@
         <!-- recent workflows //-->
         <div class="md:flex-1 border-0">
                 <div class="text-lg font-semibold text-gray-600 border-b border-gray-200 mt-10">
-                    Recent Workflows
+                    Announcements
                 </div>
                 <div>
                     <ul class="list-disc  px-10">

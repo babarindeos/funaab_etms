@@ -58,7 +58,7 @@
                                                                             
                                                                             <option value=''>-- Select Invigilator --</option>
                                                                             @foreach($invigilators as $invigilator)
-                                                                                    <option class='py-4' value="{{$invigilator->user->id}}" >{{ $invigilator->user->staff->surname }} {{ $invigilator->user->staff->firstname }} ({{ $invigilator->user->staff->fileno }})</option>
+                                                                                    <option class='py-4' value="{{$invigilator->user->id}}" >{{ $invigilator->user->staff->staff_title->title }} {{ ucfirst(strtolower($invigilator->user->staff->surname)) }} {{ $invigilator->user->staff->firstname }} ({{ $invigilator->user->staff->fileno }})</option>
                                                                                 
 
                                                                                 @endforeach               
@@ -202,7 +202,7 @@
                         <table class="table-auto border-collapse border border-1 border-gray-200" >
                                         <thead>
                                             <tr class="bg-gray-200">
-                                                <th width='5%' class="text-center font-semibold py-2">SN</th>
+                                                <th width='5%' class="text-center font-semibold py-4">SN</th>
                                                 <th width='25%' class="font-semibold py-2 text-left">Invigilator</th> 
                                                 <th width='20%' class="font-semibold py-2 text-left">Venue</th> 
                                                 <th width='20%' class="font-semibold py-2 text-left">Time Period</th>                                      
@@ -216,13 +216,21 @@
 
                                                 @foreach ($invigilation_day_exams as $invigilation)
                                                 <tr class="border border-b border-gray-200">
-                                                    <td class='text-center py-4'>{{ ++$counter }}.</td>
+                                                    <td class='text-center py-8'>{{ ++$counter }}.</td>
                                                     <td>        
-                                                            <a href="#" class="hover:underline">                                
-                                                                    {{ $invigilation->invigilator->staff->surname }}  
+                                                            <a href="{{ route('admin.profile.user_profile',['fileno'=>$invigilation->invigilator->staff->fileno]) }}" class="hover:underline"> 
+                                                                    {{ $invigilation->invigilator->staff->staff_title->title }}                               
+                                                                    {{ ucfirst(strtolower($invigilation->invigilator->staff->surname)) }}  
                                                                     {{ $invigilation->invigilator->staff->firstname }}
                                                                     ({{ $invigilation->invigilator->staff->fileno }})                                                      
-                                                            </a>         
+                                                            </a>     
+                                                            - <span class='text-xs hover:overline' style="cursor:pointer;" title="Gender" >
+                                                                    [ {{ $invigilation->invigilator->staff->gender }} ]
+                                                            </span>
+
+                                                            <div class='text-xs'>
+                                                                {{ $invigilation->invigilator->staff->department->code }}, {{ $invigilation->invigilator->staff->department->college->code }}
+                                                            </div>
                                                                               
                                                         
                                                     </td>

@@ -27,7 +27,7 @@
                                 >
                         <thead>
                             <tr class="bg-gray-200">
-                                <th width='10%' class="text-center font-semibold py-2">SN</th>
+                                <th width='10%' class="text-center font-semibold py-3">SN</th>
                                 <th width='30%' class="font-semibold py-2 text-left">Name</th>                                
                                 <th width='30%' class="font-semibold py-2 text-left">Amount</th>
                                 <th width='10%' class="font-semibold py-2 text-left">Point</th>

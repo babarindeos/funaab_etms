@@ -18,8 +18,12 @@ class Admin_ExamDayController extends Controller
     {
         $exam_days = ExamDay::where('exam_id', $exam->id)
                             ->orderby('created_at','desc')->paginate(100);
+        
+        $scheduled_exams = ExamScheduler::where('exam_id', $exam->id)->get();
 
-        return view('admin.exam_days.index', compact('exam_days', 'exam'));
+       
+
+        return view('admin.exam_days.index', compact('exam_days', 'exam', 'scheduled_exams'));
     }
 
     public function create(Exam $exam)

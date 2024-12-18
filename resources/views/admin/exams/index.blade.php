@@ -23,6 +23,7 @@
         @if (count($exams) > 0)
 
                     <section class="flex flex-col py-2 px-2 justify-end w-[100%] border-0 md:px-4">
+                       
                         <div class='w-full px-3 md:px-2 md:w-[95%] border-0 mx-auto'>
                                     <div class="flex justify-end border-0">
                                     

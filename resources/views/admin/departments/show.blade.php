@@ -38,15 +38,31 @@
              <div class="flex flex-col md:flex-row w-full md:space-x-4 space-y-4 md:space-y-0">
 
                     <!-- Department Information //-->
-                    <div class="border rounded-md w-full md:w-3/5 p-4">
+                    <div class="border rounded-md w-full md:w-1/2 p-4">
                             <div class="py-3 border-b">
-                                Staff ()
+                                Staff ({{ $department->staff->count() }})
                             </div>
 
                             <div class="py-4"> <!-- list of departments //-->
-                                <ol class="list-disc">
-                                   
-                                </ol>
+                                <table width='100%' class="">
+                                    <tbody>
+                                        @foreach($department->staff as $person)
+                                                @php
+                                                    $counter = 0;
+                                                @endphp
+                                                <tr class='border-b'>
+                                                    <td width='10%' class='text-center py-4'> {{ ++$counter }}. </td>
+                                                    <td>
+                                                        <a class='hover:underline' href="{{ route('admin.profile.user_profile', ['fileno' => $person->fileno]) }}">
+                                                            {{ $person->staff_title->title }} {{ ucfirst(strtolower($person->surname )) }} {{ $person->firstname }} ({{ $person->fileno }})
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                        @endforeach                               
+                                    </tbody>
+                                </table>
+
+
                             </div>
 
                     </div>
@@ -54,15 +70,30 @@
 
 
                     <!-- Enrollment //-->
-                    <div class="border rounded-md w-full md:w-2/5 p-4">
+                    <div class="border rounded-md w-full md:w-1/2 p-4">
                             <div class="py-3 border-b">
-                                Courses ()
+                                Courses ({{ $department->staff->count() }})
                             </div>
 
                             <div class="py-4"> <!-- list of departments //-->
-                                <ol class="list-disc">
-                                   
-                                </ol>
+
+                                        <table width='100%' class="">
+                                                <tbody>
+                                                    @foreach($department->courses as $course)
+                                                            @php
+                                                                $counter = 0;
+                                                            @endphp
+                                                            <tr class='border-b'>
+                                                                <td width='10%' class='text-center py-4'> {{ ++$counter }}. </td>
+                                                                <td>
+                                                                    <a class='hover:underline' href="{{ route('admin.courses.show', ['course' => $course->id]) }}">
+                                                                        {{ $course->title }} ({{ $course->code }})
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                    @endforeach                               
+                                                </tbody>
+                                        </table>
                             </div>
 
                     </div>

@@ -20,4 +20,9 @@ class Course extends Model
     {
         return $this->hasMany(CourseCoordinator::class, 'course_id', 'id');
     }
+
+    public function enrolment()
+    {
+        return $this->hasOne(CourseEnrolment::class, 'course_id', 'id');
+    }
 }

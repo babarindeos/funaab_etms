@@ -43,7 +43,6 @@ class Admin_StaffController extends Controller
 
     public function store(Request $request){
 
-        //dd($request);
         // generate a 6 character passsword
         $password= Str::substr(Str::uuid(), 0,6);
 
@@ -57,6 +56,7 @@ class Admin_StaffController extends Controller
             'surname' => 'required | string',
             'firstname' => ['required', 'string'],  
             'middlename' => ['required', 'string'],
+            'gender' => 'required',
             'department' => ['required'],      
             'email' => 'required|email|unique:users,email',
             'role' => 'required | string'
@@ -168,7 +168,10 @@ class Admin_StaffController extends Controller
     }
 
 
-    public function edit(Request $request, Staff $staff){
+    public function edit(Request $request, Staff $staff)
+    {
+    
+
         $departments = Department::orderBy('name', 'asc')->get();
         $statuses = StaffStatus::orderBy('name', 'asc')->get();
         $titles = StaffTitle::orderBy('title', 'asc')->get();
@@ -185,6 +188,7 @@ class Admin_StaffController extends Controller
             'surname' => 'required | string',
             'firstname' => 'required | string',
             'middlename' => 'required | string',
+            'gender' => 'required | string',
             'department' => ['required'],
             'role' => 'required | string'
         ]);

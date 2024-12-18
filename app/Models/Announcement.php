@@ -10,7 +10,6 @@ class Announcement extends Model
     use HasFactory;
 
     protected $fillable = [
-        'cell_id',
         'subject',
         'message',
         'link',
@@ -25,8 +24,8 @@ class Announcement extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function cell()
+    public function comments()
     {
-        return $this->belongsTo(Cell::class, 'cell_id', 'id');
+        return $this->hasMany(AnnouncementComment::class, 'announcement_id', 'id');
     }
 }

@@ -131,7 +131,7 @@
             @foreach($assigned as $assign)
                 
                 <tr class='border-b'>
-                    <td width='7%' class='py-4 px-3'>{{ ++$counter }}.</td>
+                    <td width='7%' class='py-6 px-3'>{{ ++$counter }}.</td>
                     <td>
                         <a href="{{ route('admin.profile.user_profile', ['fileno'=>$assign->user->staff->fileno]) }}" class='hover:underline'>
                             {{ $assign->user->staff->surname }} {{ $assign->user->staff->firstname }} ({{ $assign->user->staff->fileno }})

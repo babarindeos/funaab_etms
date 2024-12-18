@@ -56,7 +56,7 @@
                                 <tr class="border border-b border-gray-200">
                                     <td class='text-center py-4'>{{ ++$counter }}.</td>
                                     <td>
-                                        <a class="hover:underline" href="">
+                                        <a class="hover:underline" href="{{ route('admin.venue_categories.show',['category'=>$venue_category]) }}">
                                             {{ $venue_category->name }} 
                                         </a>
 

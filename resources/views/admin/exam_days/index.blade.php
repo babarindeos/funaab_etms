@@ -33,11 +33,15 @@
 
         @if (count($exam_days) > 0)
 
-                    <section class="flex flex-col py-2 px-2 justify-end w-[100%] border-0 md:px-4">
-                        <div class='w-full px-3 md:px-2 md:w-1/2 border-0 mx-auto'>
-                                    <div class="flex justify-end border-0">
+                    <section class="flex flex-col py-2 px-2 justify-end w-[80%] md:w-[50%] mx-auto border-0 md:px-4 mt-4">
+                        
+                        <div class='flex flex-col md:flex-row w-full  border-0'>
+                                    <div class='flex flex-col md:w-1/2 items-start justify-center text-xl '>
+                                        Scheduled Exams ( {{$scheduled_exams->count()}} )
+                                    </div>
+                                    <div class="flex justify-end md:w-1/2 border-0">
                                     
-                                            <input type="text" name="search" class="w-full md:w-2/5 border border-gray-400 bg-gray-50
+                                            <input type="text" name="search" class="w-full md:w-3/5 border border-gray-400 bg-gray-50
                                                         p-2 rounded-l-md 
                                                         focus:outline-none
                                                         focus:border-blue-500 
@@ -81,6 +85,23 @@
                                                             </a>                                 
                                                             <div>
                                                                 {{ \Carbon\Carbon::parse($exam_day->date)->format('l jS F, Y') }}
+                                                            </div>
+                                                            <div>
+                                                                @php
+                                                                    $exam_day_scheduled = 0;
+                                                                @endphp
+                                                                @foreach($scheduled_exams as $scheduled_exam)
+                                                                    @if ($scheduled_exam->exam_day_id == $exam_day->id)
+                                                                        @php
+                                                                            ++$exam_day_scheduled
+                                                                        @endphp
+                                                                    @endif
+                                                                @endforeach
+
+                                                                <div class='text-sm py-2'>
+                                                                    Scheduled Exams ({{ $exam_day_scheduled }})
+                                                                </div>
+
                                                             </div>
                                                     </td>
                                                     

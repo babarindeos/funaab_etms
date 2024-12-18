@@ -8,8 +8,8 @@
                         <h1 class="text-2xl font-semibold font-serif text-gray-800">Venue Categories Group</h1>
                     </div>
                     <div>
-                            <a href="{{ route('admin.venue_categories.create') }}" class="bg-green-600 text-white py-2 px-4 
-                                            rounded-lg text-xs md:text-sm hover:bg-green-500"><i class="fas fa-plus text-xs"></i> New Venue Category</a>
+                            <a href="{{ route('admin.venue_categories_group.create') }}" class="bg-green-600 text-white py-2 px-4 
+                                            rounded-lg text-xs md:text-sm hover:bg-green-500"><i class="fas fa-plus text-xs"></i> New Venue Category Group</a>
 
                             
                     </div>

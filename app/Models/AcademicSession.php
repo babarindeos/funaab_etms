@@ -10,4 +10,9 @@ class AcademicSession extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'current'];
+
+    public function semesters()
+    {
+        return $this->hasMany(Semester::class, 'academic_session_id', 'id');
+    }
 }

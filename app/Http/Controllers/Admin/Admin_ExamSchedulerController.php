@@ -88,6 +88,27 @@ class Admin_ExamSchedulerController extends Controller
             'time_period' => 'required'
         ]);
 
+        
+        // check if an exam has been scheduled for that venue and time
+        $venue_time_scheduled = ExamScheduler::where('exam_id', $exam_day->exam->id)
+                                             ->where('exam_day_id', $exam_day->id)
+                                             ->where('venue_id', $request->venue)
+                                             ->where('time_period_id', $request->time_period)
+                                             ->first();
+        if ($venue_time_scheduled)
+        {
+            $data = [
+                'error' => true,
+                'status' => 'fail',
+                'message' => 'The Venue has been alloted for '.$venue_time_scheduled->course->code.' exam at the same selected time '
+            ];
+
+            return redirect()->back()->with($data)->withInput();
+        }
+
+
+
+
         $formFields['academic_session_id'] = $exam_day->exam->semester->academic_session->id;
         $formFields['semester_id'] = $exam_day->exam->semester->id;
         $formFields['exam_id'] = $exam_day->exam->id;

@@ -63,10 +63,10 @@
                                                 >
                                         <thead>
                                             <tr class="bg-gray-200">
-                                                <th width='10%' class="text-center font-semibold py-2">SN</th>
-                                                <th width='30%' class="font-semibold py-2 text-left">Course</th> 
-                                                <th width='15%' class="font-semibold py-2 text-left">Exam Type</th>
-                                                <th width='20%' class="font-semibold py-2 text-left">Venue</th>
+                                                <th width='8%' class="text-center font-semibold py-4">SN</th>
+                                                <th width='35%' class="font-semibold py-2 text-left">Course</th> 
+                                                <th width='10%' class="font-semibold py-2 text-left">Exam Type</th>
+                                                <th width='30%' class="font-semibold py-2 text-left">Venue</th>
                                                 <th width='20%' class="font-semibold py-2 text-left">Time Period</th> 
                                                
                                             </tr>
@@ -78,13 +78,15 @@
 
                                                 @foreach ($exam_schedules as $exam_schedule)
                                                 <tr >
-                                                    <td class='text-center py-4'>{{ ++$counter }}.</td>
+                                                    <td class='text-center py-8'>{{ ++$counter }}.</td>
                                                     <td>
                                                          <a href="#" class='hover:underline'>
-                                                                {{ $exam_schedule->course->title }} ({{ $exam_schedule->course->code }})
+                                                                {{ $exam_schedule->course->title }} ({{ $exam_schedule->course->code }})                                                                
                                                          </a>
+                                                         - <span class="text-sm hover:overline" title='Student enrolment for course' style="cursor:pointer"> [{{ $exam_schedule->course->enrolment->enrolment }}]</span>
                                                          <div class="text-xs">
-                                                            {{ $exam_schedule->course->department->name}} ({{ $exam_schedule->course->code }})
+                                                            {{ $exam_schedule->course->department->name}} ({{ $exam_schedule->course->code }}), 
+                                                            {{ $exam_schedule->course->department->college->code }}
                                                         </div>
                                                     </td>
                                                     <td>        
@@ -115,14 +117,19 @@
                                                                     <span class='space-x-4'>
                                                                         @foreach($invigilators as $invigilator)
                                                                             @if (($invigilator->venue_id == $exam_schedule->venue->id) && ($invigilator->time_period_id == $exam_schedule->time_period_id))
-                                                                                <a href="#" class='hover:underline'>
+                                                                                <a href="{{ route('admin.profile.user_profile',['fileno' => $invigilator->invigilator->staff->fileno ]) }}" class='hover:underline'>
                                                                                     @php
                                                                                         $surname = $invigilator->invigilator->staff->surname;
                                                                                         $surname = ucwords(strtolower($surname))
                                                                                         
                                                                                     @endphp
-                                                                                    {{ $invigilator->invigilator->staff->staff_title->title }} {{$surname}} {{$invigilator->invigilator->staff->firstname}}
+                                                                                    {{ $invigilator->invigilator->staff->staff_title->title }} 
+                                                                                    {{$surname}} 
+                                                                                    {{$invigilator->invigilator->staff->firstname}} 
+
+                                                                                    - <span class='text-xs'>[ {{$invigilator->invigilator->staff->gender}}  ]</span>
                                                                                 </a>
+                                                                                
                                                                             @endif
                                                                         @endforeach 
                                                                     </span>                                                             
@@ -131,8 +138,8 @@
                                                                 <!-- end of Invigilators //-->
 
 
-                                                                <!-- Chief //-->
-                                                                @if ($chiefs->count())
+                                                                <!-- Chief  -->
+                                                                <!-- @if ($chiefs->count())
                                                                 <div class='flex flex-row space-x-4 py-1'>
                                                                     <span class='font-semibold'>Chief: </span>
                                                                     <span class='space-x-4'>
@@ -160,15 +167,15 @@
                                                                             @endforeach
                                                                         @endforeach
                                                                     </span>           
-                                                                </div>
-                                                                @endif
-                                                                <!-- end of Chief //-->
+                                                                </div> -->
+                                                                <!-- @endif -->
+                                                                <!-- end of Chief -->
 
 
                                                                 <!-- TIMTEC Member //-->
                                                                 @if($timtec_members->count())
                                                                 <div class='flex flex-row space-x-4 py-0'>
-                                                                    <span class='font-semibold'>Timtec Member: </span>
+                                                                    <span class='font-semibold'>Timtec Observers: </span>
                                                                     <span class='space-x-4'>
                                                                             @foreach($timtec_members as $timtec_member)
                                                                                 @php

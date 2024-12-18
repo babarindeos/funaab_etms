@@ -37,7 +37,7 @@
                                 >
                         <thead>
                             <tr class="bg-gray-200">
-                                <th width='7%' class="text-center font-semibold py-2">SN</th>
+                                <th width='7%' class="text-center font-semibold py-3">SN</th>
                                 <th class="font-semibold py-2 text-left">Staff No</th>
                                 <th class="font-semibold py-2 text-left">Full name</th>                    
                                 <th class="font-semibold py-2 text-left">Department</th>
@@ -54,10 +54,12 @@
 
                                 @foreach ($staffs as $staff)
                                     <tr class="border border-b border-gray-200 ">
-                                        <td class='text-center py-4'>{{ ++$counter }}.</td>
+                                        <td class='text-center py-6'>{{ ++$counter }}.</td>
                                         <td>{{ $staff->fileno }}</td>
                                         <td>
-                                            {{ $staff->surname }} {{ $staff->firstname }} {{ $staff->middlename }}
+                                            <a class='hover:underline' href="{{ route('admin.profile.user_profile',['fileno'=>$staff->fileno]) }}">
+                                                {{ $staff->surname }} {{ $staff->firstname }} {{ $staff->middlename }}
+                                            </a>
                                             <div class='text-xs'>
                                                     @if ( $staff->profile != null)
                                                         {{ $staff->profile->designation }}
@@ -67,7 +69,9 @@
                                         </td>
 
                                         <td>
-                                                {{ $staff->department->name }} ({{$staff->department->code}})
+                                                <a class='hover:underline' href="{{ route('admin.departments.show',['department'=>$staff->department_id]) }}">
+                                                    {{ $staff->department->name }} ({{$staff->department->code}})
+                                                </a>
                                         </td>
                                         <td class="text-center">
                                             <span class="px-1">

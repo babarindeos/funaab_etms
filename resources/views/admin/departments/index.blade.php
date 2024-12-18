@@ -43,7 +43,7 @@
                                 >
                         <thead>
                             <tr class="bg-gray-200">
-                                <th width='10%' class="text-center font-semibold py-2">SN</th>
+                                <th width='10%' class="text-center font-semibold py-4">SN</th>
                                 <th width='35%' class="font-semibold py-2 text-left">Name</th>                                
                                 <th width='10%' class="font-semibold py-2 text-left">Code</th>
                                 <th width='25%' class="font-semibold py-2 text-left">HOD</th>
@@ -57,7 +57,7 @@
 
                                 @foreach ($departments as $department)
                                 <tr class="border border-b border-gray-200">
-                                    <td class='text-center py-4'>{{ ++$counter }}.</td>
+                                    <td class='text-center py-8'>{{ ++$counter }}.</td>
                                     <td>
                                         <a class="hover:underline" href="{{ route('admin.departments.show', ['department'=>$department->id]) }}">
                                             {{ $department->name }} 
@@ -65,7 +65,7 @@
 
                                         <div>
                                             <small>
-                                                {{ $department->college->name }}   
+                                                {{ $department->college->name }}, {{ $department->college->code }}   
                                             </small>
                                         </div>
                                         

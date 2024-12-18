@@ -33,7 +33,7 @@
                         
                         <div class="mb-4  mx-[10%] md:mx-0 ">
                                 <div class="text-xl font-semibold">
-                                        {{ $userprofile->user->surname }} {{ $userprofile->user->firstname }} {{ $userprofile->user->middlename }}                                
+                                        {{ $userprofile->user->staff->staff_title->title }} {{ ucfirst(strtolower($userprofile->user->staff->surname)) }} {{ $userprofile->user->staff->firstname }} {{ $userprofile->user->staff->middlename }}                                
                                 </div>
                                 @if ($userprofile->user->profile != null)
                                         <div class="text-sm">

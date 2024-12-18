@@ -58,7 +58,9 @@
                                                                             
                                                                             <option value=''>-- Select Timtec Member --</option>
                                                                             @foreach($timtec_members as $timtec)
-                                                                                    <option class='py-4' value="{{$timtec->user->id}}" >{{ $timtec->user->surname }} {{ $timtec->user->firstname }} ({{ $timtec->user->staff->fileno }})</option>
+                                                                                    <option class='py-4' value="{{$timtec->user->id}}" >
+                                                                                        {{ $timtec->user->staff->staff_title->title }} {{ ucfirst(strtolower($timtec->user->staff->surname)) }} {{ $timtec->user->staff->firstname }} ({{ $timtec->user->staff->fileno }})
+                                                                                    </option>
                                                                                 
 
                                                                                 @endforeach               
@@ -202,7 +204,7 @@
                         <table class="table-auto border-collapse border border-1 border-gray-200" >
                                         <thead>
                                             <tr class="bg-gray-200">
-                                                <th width='5%' class="text-center font-semibold py-2">SN</th>
+                                                <th width='5%' class="text-center font-semibold py-4">SN</th>
                                                 <th width='25%' class="font-semibold py-2 text-left">Timtec Member</th> 
                                                 <th width='20%' class="font-semibold py-2 text-left">Venue Category Group</th> 
                                                 <th width='20%' class="font-semibold py-2 text-left">Time Period</th>                                      
@@ -216,16 +218,20 @@
 
                                                 @foreach ($timtec_day_exams as $timtec_allocation)
                                                 <tr class="border border-b border-gray-200">
-                                                    <td class='text-center py-4'>{{ ++$counter }}.</td>
+                                                    <td class='text-center py-8'>{{ ++$counter }}.</td>
                                                     <td>        
-                                                            <a href="#" class="hover:underline">                                
-                                                                {{ $timtec_allocation->timtec_member->staff->surname }} {{ $timtec_allocation->timtec_member->staff->firstname }} ({{ $timtec_allocation->timtec_member->staff->fileno }})                                    
-                                                            </a>         
+                                                            <a href="{{ route('admin.profile.user_profile',['fileno' => $timtec_allocation->timtec_member->staff->fileno ]) }}" class="hover:underline">                                
+                                                                {{ $timtec_allocation->timtec_member->staff->staff_title->title }} {{ ucfirst(strtolower($timtec_allocation->timtec_member->staff->surname)) }} {{ $timtec_allocation->timtec_member->staff->firstname }} ({{ $timtec_allocation->timtec_member->staff->fileno }})                                    
+                                                            </a>  
+                                                            - <span class='text-xs hover:overline' style='cursor:pointer' title='Gender'> [ {{ $timtec_allocation->timtec_member->staff->gender }} ]</span>
+                                                            <div class='text-xs'>
+                                                                {{ $timtec_allocation->timtec_member->staff->department->code }},  {{ $timtec_allocation->timtec_member->staff->department->college->code }}
+                                                            </div>       
                                                                               
                                                         
                                                     </td>
                                                     <td>
-                                                            <a href="#" class="hover:underline">                                
+                                                            <a href="{{ route('admin.venue_categories_group.show',['group'=>$timtec_allocation->venue_category_group->id]) }}" class="hover:underline">                                
                                                                 {{ $timtec_allocation->venue_category_group->name }}                                                   
                                                             </a>  
                                                             <div class='text-sm'>

@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('announcements', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('cell_id');
-            $table->foreign('cell_id')->references('id')->on('cells')->onDelete('cascade');
             $table->string('subject');
             $table->text('message');
             $table->string('link')->nullable();

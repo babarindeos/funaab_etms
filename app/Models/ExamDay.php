@@ -15,4 +15,5 @@ class ExamDay extends Model
     {
         return $this->belongsTo(Exam::class, 'exam_id', 'id');
     }
+
 }

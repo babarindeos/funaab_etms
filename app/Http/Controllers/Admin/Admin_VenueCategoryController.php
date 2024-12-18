@@ -107,6 +107,12 @@ class Admin_VenueCategoryController extends Controller
     }
 
 
+    public function show(VenueCategory $category)
+    {
+        
+        return view('admin.venue_categories.show')->with('venue_category', $category);
+    }
+
     public function confirm_delete(VenueCategory $venue_category)
     {
         return view('admin.venue_categories.confirm_delete', compact('venue_category'));
