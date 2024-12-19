@@ -86,6 +86,7 @@ use App\Http\Controllers\Staff\Staff_CircleController;
 use App\Http\Controllers\Staff\Staff_CircleGeneralRoomController;
 use App\Http\Controllers\Staff\Staff_CircleTeamController;
 use App\Http\Controllers\Staff\Staff_CircleAnnouncementController;
+use App\Http\Controllers\Staff\Staff_InvigilationController;
 
 
 
@@ -270,7 +271,9 @@ Route::prefix('staff')->middleware(['auth', 'staff'])->group(function(){
 
 
     //My Invigilation
-    //Route::get('exams/invigilations/{invigilation}/my_schedule')
+    Route::get('exams/current_session/exams', [Staff_InvigilationController::class, 'select_exam'])->name('staff.exams.current_session.exams');
+    Route::get('exams/{exam}/invigilations/my_schedule', [Staff_InvigilationController::class, 'get_my_schedule'])->name('staff.exams.invigilations.my_schedule');
+    
 });
 
 

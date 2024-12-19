@@ -15,4 +15,9 @@ class Semester extends Model
     {
         return $this->belongsTo(AcademicSession::class, 'academic_session_id', 'id');
     }
+
+    public function exams()
+    {
+        return $this->hasMany(Exam::class, 'semester_id', 'id');
+    }
 }

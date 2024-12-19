@@ -56,23 +56,25 @@ class Staff_DashboardController extends Controller
         // get current academic_session
         $current_semester = AcademicSessionClass::getCurrentSemester();
 
-        $invigilator = null;
+
+
+        $invigilation = null;
         $chief = null;
         $timtec = null;
         
         if ($current_semester != null)
         {
-                $invigilator = InvigilatorAllocation::where('semester_id', $current_semester->id)
+                $invigilation = InvigilatorAllocation::where('semester_id', $current_semester->id)
                                             ->where('invigilator_id', Auth::user()->id)
                                             ->orderBy('exam_day_id', 'asc')
                                             ->orderBy('time_period_id', 'asc')
                                             ->get();
                 
-                $chief = ChiefAllocation::where('semester_id', $current_semester->id)
+              /*   $chief = ChiefAllocation::where('semester_id', $current_semester->id)
                                             ->where('chief_id', Auth::user()->id)
                                             ->orderBy('exam_day_id', 'asc')
                                             ->orderBy('time_period_id', 'asc')
-                                            ->get();
+                                            ->get(); */
 
                 $timtec = TimtecAllocation::where('semester_id', $current_semester->id)
                                             ->where('timtec_member_id', Auth::user()->id)
@@ -81,14 +83,14 @@ class Staff_DashboardController extends Controller
                                             ->get();
         }      
 
+       
 
         
         return view('staff.dashboard', compact('workflow_notifications', 
                                                'recent_workflows', 
                                                'private_message_notifications',
                                                'current_semester',
-                                               'invigilator',
-                                               'chief',
+                                               'invigilation',
                                                'timtec'));
 
     }

@@ -1,19 +1,11 @@
 <section class="flex flex-col md:flex-row md:space-x-4">
-    @if ($invigilator != null)
-        <a href="{{ route('staff.documents.mydocuments') }}" class="border border-green-600 py-2 px-4 rounded-md mt-1 font-semibold 
+    @if ($invigilation != null)
+        <a href="{{ route('staff.exams.current_session.exams') }}" class="border border-green-600 py-2 px-4 rounded-md mt-1 font-semibold 
                     hover:bg-green-600 hover:text-white hover:shadow-md">
                 My Invigilation
         </a>
     @endif
 
-    @if ($chief != null)
-
-        <a href="#" class="border border-green-600 py-2 px-4 rounded-md mt-1 font-semibold 
-                        hover:bg-green-600 hover:text-white hover:shadow-md">
-                Chief Invigilation
-        </a>
-
-    @endif
 
 
     @if ($timtec != null)
