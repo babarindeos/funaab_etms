@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\CourseEnrolment;
+use App\Http\Classes\AcademicSessionClass;
 
 class Admin_CourseEnrolmentController extends Controller
 {
@@ -17,20 +18,22 @@ class Admin_CourseEnrolmentController extends Controller
 
     public function set_enrolment(Request $request, Course $course)
     {
-
+    
         $formFields = $request->validate([
-            'semester_id' => 'required',
             'enrolment' => 'required'
         ]);
         
+        $semester = AcademicSessionClass::getCurrentSemester();       
         
         $formFields['course_id'] = $course->id;
         $formFields['enrolment'] = $request->enrolment;
+        $formFields['semester_id'] = $semester->id;
+        
 
         try
         {
             //get CourseEnrolment
-            $course_enrolment = CourseEnrolment::where('semester_id', $request->semester_id)
+            $course_enrolment = CourseEnrolment::where('semester_id', $semester->id)
                                                 ->where('course_id', $course->id)
                                                 ->first();
             

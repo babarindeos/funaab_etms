@@ -283,12 +283,15 @@
                                                 @foreach ($scheduled_day_exams as $day_exam)
                                                 <tr class="border border-b border-gray-200">
                                                     <td class='text-center py-8'>{{ ++$counter }}.</td>
-                                                    <td>        
+                                                    <td class='py-4'>        
                                                             <a href="{{ route('admin.courses.show', ['course' => $day_exam->course->id]) }}" class="hover:underline">                                
-                                                                    {{ $day_exam->course->title }}  ({{ $day_exam->course->code }}) </a> - 
-                                                                    <span class='text-sm'>[enrolment: {{ $day_exam->course->enrolment->enrolment }} ]</span>                                                  
+                                                                    {{ $day_exam->course->title }}  ({{ $day_exam->course->code }}) </a> 
+                                                                    <span class='text-sm'>@if ($day_exam->course->enrolment != null) -  [enrolment: {{ $day_exam->course->enrolment->enrolment }}] @endif</span>                                                  
                                                                      
-                                                                              
+                                                             <div class='py-2'>
+                                                                <a class='text-xs py-1 px-4 border border-green-500 rounded-md hover:bg-green-500 hover:text-white' href=''>
+                                                                    Invigilator Allocation</a> 
+                                                            </div>
                                                         
                                                     </td>
                                                     <td>

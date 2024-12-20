@@ -88,6 +88,10 @@ use App\Http\Controllers\Staff\Staff_CircleTeamController;
 use App\Http\Controllers\Staff\Staff_CircleAnnouncementController;
 use App\Http\Controllers\Staff\Staff_InvigilationController;
 
+use App\Http\Controllers\Staff\Staff_LiveChatController;
+use App\Http\Controllers\Staff\Staff_ReportController;
+use App\Http\Controllers\Staff\Staff_MalpracticeController;
+
 
 
 
@@ -274,6 +278,21 @@ Route::prefix('staff')->middleware(['auth', 'staff'])->group(function(){
     Route::get('exams/current_session/exams', [Staff_InvigilationController::class, 'select_exam'])->name('staff.exams.current_session.exams');
     Route::get('exams/{exam}/invigilations/my_schedule', [Staff_InvigilationController::class, 'get_my_schedule'])->name('staff.exams.invigilations.my_schedule');
     
+
+    // Exam Live Chat
+    Route::get('exams/{exam}/live_chat', [Staff_LiveChatController::class, 'index'])->name('staff.exams.live_chat');
+    Route::post('exams/{exam}/live_chat', [Staff_LiveChatController::class, 'store'])->name('staff.exams.live_chat.store');
+    Route::delete('exams/{comment}/live_chat', [Staff_LiveChatController::class, 'destroy'])->name('staff.exams.live_chat.delete');
+
+
+    // Exam Report
+    Route::get('exams/{exam}/exam_schedules/{exam_schedule}/report/create', [Staff_ReportController::class, 'create'])->name('staff.exams.exam_schedules.report.create');
+    Route::post('exams/{exam}/exam_schedules/{exam_schedule}/report/store', [Staff_ReportController::class, 'store'])->name('staff.exams.exam_schedules.report.store');
+
+
+    // Malpractice
+    Route::get('exams/{exam}/exam_schedules/{exam_schedule}/malpractice/create', [Staff_MalpracticeController::class, 'create'])->name('staff.exams.exam_schedules.malpractice.create');
+    Route::post('exams/{exam}/exam_schedules/{exam_schedule}/malpractice/store', [Staff_MalpracticeController::class, 'store'])->name('staff.exams.exam_schedules.malpractice.store');
 });
 
 

@@ -39,8 +39,47 @@
 
 
                         @include('partials._session_response')
+
+                                 <!-- Exam Schedules //-->
+                                 <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2">
+                                        
                                     
-                                <!-- Course //-->
+                                
+                                            <select name="scheduled_exam" class="border border-1 border-gray-400 bg-gray-50
+                                                                                w-full p-4 rounded-md 
+                                                                                focus:outline-none
+                                                                                focus:border-blue-500 
+                                                                                focus:ring
+                                                                                focus:ring-blue-100"                                                                                                                                                                                                                                                                                                                                                
+                                                                                
+                                                                                style="font-family:'Lato';font-size:16px;font-weight:500;"
+                                                                                required
+                                                                                >
+                                                                                
+                                                                                <option value=''>-- Scheduled Examinations --</option>
+                                                                                    @foreach($exam_schedules as $exam_schedule)
+                                                                                        <option class='py-4' value="{{$exam_schedule->id}}" >{{ $exam_schedule->course->code }} - {{ $exam_schedule->time_period->name }} 
+                                                                                            ({{ \Carbon\Carbon::parse($exam_schedule->time_period->start_time)->format('g:i a') }} - 
+                                                                                            {{ \Carbon\Carbon::parse($exam_schedule->time_period->end_time)->format('g:i a') }})
+                                                                                        </option>
+                                                                                    
+    
+                                                                                    @endforeach               
+                                                                                                                         
+                                                                                </select>
+    
+                                                                                @error('scheduled_exam')
+                                                                                    <span class="text-red-700 text-sm">
+                                                                                        {{$message}}
+                                                                                    </span>
+                                                                                @enderror
+                                        
+                                </div>
+                                    
+                                <!-- end of Exam Schedules //-->  
+                                   
+                                    
+                                <!-- Invigilator //-->
                                 <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2">
                                         
                                     
@@ -73,77 +112,9 @@
                                     
                                 </div>
                                 
-                                <!-- end of Course //-->  
+                                <!-- end of Invigilator //-->  
                                  
                                 
-                                <!-- Venue //-->
-                                <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2">
-                                        
-                                    
-                                
-                                    <select name="venue" class="border border-1 border-gray-400 bg-gray-50
-                                                                            w-full p-4 rounded-md 
-                                                                            focus:outline-none
-                                                                            focus:border-blue-500 
-                                                                            focus:ring
-                                                                            focus:ring-blue-100"                                                                                                                                                                                                                                                                                                                                                
-                                                                            
-                                                                            style="font-family:'Lato';font-size:16px;font-weight:500;"
-                                                                            required
-                                                                            >
-                                                                            
-                                                                            <option value=''>-- Select Venue --</option>
-                                                                                @foreach($venues as $venue)
-                                                                                    <option class='py-4' value="{{$venue->id}}" >{{$venue->name}} ({{ $venue->venue_type->name }}: {{$venue->student_capacity}} student caps) - {{$venue->venue_category->name}}</option>
-                                                                                @endforeach                                      
-                                                                            </select>
-
-                                                                            @error('venue')
-                                                                                <span class="text-red-700 text-sm">
-                                                                                    {{$message}}
-                                                                                </span>
-                                                                            @enderror
-                                    
-                                </div>
-                                
-                                <!-- end of Venue //-->
-
-
-
-                                <!-- Time Period //-->
-                                <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2">
-                                        
-                                    
-                                
-                                    <select name="time_period" class="border border-1 border-gray-400 bg-gray-50
-                                                                            w-full p-4 rounded-md 
-                                                                            focus:outline-none
-                                                                            focus:border-blue-500 
-                                                                            focus:ring
-                                                                            focus:ring-blue-100"                                                                                                                                                                                                                                                                                                                                                
-                                                                            
-                                                                            style="font-family:'Lato';font-size:16px;font-weight:500;"
-                                                                            required
-                                                                            >
-                                                                            
-                                                                            <option value=''>-- Select Time Period --</option>
-                                                                                @foreach($exam_time_periods as $time_period)
-                                                                                    <option class='py-4' value="{{$time_period->id}}" >
-                                                                                        {{$time_period->name}} 
-                                                                                        ({{ \Carbon\Carbon::parse($time_period->start_time)->format('g:i a') }} - {{\Carbon\Carbon::parse($time_period->end_time)->format('g:i a') }} ) 
-                                                                                    </option>
-                                                                                @endforeach                         
-                                                                            </select>
-
-                                                                            @error('time_period')
-                                                                                <span class="text-red-700 text-sm">
-                                                                                    {{$message}}
-                                                                                </span>
-                                                                            @enderror
-                                    
-                                </div>
-                                
-                                <!-- end of Time period //-->
                                         
                          
                                 <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] mt-4">

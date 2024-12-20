@@ -14,6 +14,7 @@ class InvigilatorAllocation extends Model
                            'exam_id', 
                            'exam_day_id', 
                            'invigilator_id', 
+                           'exam_schedule_id',
                            'venue_id', 
                            'time_period_id',
                            'user_id'
@@ -46,6 +47,6 @@ class InvigilatorAllocation extends Model
 
         public function exam_schedule()
         {
-            return $this->hasMany(ExamScheduler::class, 'exam_id', 'exam_id');
+            return $this->belongsTo(ExamScheduler::class, 'exam_schedule_id', 'id');
         }
 }

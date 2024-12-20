@@ -13,6 +13,7 @@ use App\Models\ExamTimePeriod;
 use App\Models\InvigilatorAllocation;
 use Illuminate\Support\Facades\Auth;
 use App\Models\AssignRole;
+use App\Models\ExamScheduler;
 
 
     // AssignRole model - assign_roles table
@@ -64,6 +65,13 @@ class Admin_InvigilatorAllocationController extends Controller
 
     public function allocator(ExamDay $exam_day)
     {
+        
+        $exam_schedules = ExamScheduler::where('exam_id', $exam_day->exam_id)
+                                       ->where('exam_day_id', $exam_day->id)
+                                       ->orderBy('time_period_id', 'asc')
+                                       ->get();
+        
+
         $invigilators = AssignRole::where('staff_role_id', '1')->get();
         $venues = Venue::orderBy('name', 'asc')->get();
         $exam_time_periods = ExamTimePeriod::orderBy('name', 'asc')->get();
@@ -80,6 +88,7 @@ class Admin_InvigilatorAllocationController extends Controller
         
         return view('admin.invigilator_allocations.allocator', compact('exam_day'))
                     ->with(['invigilators'=>$invigilators, 
+                            'exam_schedules'=>$exam_schedules,
                             'venues'=>$venues, 
                             'exam_time_periods'=>$exam_time_periods,
                             'invigilation_day_exams'=>$invigilation_day_exams,
@@ -93,24 +102,28 @@ class Admin_InvigilatorAllocationController extends Controller
     {
         $formFields = $request->validate([
             'invigilator' => 'required',
-            'venue' => 'required',
-            'time_period' => 'required'
+            'scheduled_exam' => 'required',
         ]);
+
+        $scheduled_exam = ExamScheduler::find($request->scheduled_exam);
+
+       
 
         $formFields['academic_session_id'] = $exam_day->exam->semester->academic_session->id;
         $formFields['semester_id'] = $exam_day->exam->semester->id;
         $formFields['exam_id'] = $exam_day->exam->id;
         $formFields['exam_day_id'] = $exam_day->id;
         $formFields['invigilator_id'] = $request->invigilator;
-        $formFields['venue_id'] = $request->venue;
-        $formFields['time_period_id'] = $request->time_period;
+        $formFields['exam_schedule_id'] = $scheduled_exam->id;
+        $formFields['venue_id'] = $scheduled_exam->venue_id;
+        $formFields['time_period_id'] = $scheduled_exam->time_period_id;
         $formFields['user_id'] = Auth::user()->id;
 
+        // check if the invigilator has been alloted to the same exam schedule
         $is_invigilator_alloted = InvigilatorAllocation::where('invigilator_id', $request->invigilator)
-                                                        ->where('exam_id', $exam_day->exam->id)
-                                                        ->where('exam_day_id', $exam_day->id)
-                                                        ->where('time_period_id', $request->time_period)
+                                                        ->where('exam_schedule_id', $scheduled_exam->id)
                                                         ->first();
+
         if ($is_invigilator_alloted)
         {
             $data = [
@@ -121,6 +134,25 @@ class Admin_InvigilatorAllocationController extends Controller
 
             return redirect()->back()->with($data);
         }
+
+
+        // check if the invigilator has been alloted to exams on the same day
+        $is_invigilator_alloted = InvigilatorAllocation::where('invigilator_id', $request->invigilator)
+                                                        ->where('exam_id', $exam_day->exam->id)
+                                                        ->where('exam_day_id', $exam_day->id)
+                                                        ->first();
+
+        if ($is_invigilator_alloted)
+        {
+            $data = [
+                'error' => true,
+                'status' => 'fail',
+                'message' => 'The invigilator has already been alloted to the venue ['. $is_invigilator_alloted->venue->name.'] on the same day'
+            ];
+
+            return redirect()->back()->with($data);
+        }
+
 
         try
         {

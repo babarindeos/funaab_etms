@@ -83,7 +83,9 @@
                                                          <a href="#" class='hover:underline'>
                                                                 {{ $exam_schedule->course->title }} ({{ $exam_schedule->course->code }})                                                                
                                                          </a>
-                                                         - <span class="text-sm hover:overline" title='Student enrolment for course' style="cursor:pointer"> [{{ $exam_schedule->course->enrolment->enrolment }}]</span>
+                                                         @if ($exam_schedule->course->enrolment != null)
+                                                            - <span class="text-sm hover:overline" title='Student enrolment for course' style="cursor:pointer"> [{{ $exam_schedule->course->enrolment->enrolment }}]</span>
+                                                         @endif
                                                          <div class="text-xs">
                                                             {{ $exam_schedule->course->department->name}} ({{ $exam_schedule->course->code }}), 
                                                             {{ $exam_schedule->course->department->college->code }}

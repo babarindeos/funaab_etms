@@ -73,11 +73,13 @@
                                     <tr class='border-0'>
                                         <td width='15%' class='text-center py-8 text-3xl w-[10%] md:w-[15%]'>{{ ++$counter }}.</td>
                                         <td>
-                                            <div class='text-2xl'>
-                                                {{ $invigilation->exam_day->name }}
-                                            </div>
-                                            <div class='text-xl font-semibold'>
-                                                {{ \Carbon\Carbon::parse($invigilation->exam_day->date)->format('l jS F, Y') }}
+                                            <div class='flex flex-col'>
+                                                <div class='text-2xl'>
+                                                    {{ $invigilation->exam_day->name }}
+                                                </div>
+                                                <div class='text-xl font-semibold'>
+                                                    {{ \Carbon\Carbon::parse($invigilation->exam_day->date)->format('l jS F, Y') }}
+                                                </div>
                                             </div>
 
                                         </td>
@@ -90,53 +92,60 @@
                                             <table width="100%" class="border-0">
                                                 <tbody>
                                                     <tr class='border-b'>
-                                                            <td width="50%" class='py-2'>
-                                                                <span class='text-lg'>
-                                                                    {{ $invigilation->venue->name}} 
-                                                                </span>
-                                                                <span class='text-sm'>
-                                                                    ({{ $invigilation->venue->venue_type->name}} :  
-                                                                    {{ $invigilation->venue->student_capacity}} students cap)
-                                                                    - <span class='text-xs'>{{$invigilation->venue->venue_category->name}}</span>
-                                                                </span>
+                                                            <td width="60%" class='py-2'>
+                                                                    <div class='border-0 flex flex-col md:flex-row'>
+                                                                            <div class='text-lg pr-2 border-0 flex-2'>
+                                                                                {{ $invigilation->venue->name}} 
+                                                                            </div>
+                                                                            <div class='flex flex-col md:flex-row text-sm border-0 md:items-center'>
+                                                                                <div class="">
+                                                                                    ({{ $invigilation->venue->venue_type->name}} :  
+                                                                                    {{ $invigilation->venue->student_capacity}} students cap)
+                                                                                </div>
+                                                                                <div class='flex flex-col text-sm px-1'> 
+                                                                                    -  {{$invigilation->venue->venue_category->name}}
+                                                                                </div>
+                                                                            </div>
+                                                                    </div>
                                                             </td>
-                                                            <td width="50%">
-                                                                    <span class='text-lg'>
-                                                                        {{ $invigilation->time_period->name }} 
-                                                                    </span>
-                                                                    ({{ \Carbon\Carbon::parse( $invigilation->time_period->start_time)->format('g:i a') }} - 
-                                                                    {{ \Carbon\Carbon::parse( $invigilation->time_period->end_time)->format('g:i a') }})
-
-                                                                    
+                                                            <td width="40%" class="border-0 flex flex-col w-full py-2">
+                                                                    <div class='flex flex-col md:flex-row md:items-center md:space-x-1 md:justify-start border-0'>
+                                                                            <div class='text-lg'>
+                                                                                {{ $invigilation->time_period->name }} 
+                                                                            </div>
+                                                                            <div>
+                                                                                ({{ \Carbon\Carbon::parse( $invigilation->time_period->start_time)->format('g:i a') }} - 
+                                                                                {{ \Carbon\Carbon::parse( $invigilation->time_period->end_time)->format('g:i a') }})
+                                                                            </div>
+                                                                    </div>                                                                    
                                                             </td>
 
                                                     </tr>
                                                     <tr>
                                                             <td class='py-2 pb-8'colspan="2">
-                                                                @foreach ($invigilation->exam_schedule as $exam_schedule)
-                                                                        @if (($exam_schedule->venue_id == $invigilation->venue_id) && ($exam_schedule->time_period_id == $invigilation->time_period_id))
-                                                                                {{ $exam_schedule->course->title }} ({{ $exam_schedule->course->code }})
-                                                                                <div class='text-xs'>
-                                                                                    {{ $exam_schedule->course->department->code  }}, 
-                                                                                    {{ $exam_schedule->course->department->college->code  }}
-                                                                                </div>
-                                                                        @endif
-                                                                @endforeach
+                                                                    {{ $invigilation->exam_schedule->course->title }} 
+                                                                    ({{ $invigilation->exam_schedule->course->code }})
+                                                                    <div class='text-xs'>
+                                                                                    {{ $invigilation->exam_schedule->course->department->code  }}, 
+                                                                                    {{ $invigilation->exam_schedule->course->department->college->code  }}
+                                                                    </div>
+
                                                             </td>
                                                     </tr>
                                                     <!-- buttons //-->
                                                      <tr>
                                                          <td class='py-2 pb-8'colspan="2">
                                                                     <div class='space-x-4 text-center'>
-                                                                         <button class='border rounded-md 
+
+                                                                         <a href="{{ route('staff.exams.live_chat', ['exam'=>$exam->id]) }}" class='border rounded-md 
                                                                                         px-4 py-1 text-sm border-green-400 
-                                                                                        hover:bg-green-400 hover:text-white'>Live Chat</button>
-                                                                         <button class='border rounded-md 
+                                                                                        hover:bg-green-400 hover:text-white'>Live Chat</a>
+                                                                         <a href="{{ route('staff.exams.exam_schedules.report.create',['exam'=>$exam->id,'exam_schedule'=>$invigilation->exam_schedule->id ]) }}" class='border rounded-md 
                                                                                         px-4 py-1 text-sm border-green-400 
-                                                                                        hover:bg-green-400 hover:text-white'>Report</button>
-                                                                         <button class='border rounded-md 
+                                                                                        hover:bg-green-400 hover:text-white'>Report</a>
+                                                                         <a href="{{ route('staff.exams.exam_schedules.malpractice.create', ['exam'=>$exam->id, 'exam_schedule'=>$invigilation->exam_schedule->id]) }}" class='border rounded-md 
                                                                                         px-4 py-1 text-sm border-green-400 
-                                                                                        hover:bg-green-400 hover:text-white'>Misconduct Incidence</button>
+                                                                                        hover:bg-green-400 hover:text-white'>Misconduct Incidence</a>
                                                                     </div>
 
                                                                     
@@ -169,6 +178,13 @@
                     </div>
                 </section>
         @endif
+
+    
+
+       
+
+        
+
         
 </div>
     

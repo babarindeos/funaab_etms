@@ -14,7 +14,7 @@
                     <!-- end of logo //-->
                     <!-- Name //-->
                     <div class="flex flex-col item-center justify-center">
-                            <div class="text-white font-bold text-2xl font-serif">ETMS</div>
+                            <div class="text-white font-bold text-2xl font-serif">ETMS <span class='text-sm'> - TIMTEC</span></div>
                             <div class="hidden md:block text-white font-semibold font-serif text-sn opacity-70">Federal University of Agriculture Abeokuta</div>
                                 
                     </div>
@@ -37,6 +37,10 @@
                             <a href='{{ route('staff.dashboard.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Announcements</a>
                               
                             <a href='{{ route('staff.dashboard.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Roster</a>
+
+                            <a href='{{ route('staff.dashboard.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Reports</a>
+                            
+                            <a href='{{ route('staff.dashboard.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Misconduct</a>
 
                             <a href='{{ route('staff.dashboard.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">HOD</a>
                             

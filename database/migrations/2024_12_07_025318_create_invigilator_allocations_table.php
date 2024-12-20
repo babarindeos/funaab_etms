@@ -18,6 +18,7 @@ return new class extends Migration
                 $table->unsignedBigInteger('exam_id');
                 $table->unsignedBigInteger('exam_day_id');
                 $table->unsignedBigInteger('invigilator_id');
+                $table->unsignedBigInteger('exam_schedule_id');
                 $table->unsignedBigInteger('venue_id');
                 $table->unsignedBigInteger('time_period_id');
                 $table->unsignedBigInteger('user_id');
@@ -46,6 +47,11 @@ return new class extends Migration
                 $table->foreign('invigilator_id')
                     ->references('id')
                     ->on('users')
+                    ->onDelete('cascade');
+
+                $table->foreign('exam_schedule_id')
+                    ->references('id')
+                    ->on('exam_schedulers')
                     ->onDelete('cascade');
 
                 $table->foreign('venue_id')
