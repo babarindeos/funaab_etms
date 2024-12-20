@@ -1,4 +1,4 @@
-<x-admin-layout>
+<x-staff-layout>
     <div class="flex flex-col w-full border-0 border-blue-900 mx-auto">
         <!-- page header //-->
         <section class="flex flex-col w-[95%] md:w-[95%] py-2 mt-6 px-2 md:px-4 border-0 border-red-900 mx-auto border border-1">
@@ -7,11 +7,7 @@
                     <div>
                         <h1 class="text-2xl font-semibold font-serif text-gray-800">Courses</h1>
                     </div>
-                    <div>
-                            <a href="{{ route('admin.courses.index') }}" class="bg-green-600 text-white py-2 px-4 
-                                            rounded-lg text-xs md:text-sm hover:bg-green-500"> Courses</a>
-
-                    </div>
+                    
             </div>
         </section>
         <!-- end of page header //-->
@@ -48,7 +44,7 @@
 
                     <!-- Course Lecturer Information //-->
                     <div class="border rounded-md w-full md:w-1/2 p-4">
-                            <div class="py-3 border-b text-lg font-medium">
+                            <div class="py-3 border-b font-medium text-lg">
                                 Course Lecturer ({{ $course->coordinators->count() }})
                             </div>
 
@@ -61,28 +57,29 @@
                                                             @endphp
                                                             <tr class='border-b'>
                                                                 <td width='10%' class='text-center py-4'> {{ ++$counter }}. </td>
-                                                                <td class="py-4">
+                                                                <td class='py-4'>
                                                                         <div class="flex flex-row ">
-                                                                                <div class="flex flex-col justify-center items-center 
-                                                                                                    border-0 px-8 py-4 rounded-md">
-                                                                                                <div class="">
-                                                                                                    @if ($coordinator->coordinator->staff->profile!=null && ($coordinator->coordinator->staff->profile->avatar != "" || $coordinator->coordinator->staff->profile->avatar != null))
-                                                                                                        <img src="{{ asset('storage/'.$coordinator->coordinator->staff->profile->avatar) }}" class="w-16 h-16 rounded-full" />
-                                                                                                    @else
-                                                                                                        <img src="{{ asset('images/avatar_150.jpg') }}" class="w-16 h-16" />
-                                                                                                    @endif
-                                                                                                </div>                                                                      
+                                                                                    <div class="flex flex-col justify-center items-center 
+                                                                                                border-0 px-8 py-4 rounded-md">
+                                                                                            <div class="">
+                                                                                                @if ($coordinator->coordinator->staff->profile!=null && ($coordinator->coordinator->staff->profile->avatar != "" || $coordinator->coordinator->staff->profile->avatar != null))
+                                                                                                    <img src="{{ asset('storage/'.$coordinator->coordinator->staff->profile->avatar) }}" class="w-16 h-16 rounded-full" />
+                                                                                                @else
+                                                                                                    <img src="{{ asset('images/avatar_150.jpg') }}" class="w-16 h-16" />
+                                                                                                @endif
+                                                                                            </div>                                                                      
 
-                                                                                </div>
-                                                                                <div class="flex border-0 items-center">
-                                                                                                <a class='hover:underline' href="{{ route('admin.profile.user_profile',['fileno'=>$coordinator->coordinator->staff->fileno]) }}">
-                                                                                                    {{ $coordinator->coordinator->staff->staff_title->title }} 
-                                                                                                    {{ ucfirst(strtolower($coordinator->coordinator->surname)) }}
-                                                                                                    {{ ucfirst(strtolower($coordinator->coordinator->firstname)) }} <br/>
-                                                                                                    ({{ ucfirst(strtolower($coordinator->coordinator->staff->fileno)) }})
-                                                                                                </a>
-                                                                                </div>
+                                                                                    </div>
+                                                                                    <div class="flex border-0 items-center">
+                                                                                            <a class='hover:underline' href="{{ route('staff.profile.email_user_profile',['email'=>$coordinator->coordinator->staff->user->email]) }}">
+                                                                                                {{ $coordinator->coordinator->staff->staff_title->title }} 
+                                                                                                {{ ucfirst(strtolower($coordinator->coordinator->surname)) }}
+                                                                                                {{ ucfirst(strtolower($coordinator->coordinator->firstname)) }} <br/>
+                                                                                                ({{ ucfirst(strtolower($coordinator->coordinator->staff->fileno)) }})
+                                                                                            </a>
+                                                                                    </div>
                                                                         </div>
+                                                                    
                                                                 </td>
                                                             </tr>
                                                     @endforeach                               
@@ -104,9 +101,9 @@
                                 @csrf
                                     <div class="py-3">
                                                     @include('partials._session_response')
-                                                    
-                                                    <div class="text-lg font-medium">
-                                                            Current Enrolment
+
+                                                    <div class="font-medium text-lg">
+                                                        Current Enrolment
                                                     </div>
                                                 
                                                         @foreach($current_session->semesters as $semester)
@@ -123,7 +120,7 @@
                                                     <div class="flex flex-row border-red-900 w-[80%] md:w-[40%] py-3 space-x-0">
                                                         
                                                             
-                                                        <input type="number" name="enrolment" class="border border-1 border-gray-400 bg-gray-50
+                                                        <input type="number" name="enrolment" disabled class="border border-1 border-gray-400 bg-gray-50
                                                                                                 w-full p-4 rounded-l-md 
                                                                                                 focus:outline-none
                                                                                                 focus:border-blue-500 
@@ -144,9 +141,7 @@
                                                                                                         {{$message}}
                                                                                                     </span>
                                                                                                 @enderror
-                                                                                    <button class="border px-4 bg-gray-400 hover:bg-gray-500 text-white rounded-r">
-                                                                                            Submit
-                                                                                    </button>
+                                                                                  
                                                         
                                                     </div><!-- end of course title //-->
 
@@ -208,7 +203,7 @@
         
         
     </div>
-</x-admin-layout>
+</x-staff-layout>
 
 <script>
     $(document).ready(function(){

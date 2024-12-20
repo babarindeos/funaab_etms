@@ -32,18 +32,19 @@
                     @auth
                         @if (Auth::user()->role==='staff')
 
-                            <a href='{{ route('staff.dashboard.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Dashboard</a>
+                            <a href="{{ route('staff.dashboard.index') }}" class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Dashboard</a>
 
-                            <a href='{{ route('staff.dashboard.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Announcements</a>
+                            <a href="{{ route('staff.announcements.index') }}" class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Announcements</a>
                               
-                            <a href='{{ route('staff.dashboard.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Roster</a>
+                            <a href="{{ route('staff.dashboard.index') }}" class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Roster</a>
 
-                            <a href='{{ route('staff.dashboard.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Reports</a>
+                            <a href="{{ route('staff.exams.reports.index') }}" class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Reports</a>
                             
-                            <a href='{{ route('staff.dashboard.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Misconduct</a>
+                            <a href="{{ route('staff.exams.malpractice.index') }}" class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">Misconduct</a>
 
-                            <a href='{{ route('staff.dashboard.index') }}' class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">HOD</a>
-                            
+                            @if (Auth::user()->hod != null)
+                                <a href="{{ route('staff.hod.department.index') }}" class="flex font-semibold items-center text-white hover:border-b-yellow-100 hover:border-b-4 mx-2 ">HOD</a>
+                            @endif
                             
                             <div class="relative group flex">
                                 <button class="text-white px-1 py-2 rounded-md font-semibold flex items-center">

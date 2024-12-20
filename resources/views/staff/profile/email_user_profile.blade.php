@@ -41,7 +41,7 @@
                             
                             <div class="mb-4  mx-[10%] md:mx-0 ">
                                     <div class="text-xl font-semibold">
-                                            {{ $userprofile->staff->surname }} {{ $userprofile->staff->firstname }} {{ $userprofile->staff->middlename }}                                
+                                            {{ $userprofile->staff->staff_title->title }} {{ ucfirst(strtolower($userprofile->staff->surname)) }} {{ $userprofile->staff->firstname }} {{ $userprofile->staff->middlename }}                                
                                     </div>
                                     <div class="text-sm">
                                             {{ $userprofile->profile->designation}}
@@ -68,19 +68,9 @@
                                     <div class="font-semibold py-1">
                                         Work Circles
                                     </div>
-                                    @if ($userprofile->circle->count())
-                                
-                                        @foreach($userprofile->circle as $circle)
-                                           <div>
-                                                {{ $circle->cell->name }} ({{$circle->cell->code}})
-                                           </div>
-                                        @endforeach
-                                    @else
-                                        <div>
-                                                Currently in no Work Circle
-                                        </div>                                        
-                                    @endif                  
-                            </div>
+                                    {{ $userprofile->staff->department->name }}  ({{ $userprofile->staff->department->code }}) <br/>
+                                    {{ $userprofile->staff->department->college->name }} ( {{ $userprofile->staff->department->college->code }})  
+                            </div> 
 
 
                             

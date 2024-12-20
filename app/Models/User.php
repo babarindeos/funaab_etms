@@ -70,5 +70,15 @@ class User extends Authenticatable
         return $this->hasOne(AnnouncementPermissions::class, 'user_id', 'id');
     }
 
+    public function hod()
+    {
+        return $this->hasOne(Hod::class,'user_id','id');
+        
+    }
+
+    public function coordinator()
+    {
+        return $this->hasMany(CourseCoordinator::class, 'user_id', 'id');
+    }
     
 }

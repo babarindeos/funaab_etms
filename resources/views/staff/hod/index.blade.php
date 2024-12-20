@@ -1,4 +1,4 @@
-<x-admin-layout>
+<x-staff-layout>
     <div class="flex flex-col w-full border-0 border-blue-900 mx-auto">
         <!-- page header //-->
         <section class="flex flex-col w-[95%] md:w-[95%] py-2 mt-6 px-2 md:px-4 border-0 border-red-900 mx-auto border border-1">
@@ -7,11 +7,7 @@
                     <div>
                         <h1 class="text-2xl font-semibold font-serif text-gray-800">Department</h1>
                     </div>
-                    <div>
-                            <a href="{{ route('admin.colleges.index') }}" class="bg-green-600 text-white py-2 px-4 
-                                            rounded-lg text-xs md:text-sm hover:bg-green-500"> Departments</a>
-
-                    </div>
+                    
             </div>
         </section>
         <!-- end of page header //-->
@@ -39,7 +35,7 @@
 
                     <!-- Department Information //-->
                     <div class="border rounded-md w-full md:w-1/2 p-4">
-                            <div class="py-3 border-b text-lg font-medium">
+                            <div class="py-3 border-b font-medium text-lg">
                                 Staff ({{ $department->staff->count() }})
                             </div>
 
@@ -53,7 +49,7 @@
                                                 <tr class='border-b'>
                                                     <td width='10%' class='text-center py-4'> {{ ++$counter }}. </td>
                                                     <td>
-                                                            <div class="flex flex-row ">
+                                                        <div class="flex flex-row ">
                                                                 <div class="flex flex-col justify-center items-center 
                                                                             border-0 px-8 py-4 rounded-md">
                                                                         <div class="">
@@ -66,15 +62,14 @@
 
                                                                 </div>
                                                                 <div class="flex border-0 items-center">
-
-                                                                        <a class='hover:underline' href="{{ route('admin.profile.user_profile', ['fileno' => $person->fileno]) }}">
-                                                                            {{ $person->staff_title->title }} 
-                                                                            {{ ucfirst(strtolower($person->surname )) }} 
-                                                                            {{ $person->firstname }} <br/>
-                                                                            ({{ $person->fileno }})
+                                                                        <a class='hover:underline' href="{{ route('staff.profile.email_user_profile', ['email' => $person->user->email]) }}">
+                                                                            {{ $person->staff_title->title }} {{ ucfirst(strtolower($person->surname )) }} {{ $person->firstname }} 
+                                                                            <div>
+                                                                                ({{ $person->fileno }})
+                                                                            </div>
                                                                         </a>
                                                                 </div>
-                                                            </div>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                         @endforeach                               
@@ -90,7 +85,7 @@
 
                     <!-- Enrollment //-->
                     <div class="border rounded-md w-full md:w-1/2 p-4">
-                            <div class="py-3 border-b text-lg font-medium">
+                            <div class="py-3 border-b font-medium text-lg">
                                 Courses ({{ $department->staff->count() }})
                             </div>
 
@@ -105,7 +100,7 @@
                                                             <tr class='border-b'>
                                                                 <td width='10%' class='text-center py-4'> {{ ++$counter }}. </td>
                                                                 <td>
-                                                                    <a class='hover:underline' href="{{ route('admin.courses.show', ['course' => $course->id]) }}">
+                                                                    <a class='hover:underline' href="{{ route('staff.hod.department.course.show', ['course' => $course->id]) }}">
                                                                         {{ $course->title }} ({{ $course->code }})
                                                                     </a>
                                                                 </td>
@@ -136,5 +131,5 @@
         
         
     </div>
-</x-admin-layout>
+</x-staff-layout>
 

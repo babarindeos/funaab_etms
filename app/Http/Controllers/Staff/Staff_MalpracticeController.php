@@ -7,11 +7,22 @@ use Illuminate\Http\Request;
 use App\Models\Exam;
 use App\Models\ExamScheduler;
 use App\Models\Malpractice;
+use Illuminate\Support\Facades\Auth;
 
 
 class Staff_MalpracticeController extends Controller
 {
     //
+    public function index()
+    {
+            $misconducts = Malpractice::where('user_id', Auth::user()->id)
+                                         ->orderBy('created_at', 'desc')
+                                         ->paginate(10);
+
+            return view('staff.malpractice.index', compact('misconducts'));
+    }
+
+
     public function create(Exam $exam, ExamScheduler $exam_schedule)
     {
             return view('staff.malpractice.create', compact('exam','exam_schedule'));
@@ -84,5 +95,7 @@ class Staff_MalpracticeController extends Controller
 
             return redirect()->back()->with($data);
     }
+
+   
 
 }

@@ -1,7 +1,7 @@
 <x-staff-layout>
 
 <div class="flex flex-col border-0 w-[95%] mx-auto">
-    <section class="border-b border-gray-200 py-2 mt-2">
+    <section class="border-b border-gray-200 py-2 mt-4 mb-2">
             <div class="text-2xl font-semibold ">
                 Dashboard                
             </div>
@@ -11,7 +11,7 @@
                         $surname = ucfirst(strtolower(Auth::user()->surname))
                     @endphp
 
-                    Welcome {{ $surname }} {{ Auth::user()->firstname}}
+                    Welcome {{ Auth::user()->staff->staff_title->title }} {{ $surname }} {{ Auth::user()->firstname}}
                 @endif
             </div>
     </section>

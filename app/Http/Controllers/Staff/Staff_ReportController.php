@@ -12,6 +12,15 @@ use Illuminate\Support\Facades\Auth;
 class Staff_ReportController extends Controller
 {
     //
+    public function index()
+    {
+        $my_reports = Report::where('user_id', Auth::user()->id)
+                            ->orderBy('created_at', 'desc')
+                            ->paginate(10);
+
+        return view('staff.reports.index', compact('my_reports'));
+    }
+
     public function create(Exam $exam, ExamScheduler $exam_schedule)
     {
     

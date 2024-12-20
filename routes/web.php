@@ -92,6 +92,11 @@ use App\Http\Controllers\Staff\Staff_LiveChatController;
 use App\Http\Controllers\Staff\Staff_ReportController;
 use App\Http\Controllers\Staff\Staff_MalpracticeController;
 
+use App\Http\Controllers\Staff\Staff_AnnouncementController;
+
+use App\Http\Controllers\Staff\Staff_HodController;
+use App\Http\Controllers\Staff\Staff_CourseController;
+
 
 
 
@@ -285,14 +290,37 @@ Route::prefix('staff')->middleware(['auth', 'staff'])->group(function(){
     Route::delete('exams/{comment}/live_chat', [Staff_LiveChatController::class, 'destroy'])->name('staff.exams.live_chat.delete');
 
 
+
     // Exam Report
+    Route::get('exams/reports', [Staff_ReportController::class, 'index'])->name('staff.exams.reports.index');
+    Route::get('exams/reports/show', [Staff_ReportController::class, 'show'])->name('staff.exams.reports.show');
     Route::get('exams/{exam}/exam_schedules/{exam_schedule}/report/create', [Staff_ReportController::class, 'create'])->name('staff.exams.exam_schedules.report.create');
     Route::post('exams/{exam}/exam_schedules/{exam_schedule}/report/store', [Staff_ReportController::class, 'store'])->name('staff.exams.exam_schedules.report.store');
 
 
     // Malpractice
+    Route::get('exams/malpractice', [Staff_MalpracticeController::class, 'index'])->name('staff.exams.malpractice.index');
+    Route::get('exams/malpractice/show', [Staff_MalpracticeController::class, 'show'])->name('staff.exams.malpractice.show');
     Route::get('exams/{exam}/exam_schedules/{exam_schedule}/malpractice/create', [Staff_MalpracticeController::class, 'create'])->name('staff.exams.exam_schedules.malpractice.create');
     Route::post('exams/{exam}/exam_schedules/{exam_schedule}/malpractice/store', [Staff_MalpracticeController::class, 'store'])->name('staff.exams.exam_schedules.malpractice.store');
+
+
+    // Announcement
+    Route::get('announcements', [Staff_AnnouncementController::class, 'index'])->name('staff.announcements.index');
+    Route::get('announcements/{announcement}/show', [Staff_AnnouncementController::class, 'show'])->name('staff.announcements.show');
+
+    Route::post('announcements/{announcement}/comments/store', [Staff_AnnouncementController::class, 'store_comment'])->name('staff.announcements.comments.store');
+    Route::delete('announcements/{comment}/comments/delete', [Staff_AnnouncementController::class, 'delete_comment'])->name('staff.announcements.comments.delete_comment');
+   
+
+    // HOD
+    Route::get('users/hod/my_department', [Staff_HodController::class, 'index'])->name('staff.hod.department.index');
+    Route::get('users/hod/department/courses/{course}/show', [Staff_CourseController::class, 'show'])->name('staff.hod.department.course.show');
+
+    Route::get('users/courses/my_courses', [Staff_CourseController::class, 'my_courses'])->name('staff.courses.my_courses');
+    
+    // 
+
 });
 
 
