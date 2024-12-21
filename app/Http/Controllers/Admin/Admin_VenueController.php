@@ -8,6 +8,7 @@ use App\Models\Venue;
 use App\Models\VenueType;
 use App\Models\VenueCategory;
 
+
 class Admin_VenueController extends Controller
 {
     //
@@ -138,5 +139,10 @@ class Admin_VenueController extends Controller
     public function destroy(Venue $venue)
     {
         
+    }
+
+    public function show(Venue $venue)
+    {
+        return view('admin.venues.show', compact('venue'));
     }
 }

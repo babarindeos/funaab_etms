@@ -53,7 +53,7 @@ class Admin_TimtecAllocationController extends Controller
 
     public function allocator(ExamDay $exam_day)
     {
-        $timtec_members = AssignRole::where('staff_role_id', '3')->get();
+        $timtec_members = AssignRole::where('staff_role_id', '2')->get();
         $venue_category_groups = VenueCategoryGroup::orderBy('name', 'asc')->get();
         $exam_time_periods = ExamTimePeriod::orderBy('name', 'asc')->get();
 

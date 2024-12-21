@@ -56,7 +56,7 @@
              <!-- Added Venue Categories //-->
              <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-0 border-0 mt-4">
                 
-                <div class="flex flex-row w-full py-1 border-b">
+                <div class="flex flex-row w-full py-2 border-b text-lg">
                     Added Categories ({{ $added_categories->count() }})
                 </div>
 
@@ -66,22 +66,45 @@
                                     $counter = 0;
                                 @endphp
 
-                                @foreach($added_categories as $added_category)
-                                    <div class='flex flex-row py-4 items-center'>
-                                        {{ ++$counter }}. 
-                                        <a href="{{ route('admin.venue_categories.show', ['category'=> $added_category->id ]) }}" class='px-4 hover:underline'>
-                                            {{ $added_category->venue_category->name  }}
-                                        </a>
+                                <table width='100%' class="">
+                                    <thead>
+                                        <tr class='bg-gray-100'>
+                                            <th width='10%' class='py-2'>SN</th>
+                                            <th class='text-left'>Category</th>
+                                            <th class='text-center'>Venue Count</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                                        <span>
-                                            <form action="{{ route('admin.venue_categories_group.remove_category',['group_item'=>$added_category->id]) }}" method='POST'>
-                                                @csrf
-                                                <button class='border py-1 px-3 rounded-md text-sm border-red-500 hover:bg-red-500 hover:text-white'>Remove</button>
-                                            </form>
-                                        </span>
-                                    
-                                    </div>
-                                @endforeach
+                                        @foreach($added_categories as $added_category)
+                                            <tr class='border-b'>
+                                                <td class='text-center py-5'>
+                                                    {{ ++$counter }}. 
+                                                </td>
+                                                <td>
+
+                                                    <a href="{{ route('admin.venue_categories.show', ['category'=> $added_category->id ]) }}" class='hover:underline'>
+                                                        {{ $added_category->venue_category->name  }} 
+                                                    </a>
+                                                </td>
+                                                <td class='text-center'>
+                                                        {{ $added_category->venue_category->venues->count() }}
+                                                </td>
+                                                <td class='text-center'>
+                                                    <span>
+                                                        <form action="{{ route('admin.venue_categories_group.remove_category',['group_item'=>$added_category->id]) }}" method='POST'>
+                                                            @csrf
+                                                            <button class='border py-1 px-3 rounded-md text-sm border-red-500 hover:bg-red-500 hover:text-white'>Remove</button>
+                                                        </form>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                                
+                                                
+                                            @endforeach
+                                    </tbody>
+                                </table>
                         </div>
                 @endif
 

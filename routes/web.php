@@ -68,6 +68,8 @@ use App\Http\Controllers\Admin\Admin_AnnouncementController;
 
 use App\Http\Controllers\Admin\Admin_CourseEnrolmentController;
 
+use App\Http\Controllers\Admin\Admin_SupportVenueController;
+
 
 
 
@@ -527,10 +529,11 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
     Route::get('venues', [Admin_VenueController::class, 'index'])->name('admin.venues.index');
     Route::get('venues/create', [Admin_VenueController::class, 'create'])->name('admin.venues.create');
     Route::post('venues/store', [Admin_VenueController::class, 'store'])->name('admin.venues.store');
+    Route::get('venues/{venue}/show', [Admin_VenueController::class, 'show'])->name('admin.venues.show');
     Route::get('venues/{venue}/edit', [Admin_VenueController::class, 'edit'])->name('admin.venues.edit');
     Route::post('venues/{venue}/update', [Admin_VenueController::class, 'update'])->name('admin.venues.update');
     Route::get('venues/{venue}/confirm_delete', [Admin_VenueController::class, 'confirm_delete'])->name('admin.venues.confirm_delete');
-    Route::delete('venues/{venue}/delete', [Admin_VenueController::class, 'destroy'])->name('admin.venues.delete');
+    Route::delete('venues/{venue}/delete', [Admin_VenueController::class, 'destroy'])->name('admin.venues.delete');    
 
 
     // Staff Title
@@ -640,6 +643,13 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
       Route::get('exams/exam_scheduler/scheduler/{schedule}/edit', [Admin_ExamSchedulerController::class, 'edit_schedule'])->name('admin.exams.exam_scheduler.schedule.edit');
       Route::post('exams/exam_scheduler/scheduler/{schedule}/update', [Admin_ExamSchedulerController::class, 'update_schedule'])->name('admin.exams.exam_scheduler.schedule.update');
       Route::delete('exams/exam_scheduler/scheduler/{schedule}/destroy', [Admin_ExamSchedulerController::class, 'destroy'])->name('admin.exams.exam_scheduler.schedule.delete');
+
+
+      //Add Support Venue
+      Route::get('exams/exam_scheduler/{exam_day}/scheduler/{schedule}/support_venue', [Admin_SupportVenueController::class, 'index'])->name('admin.exams.exam_scheduler.support_venue.index');
+      Route::post('exams/exam_scheduler/{exam_day}/scheduler/{schedule}/support_venue', [Admin_SupportVenueController::class, 'store'])->name('admin.exams.exam_scheduler.support_venue.store');
+      Route::delete('exams/exam_scheduler/support_venues/{support_venue}/delete', [Admin_SupportVenueController::class, 'destroy'])->name('admin.exams.exam_scheduler.support_venue.delete');
+
 
 
       // Invigilator Allocation

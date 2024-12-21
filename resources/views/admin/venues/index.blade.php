@@ -65,8 +65,10 @@
                                                 @foreach ($venues as $venue)
                                                 <tr class="border border-b border-gray-200">
                                                     <td class='text-center py-4'>{{ ++$counter }}.</td>
-                                                    <td>                                        
-                                                            {{ $venue->name }}                                 
+                                                    <td>    
+                                                            <a class='hover:underline' href="{{ route('admin.venues.show',['venue'=>$venue->id]) }}">                                    
+                                                                {{ $venue->name }}   
+                                                            </a>                              
                                                         
                                                     </td>
                                                     

@@ -55,7 +55,7 @@
              <!-- Added Venue Categories //-->
              <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-0 border-0 mt-4">
                 
-                <div class="flex flex-row w-full py-1 border-b">
+                <div class="flex flex-row w-full py-2 border-b text-lg">
                     Venues ({{ $venue_category->venues->count() }})
                 </div>
 
@@ -65,19 +65,33 @@
                                     $counter = 0;
                                 @endphp
 
-                                @foreach($venue_category->venues as $venue)
-                                    <div class='flex flex-row py-6 items-center'>
-                                        <span class='ml-1'>
-                                            {{ ++$counter }}. 
-                                        </span>
-                                        <span class='px-6'>
-                                            {{ $venue->name  }}
-                                        </span>
-
-                                       
-                                    
-                                    </div>
-                                @endforeach
+                                <table width='100%' class="">
+                                        <thead>
+                                            <tr class='bg-gray-100'>
+                                                <th width='10%' class='py-4'>SN</th>
+                                                <th class='text-left'>                                                    
+                                                            Venue
+                                                    
+                                                </th>
+                                               
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                @foreach($venue_category->venues as $venue)
+                                                    <tr class=' py-6 items-center border-b'>
+                                                        <td class='text-center py-6'>
+                                                            {{ ++$counter }}. 
+                                                        </td>
+                                                        <td class=''>
+                                                                <a class='hover:underline' href="{{ route('admin.venues.show', ['venue'=>$venue->id]) }}">
+                                                                    {{ $venue->name  }}
+                                                                </a>
+                                                        </td>                                                   
+                                                    
+                                                    </tr>
+                                                @endforeach
+                                        </tbody>
+                                </table>
                         </div>
                 @endif
 

@@ -1,5 +1,5 @@
 <x-admin-layout>
-    <div class="container mx-auto">
+    <div class="container mx-auto mb-8">
         <!-- page header //-->
         <section class="flex flex-col w-[90%] md:w-[95%] py-8 px-4 border-red-900 mx-auto">
             
@@ -27,7 +27,7 @@
 
                         <div class="flex flex-col w-[80%] md:w-[60%] py-2 md:py-4" style="font-family:'Lato'; font-size:18px; font-weight:400;">
                             <h2 class="font-semibold text-xl py-1" >
-                                {{ $exam_day->name }}                            
+                                {{ $exam_day->name }} - {{ \Carbon\Carbon::parse($exam_day->date)->format('l jS F, Y') }}                           
                             </h2>
                             <div class='text-md'>
                                     
@@ -288,9 +288,16 @@
                                                                     {{ $day_exam->course->title }}  ({{ $day_exam->course->code }}) </a> 
                                                                     <span class='text-sm'>@if ($day_exam->course->enrolment != null) -  [enrolment: {{ $day_exam->course->enrolment->enrolment }}] @endif</span>                                                  
                                                                      
-                                                             <div class='py-2'>
-                                                                <a class='text-xs py-1 px-4 border border-green-500 rounded-md hover:bg-green-500 hover:text-white' href=''>
-                                                                    Invigilator Allocation</a> 
+                                                             <div class='py-2 space-x-2'>
+                                                                    <a class='text-xs py-1 px-4 border border-green-500 rounded-md hover:bg-green-500 hover:text-white' 
+                                                                        href="{{ route('admin.exams.invigilator_allocation.allocator',['exam_day'=>$day_exam->id]) }}">
+                                                                        Invigilator Allocation
+                                                                    </a> 
+
+                                                                    <a class='text-xs py-1 px-4 border border-green-500 rounded-md hover:bg-green-500 hover:text-white' 
+                                                                        href="{{ route('admin.exams.exam_scheduler.support_venue.index',['exam_day'=>$exam_day->id, 'schedule'=>$day_exam->id]) }}">
+                                                                        Support Venue
+                                                                    </a> 
                                                             </div>
                                                         
                                                     </td>
@@ -298,11 +305,11 @@
                                                             {{ $day_exam->exam_type->name }}
                                                     </td>
                                                     <td>
-                                                            <a href="#" class="hover:underline">                                
+                                                            <a href="{{ route('admin.venues.show', ['venue' => $day_exam->venue->id]) }}" class="hover:underline">                                
                                                                     {{ $day_exam->venue->name }}  ( {{$day_exam->venue->venue_category->name }} )                                                     
                                                             </a>  
                                                             <div class='text-sm'>
-                                                                    {{ $day_exam->venue->venue_type->name }}: {{$day_exam->venue->student_capacity}} student caps 
+                                                                    {{ $day_exam->venue->venue_type->name }}: {{$day_exam->venue->student_capacity}} student caps. <br/>Max. Invigilators: {{$day_exam->venue->max_invigilators}}
                                                             </div>
                                                     </td>
                                                     <td>
@@ -338,6 +345,27 @@
                                                     </td>
 
                                                 </tr>
+                                                @if ($day_exam->support_venues->count())
+                                                <tr>
+                                                    <td></td>
+                                                    <td colspan='5' class='py-4'>                                                        
+                                                            <div class='text-sm font-semibold'>
+                                                                Support Venues
+                                                            </div>
+                                                            <div>
+                                                                @foreach($day_exam->support_venues as $support_venue)
+                                                                    <div class='text-sm py-2 border-b'>
+                                                                            <a class='hover:underline' href="{{ route('admin.venues.show', ['venue' => $support_venue->venue->id]) }}"> 
+                                                                                {{ $support_venue->venue->name }}  ( {{$support_venue->venue->venue_category->name }} ) 
+                                                                            </a>
+                                                                                
+                                                                            - {{ $support_venue->venue->venue_type->name }}: {{$support_venue->venue->student_capacity}} student caps. Max Invigilators: {{$support_venue->venue->max_invigilators}}
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                    </td>
+                                                </tr>
+                                                @endif 
                                                 @endforeach
                                             
                                             

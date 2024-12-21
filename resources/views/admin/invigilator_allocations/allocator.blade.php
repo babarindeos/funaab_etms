@@ -27,7 +27,7 @@
 
                         <div class="flex flex-col w-[80%] md:w-[60%] py-2 md:py-4" style="font-family:'Lato'; font-size:18px; font-weight:400;">
                             <h2 class="font-semibold text-xl py-1" >
-                                {{ $exam_day->name }}                            
+                                {{ $exam_day->name }} - {{ \Carbon\Carbon::parse($exam_day->date)->format('l jS F, Y') }}                         
                             </h2>
                             <div class='text-md'>
                                     
@@ -206,11 +206,14 @@
                                                         
                                                     </td>
                                                     <td>
-                                                            <a href="#" class="hover:underline">                                
+                                                            <a href="{{ route('admin.venues.show',['venue'=>$invigilation->venue_id]) }}" class="hover:underline">                                
                                                                     {{ $invigilation->venue->name }}  ( {{$invigilation->venue->venue_category->name }} )                                                     
                                                             </a>  
                                                             <div class='text-sm'>
-                                                                    {{ $invigilation->venue->venue_type->name }}: {{$invigilation->venue->student_capacity}} student caps 
+                                                                  
+                                                                            {{ $invigilation->venue->venue_type->name }}: {{$invigilation->venue->student_capacity}} student caps. 
+                                                                            <br/>Max. Invigilators: {{ $invigilation->venue->max_invigilators }}
+                                                                    
                                                             </div>
                                                     </td>
                                                     <td>
