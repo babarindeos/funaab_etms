@@ -14,6 +14,7 @@ use App\Models\InvigilatorAllocation;
 use Illuminate\Support\Facades\Auth;
 use App\Models\AssignRole;
 use App\Models\ExamScheduler;
+use App\Models\SupportVenue;
 
 
     // AssignRole model - assign_roles table
@@ -63,9 +64,13 @@ class Admin_InvigilatorAllocationController extends Controller
         return redirect()->route('admin.exams.invigilator_allocation.allocator', ['exam_day'=>$request->exam_day]);
     }
 
-    public function allocator(ExamDay $exam_day)
+    public function allocator(Request $request, ExamDay $exam_day)
     {
         
+        $query_schedule = $request->query('schedule');
+        $query_level = $request->query('level');
+
+
         $exam_schedules = ExamScheduler::where('exam_id', $exam_day->exam_id)
                                        ->where('exam_day_id', $exam_day->id)
                                        ->orderBy('time_period_id', 'asc')
@@ -86,7 +91,7 @@ class Admin_InvigilatorAllocationController extends Controller
 
        
         
-        return view('admin.invigilator_allocations.allocator', compact('exam_day'))
+        return view('admin.invigilator_allocations.allocator', compact('exam_day','query_schedule', 'query_level'))
                     ->with(['invigilators'=>$invigilators, 
                             'exam_schedules'=>$exam_schedules,
                             'venues'=>$venues, 
@@ -100,13 +105,58 @@ class Admin_InvigilatorAllocationController extends Controller
 
     public function post_allocator(Request $request, ExamDay $exam_day)
     {
-        $formFields = $request->validate([
-            'invigilator' => 'required',
-            'scheduled_exam' => 'required',
-        ]);
 
-        $scheduled_exam = ExamScheduler::find($request->scheduled_exam);
+       if ($request->query_schedule != null && $request->query_level != null)
+       {
+            $formFields = $request->validate([
+                'invigilator' => 'required',
+            ]);
 
+            $formFields['exam_schedule_id'] = $request->query_schedule;
+
+            if ($request->query_level != null)
+            {
+                    $scheduled_exam = ExamScheduler::find($request->query_schedule);
+
+                    if ($request->query_level == 'main' && $scheduled_exam != null)
+                    {
+                            $formFields['exam_schedule_id'] = $scheduled_exam->id;
+                            $formFields['venue_id'] =  $scheduled_exam->venue_id;
+                    }
+                    else if ($request->query_level == 'support' && $scheduled_exam != null)
+                    {
+                            $scheduled_exam = SupportVenue::where('schedule_id', $request->query_schedule)->first();
+                            $formFields['exam_schedule_id'] = $scheduled_exam->schedule_id;
+                            $formFields['venue_id'] =  $scheduled_exam->venue_id;
+
+                    }
+                    else
+                    {
+                            return redirect()->route('admin.dashboard.index');
+                    }
+
+            }           
+            else
+            {
+                    return redirect()->route('admin.dashboard.index');
+            }
+       }      
+       else
+       {
+                $formFields = $request->validate([
+                    'invigilator' => 'required',
+                    'scheduled_exam' => 'required',
+                ]);
+
+                $scheduled_exam = ExamScheduler::find($request->scheduled_exam);
+
+                $formFields['exam_schedule_id'] = $scheduled_exam->id;
+                $formFields['venue_id'] = $scheduled_exam->venue_id;
+       }
+
+
+
+        $scheduled_exam = ExamScheduler::find($formFields['exam_schedule_id']);
        
 
         $formFields['academic_session_id'] = $exam_day->exam->semester->academic_session->id;
@@ -114,14 +164,13 @@ class Admin_InvigilatorAllocationController extends Controller
         $formFields['exam_id'] = $exam_day->exam->id;
         $formFields['exam_day_id'] = $exam_day->id;
         $formFields['invigilator_id'] = $request->invigilator;
-        $formFields['exam_schedule_id'] = $scheduled_exam->id;
-        $formFields['venue_id'] = $scheduled_exam->venue_id;
+       
         $formFields['time_period_id'] = $scheduled_exam->time_period_id;
         $formFields['user_id'] = Auth::user()->id;
 
         // check if the invigilator has been alloted to the same exam schedule
         $is_invigilator_alloted = InvigilatorAllocation::where('invigilator_id', $request->invigilator)
-                                                        ->where('exam_schedule_id', $scheduled_exam->id)
+                                                        ->where('exam_schedule_id', $formFields['exam_schedule_id'])
                                                         ->first();
 
         if ($is_invigilator_alloted)

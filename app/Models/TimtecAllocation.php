@@ -38,4 +38,16 @@ class TimtecAllocation extends Model
     {
         return $this->belongsTo(Exam::class, 'exam_id', 'id');
     }
+
+    public function exam_day()
+    {
+            return $this->belongsTo(ExamDay::class, 'exam_day_id', 'id');
+    }
+
+    public function semester()
+    {
+        return $this->belongsTo(Semester::class, 'semester_id', 'id');
+    }
+
+  
 }

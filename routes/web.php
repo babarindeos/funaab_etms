@@ -90,6 +90,8 @@ use App\Http\Controllers\Staff\Staff_CircleTeamController;
 use App\Http\Controllers\Staff\Staff_CircleAnnouncementController;
 use App\Http\Controllers\Staff\Staff_InvigilationController;
 
+use App\Http\Controllers\Staff\Staff_TimtecSupervisionController;
+
 use App\Http\Controllers\Staff\Staff_LiveChatController;
 use App\Http\Controllers\Staff\Staff_ReportController;
 use App\Http\Controllers\Staff\Staff_MalpracticeController;
@@ -285,6 +287,17 @@ Route::prefix('staff')->middleware(['auth', 'staff'])->group(function(){
     Route::get('exams/current_session/exams', [Staff_InvigilationController::class, 'select_exam'])->name('staff.exams.current_session.exams');
     Route::get('exams/{exam}/invigilations/my_schedule', [Staff_InvigilationController::class, 'get_my_schedule'])->name('staff.exams.invigilations.my_schedule');
     
+
+
+    // TIMTEC Supervision
+    Route::get('exams/timtec_supervision/current_session/exams', [Staff_TimtecSupervisionController::class, 'select_exam'])->name('staff.exams.timec_supervision.current_session.exams');
+    Route::get('exams/{exam}/timtec_supervisions/my_schedule', [Staff_TimtecSupervisionController::class, 'get_my_schedule'])->name('staff.exams.timtec_supervisions.my_schedule');
+    
+    
+    // Attendance
+    Route::get('exams/timtec_supervisions/{supervision}/attendance', [Staff_TimtecSupervisionController::class, 'attendance'])->name('staff.exams.timtec_supervisions.attendance');
+    Route::post('exam/timtec_supervisions/{supervision}/attendance', [Staff_TimtecSupervisionController::class, 'store_attendance'])->name('staff.exams.timtec_supervisions.attendance.store');
+
 
     // Exam Live Chat
     Route::get('exams/{exam}/live_chat', [Staff_LiveChatController::class, 'index'])->name('staff.exams.live_chat');

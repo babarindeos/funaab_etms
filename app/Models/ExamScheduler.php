@@ -49,4 +49,9 @@ class ExamScheduler extends Model
     {
         return $this->hasMany(SupportVenue::class, 'schedule_id', 'id');
     }
+
+    public function invigilators()
+    {
+        return $this->hasMany(InvigilatorAllocation::class, 'exam_schedule_id', 'id');
+    }
 }

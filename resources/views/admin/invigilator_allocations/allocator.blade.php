@@ -22,12 +22,12 @@
         <!-- new exam type form //-->
         <section>
                 <div>
-                    <form  action="{{ route('admin.exams.invigilator_allocation.post_allocator',['exam_day'=>$exam_day->id])}} " method="POST" class="flex flex-col mx-auto w-[90%] items-center justify-center">
+                    <form  action="{{ route('admin.exams.invigilator_allocation.post_allocator',['exam_day'=>$exam_day->id]) }} " method="POST" class="flex flex-col mx-auto w-[90%] items-center justify-center">
                         @csrf                        
 
                         <div class="flex flex-col w-[80%] md:w-[60%] py-2 md:py-4" style="font-family:'Lato'; font-size:18px; font-weight:400;">
                             <h2 class="font-semibold text-xl py-1" >
-                                {{ $exam_day->name }} - {{ \Carbon\Carbon::parse($exam_day->date)->format('l jS F, Y') }}                         
+                                    {{ $exam_day->name }} - {{ \Carbon\Carbon::parse($exam_day->date)->format('l jS F, Y') }}                         
                             </h2>
                             <div class='text-md'>
                                     
@@ -39,13 +39,17 @@
 
 
                         @include('partials._session_response')
+                                <input name="query_schedule" value="{{ $query_schedule }}" />
+
+                                <input name="query_level" value="{{ $query_level }}" />
+
 
                                  <!-- Exam Schedules //-->
                                  <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2">
                                         
                                     
                                 
-                                            <select name="scheduled_exam" class="border border-1 border-gray-400 bg-gray-50
+                                            <select name="scheduled_exam" @if ($query_schedule) disabled @endif class="border border-1 border-gray-400 bg-gray-50
                                                                                 w-full p-4 rounded-md 
                                                                                 focus:outline-none
                                                                                 focus:border-blue-500 
@@ -58,7 +62,7 @@
                                                                                 
                                                                                 <option value=''>-- Scheduled Examinations --</option>
                                                                                     @foreach($exam_schedules as $exam_schedule)
-                                                                                        <option class='py-4' value="{{$exam_schedule->id}}" >{{ $exam_schedule->course->code }} - {{ $exam_schedule->time_period->name }} 
+                                                                                        <option class='py-4' value="{{$exam_schedule->id}}"  @if($exam_schedule->id == $query_schedule) selected  @endif >{{ $exam_schedule->course->code }} - {{ $exam_schedule->time_period->name }} 
                                                                                             ({{ \Carbon\Carbon::parse($exam_schedule->time_period->start_time)->format('g:i a') }} - 
                                                                                             {{ \Carbon\Carbon::parse($exam_schedule->time_period->end_time)->format('g:i a') }})
                                                                                         </option>
@@ -97,7 +101,7 @@
                                                                             
                                                                             <option value=''>-- Select Invigilator --</option>
                                                                             @foreach($invigilators as $invigilator)
-                                                                                    <option class='py-4' value="{{$invigilator->user->id}}" >{{ $invigilator->user->staff->staff_title->title }} {{ ucfirst(strtolower($invigilator->user->staff->surname)) }} {{ $invigilator->user->staff->firstname }} ({{ $invigilator->user->staff->fileno }})</option>
+                                                                                    <option class='py-4'  value="{{$invigilator->user->id}}" >{{ $invigilator->user->staff->staff_title->title }} {{ ucfirst(strtolower($invigilator->user->staff->surname)) }} {{ $invigilator->user->staff->firstname }} ({{ $invigilator->user->staff->fileno }})</option>
                                                                                 
 
                                                                                 @endforeach               
