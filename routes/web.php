@@ -70,6 +70,8 @@ use App\Http\Controllers\Admin\Admin_CourseEnrolmentController;
 
 use App\Http\Controllers\Admin\Admin_SupportVenueController;
 
+use App\Http\Controllers\Admin\Admin_AvailabilityListController;
+
 
 
 
@@ -746,6 +748,16 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
        // Course Enrolment
        Route::get('courses/{course}/enrolments/{semester}/enrolment', [Admin_CourseEnrolmentController::class, 'get_enrolment'])->name('admin.courses.enrolments.enrolment');
        Route::post('courses/{course}/enrolments/enrolment', [Admin_CourseEnrolmentController::class, 'set_enrolment'])->name('admin.courses.enrolments.set_enrolment');
+
+
+
+       // Availability List
+       Route::get('exams/availability_list', [Admin_AvailabilityListController::class, 'index'])->name('admin.exams.availability_list.index');
+       Route::get('exams/availability_list/create', [Admin_AvailabilityListController::class, 'create'])->name('admin.exams.availability_list.create');
+       Route::post('exams/availability_list/upload', [Admin_AvailabilityListController::class, 'upload'])->name('admin.exams.availability_list.upload');
+       Route::delete('exams/availability_list/{user}/delete', [Admin_AvailabilityListController::class, 'destroy'])->name('admin.exams.availability_list.delete');
+       Route::get('exams/availability_list/confirm_truncate', [Admin_AvailabilityListController::class, 'confirm_truncate'])->name('admin.exams.availability_list.confirm_truncate');
+       Route::delete('exams/availability_list/truncate', [Admin_AvailabilityListController::class, 'truncate_list'])->name('admin.exams.availability_list.truncate_list');
 
 
     });    

@@ -66,8 +66,10 @@
                                     <a href="{{ route('admin.exams.exam_days.select_exam_days') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Exam Days</a>
                                     <a href="{{ route('admin.exams.exam_time_periods.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Exam Time Periods</a>
                                     <!-- <a href="{{ route('admin.exams.chief_allocation.select_exam_day') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Chief Allocation</a> -->
+                                    <a href="{{ route('admin.exams.availability_list.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Availability List</a>
                                     <a href="{{ route('admin.exams.invigilator_allocation.select_exam_day') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Invigilator Allocation</a>
                                     <a href="{{ route('admin.exams.timtec_allocation.select_exam_day') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">TIMTEC Allocation</a>
+                                    <a href="{{ route('admin.exams.timtec_allocation.select_exam_day') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Allocation Statistics</a>
                                 </div>
                             </div>
                             <div class="relative group">

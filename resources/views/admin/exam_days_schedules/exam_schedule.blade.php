@@ -97,7 +97,10 @@
                                                     <td>        
                                                          {{ $exam_schedule->venue->name}} ({{ $exam_schedule->venue->venue_category->name}}) 
                                                          <div class='text-sm'>
-                                                                    {{ $exam_schedule->venue->venue_type->name }}: {{$exam_schedule->venue->student_capacity}} student caps 
+                                                                    {{ $exam_schedule->venue->venue_type->name }}: {{ $exam_schedule->venue->student_capacity }} student caps 
+                                                                    <div>
+                                                                        Max invigilators: {{ $exam_schedule->venue->max_invigilators }}
+                                                                    </div>
                                                         </div>
                                                     </td>
                                                     <td>
@@ -114,7 +117,7 @@
                                                             <td class='py-2' colspan='4'>
                                                                 <!-- Invigilators //-->
                                                                 @if ($invigilators->count())
-                                                                <div class='flex flex-row space-x-4'>
+                                                                <div class='flex flex-row space-x-4 py-1'>
                                                                     <span class='font-semibold'>Invigilators: </span>
                                                                     <span class='space-x-4'>
                                                                         @foreach($invigilators as $invigilator)
@@ -207,6 +210,97 @@
 
                                                             </td>
                                                 </tr>
+                                                
+                                                <!-- begin support venue //-->
+                                                @if ($exam_schedule->support_venues->count())
+                                                <tr>
+                                                    <td></td>
+                                                        <td colspan='5' class='py-4'>                                                        
+                                                                <div class='text-base font-semibold'>
+                                                                    Support Venues
+                                                                </div>
+                                                                <div>
+                                                                    @foreach($exam_schedule->support_venues as $support_venue)
+                                                                                <div class='text-base py-2 border-b'>
+                                                                                        <a class='hover:underline' href="{{ route('admin.venues.show', ['venue' => $support_venue->venue->id]) }}"> 
+                                                                                            {{ $support_venue->venue->name }}  ( {{$support_venue->venue->venue_category->name }} ) 
+                                                                                        </a>
+                                                                                            
+                                                                                        - {{ $support_venue->venue->venue_type->name }}: {{$support_venue->venue->student_capacity}} student caps. Max Invigilators: {{$support_venue->venue->max_invigilators}}
+
+
+                                                                                         <!-- Invigilators //-->
+                                                                                            @if ($invigilators->count())
+                                                                                            <div class='flex flex-row space-x-4 py-2 text-sm'>
+                                                                                                <span class='font-semibold'>Invigilators: </span>
+                                                                                                <span class='space-x-4'>
+                                                                                                    @foreach($invigilators as $invigilator)
+                                                                                                        @if (($invigilator->venue_id == $support_venue->venue->id) && ($invigilator->time_period_id == $exam_schedule->time_period_id))
+                                                                                                            <a href="{{ route('admin.profile.user_profile',['fileno' => $invigilator->invigilator->staff->fileno ]) }}" class='hover:underline'>
+                                                                                                                @php
+                                                                                                                    $surname = $invigilator->invigilator->staff->surname;
+                                                                                                                    $surname = ucwords(strtolower($surname))
+                                                                                                                    
+                                                                                                                @endphp
+                                                                                                                {{ $invigilator->invigilator->staff->staff_title->title }} 
+                                                                                                                {{$surname}} 
+                                                                                                                {{$invigilator->invigilator->staff->firstname}} 
+
+                                                                                                                - <span class='text-xs'>[ {{$invigilator->invigilator->staff->gender}}  ]</span>
+                                                                                                            </a>
+                                                                                                            
+                                                                                                        @endif
+                                                                                                    @endforeach 
+                                                                                                </span>                                                             
+                                                                                            </div>
+                                                                                            @endif
+                                                                                            <!-- end of Invigilators //-->
+
+                                                                                            <!-- TIMTEC Member //-->
+                                                                                            @if($timtec_members->count())
+                                                                                            <div class='flex flex-row space-x-4 py-0 text-sm'>
+                                                                                                <span class='font-semibold'>Timtec Observers: </span>
+                                                                                                <span class='space-x-4'>
+                                                                                                        @foreach($timtec_members as $timtec_member)
+                                                                                                            @php
+                                                                                                                $timtec_member_time_period_id = $timtec_member->time_period_id;
+                                                                                                                $timtec_member_title = $timtec_member->timtec_member->staff->staff_title->title;
+                                                                                                                $timtec_member_surname = ucwords(strtolower($timtec_member->timtec_member->staff->surname));
+                                                                                                                $timtec_member_firstname = $timtec_member->timtec_member->staff->firstname;
+                                                                                                                $timtec_member_names = $timtec_member_title.' '.$timtec_member_surname.' '.$timtec_member_firstname;
+
+                                                                                                            @endphp    
+
+                                                                                                            @foreach($timtec_member->venue_category_group->venue_categories as $venue_categories)
+                                                                                                                @if (($venue_categories->id == $support_venue->venue->venue_category->id) && ($timtec_member_time_period_id == $exam_schedule->time_period_id))
+                                                                                                                    <span>
+                                                                                                                        <a class='hover:underline' href='#'>
+                                                                                                                            {{ $timtec_member_names }}
+                                                                                                                        </a>
+                                                                                                                    </span>
+                                                                                                                @endif                                                                                
+                                                                                                            @endforeach
+                                                                                                        @endforeach
+                                                                                                </span>
+                                                                                            </div>
+                                                                                            @endif
+                                                                                            <!-- end of TIMTEC Member //-->
+
+                                                                                        
+                                                                                        
+                                                                                </div>
+
+                                                                                        
+                                                                    @endforeach
+                                                                </div>
+                                                        </td>
+                                                </tr>
+                                                @endif  <!-- end of support venue check //-->
+
+
+                                                <!-- end of support venue //-->
+
+
                                                 @endforeach
                                             
                                             

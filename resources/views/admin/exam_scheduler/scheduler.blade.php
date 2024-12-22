@@ -373,7 +373,8 @@
                                                             </div>
                                                     </td>
                                                 </tr>
-                                                @endif 
+                                                @endif  <!-- end of support venue check //-->
+
                                                 @endforeach
                                             
                                             

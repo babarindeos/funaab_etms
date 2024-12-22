@@ -39,9 +39,9 @@
 
 
                         @include('partials._session_response')
-                                <input name="query_schedule" value="{{ $query_schedule }}" />
+                                <input type="hidden" name="query_schedule" value="{{ $query_schedule }}" />
 
-                                <input name="query_level" value="{{ $query_level }}" />
+                                <input type="hidden" name="query_level" value="{{ $query_level }}" />
 
 
                                  <!-- Exam Schedules //-->

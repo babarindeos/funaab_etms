@@ -80,5 +80,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(CourseCoordinator::class, 'user_id', 'id');
     }
+
+    public function availabilityList()
+    {
+        return $this->hasOne(availabilityList::class);
+    }
     
 }
