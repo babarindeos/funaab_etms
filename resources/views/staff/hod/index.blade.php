@@ -42,10 +42,11 @@
                             <div class="py-4"> <!-- list of departments //-->
                                 <table width='100%' class="">
                                     <tbody>
+                                        @php
+                                            $counter = 0;
+                                        @endphp
                                         @foreach($department->staff as $person)
-                                                @php
-                                                    $counter = 0;
-                                                @endphp
+                                                
                                                 <tr class='border-b'>
                                                     <td width='10%' class='text-center py-4'> {{ ++$counter }}. </td>
                                                     <td>
@@ -86,7 +87,7 @@
                     <!-- Enrollment //-->
                     <div class="border rounded-md w-full md:w-1/2 p-4">
                             <div class="py-3 border-b font-medium text-lg">
-                                Courses ({{ $department->staff->count() }})
+                                Courses ({{ $department->courses->count() }})
                             </div>
 
                             <div class="py-4"> <!-- list of departments //-->

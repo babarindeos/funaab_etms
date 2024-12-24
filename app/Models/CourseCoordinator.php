@@ -16,13 +16,18 @@ class CourseCoordinator extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function department()
-    {
-        return $this->belongsTo(Department::class, 'department_id', 'id');
-    }
-
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id', 'id');
+    }
+
+    public function available()
+    {
+        return $this->hasOne(AvailabilityList::class, 'user_id', 'user_id');
+    }
+
+    public function hod()
+    {
+        return $this->hasOne(Hod::class, 'user_id', 'user_id');
     }
 }

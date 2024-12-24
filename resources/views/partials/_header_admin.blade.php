@@ -69,7 +69,7 @@
                                     <a href="{{ route('admin.exams.availability_list.index') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Availability List</a>
                                     <a href="{{ route('admin.exams.invigilator_allocation.select_exam_day') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Invigilator Allocation</a>
                                     <a href="{{ route('admin.exams.timtec_allocation.select_exam_day') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">TIMTEC Allocation</a>
-                                    <a href="{{ route('admin.exams.timtec_allocation.select_exam_day') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Allocation Statistics</a>
+                                    <a href="{{ route('admin.exams.allocation_statistics.select_exam') }}" class="flex flex-row px-4 py-2 hover:bg-gray-200  hover:border-l-yellow-500 hover:border-l-4 pr-8">Allocation Statistics</a>
                                 </div>
                             </div>
                             <div class="relative group">

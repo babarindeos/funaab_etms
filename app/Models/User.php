@@ -85,5 +85,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(availabilityList::class);
     }
+
+    public function available()
+    {
+        return $this->hasOne(availabilityList::class);
+    }
+
+
     
 }

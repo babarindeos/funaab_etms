@@ -63,6 +63,7 @@ class Admin_ExamSchedulerController extends Controller
                                             ->orderBy('created_at', 'desc')
                                             ->get();
 
+
         $scheduled_exams = ExamScheduler::where('exam_id', $exam_day->exam->id)
                                          ->orderBy('created_at', 'desc')
                                          ->get();

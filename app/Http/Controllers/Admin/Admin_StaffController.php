@@ -26,7 +26,7 @@ class Admin_StaffController extends Controller
         $staffs = Staff::orderBy('surname', 'asc')
                         ->orderBy('firstname', 'asc')
                         ->orderBy('middlename', 'asc')
-                        ->paginate(2);
+                        ->paginate(20);
         return view('admin.staff.index', compact('staffs'));
 
     }

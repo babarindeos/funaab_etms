@@ -66,35 +66,36 @@
                                 </div>
 
 
+                                @if ($failuploads->count())
+                                        <!-- List of failed Upload //-->
+                                        <div class="flex flex-col border-red-900 w-[100%] md:w-[60%] py-8">
+                                                <a id='btn_failupload' href="#" class='hover:underline text-lg text-red-800 font-semibold'>
+                                                    Failed Upload ({{ $failuploads->count() }})
+                                                </a>
+                                                <table class="border hidden" id='tbl_failupload'>
+                                                    <thead>
+                                                        <tr class='bg-gray-100'>
+                                                            <th width='20%' class='text-center py-4'>SN</th>
+                                                            <th class="text-left">File No.</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @php
+                                                            $counter = 0;
+                                                        @endphp
+                                                        @foreach($failuploads as $failupload)
+                                                            <tr class='odd:bg-white even:bg-gray-50'>
+                                                                <td class='text-center py-4'>{{ ++$counter }}.</td>
+                                                                <td>{{ $failupload->fileno }}</td>
+                                                            </tr>
+                                                        @endforeach                                            
 
-                                <!-- List of failed Upload //-->
-                                <div class="flex flex-col border-red-900 w-[100%] md:w-[60%] py-8">
-                                        <a id='btn_failupload' href="#" class='hover:underline text-lg text-red-800 font-semibold'>
-                                             Failed Upload ({{ $failuploads->count() }})
-                                        </a>
-                                        <table class="border hidden" id='tbl_failupload'>
-                                            <thead>
-                                                <tr class='bg-gray-100'>
-                                                    <th width='20%' class='text-center py-4'>SN</th>
-                                                    <th class="text-left">File No.</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @php
-                                                    $counter = 0;
-                                                @endphp
-                                                @foreach($failuploads as $failupload)
-                                                    <tr class='odd:bg-white even:bg-gray-50'>
-                                                        <td class='text-center py-4'>{{ ++$counter }}.</td>
-                                                        <td>{{ $failupload->fileno }}</td>
-                                                    </tr>
-                                                @endforeach                                            
-
-                                            </tbody>
-                                        </table>
-                                </div>
-                                <!-- end of failed Upload //-->
-                    
+                                                    </tbody>
+                                                </table>
+                                        </div>
+                                        <!-- end of failed Upload //-->
+                                @endif
+                            
                            
                     </form>        
                     
@@ -107,7 +108,7 @@
         @if ($availability_list->count())
 
             <!-- List of records //-->
-            <div class="flex flex-col mx-auto w-[100%] md:w-[100%] mt-2 md:px-10 items-center justify-center border rounded-md ">
+            <div class="flex flex-col mx-auto w-[100%] md:w-[100%] mt-2 mb-8 md:px-10 items-center justify-center border rounded-md ">
                 <div class="flex flex-col border-0 border-red-800 w-[100%] md:w-[100%]  md:px-2 py-2  mb-8">
                         <div class='text-lg font-medium py-2 mt-2 '>
                             Availability List ({{ $availability_list->count() }})

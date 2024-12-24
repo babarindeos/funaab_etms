@@ -68,14 +68,18 @@ class Admin_InvigilatorAllocationController extends Controller
     {
         
         $query_schedule = $request->query('schedule');
+
+        
         $query_level = $request->query('level');
 
+        
 
         $exam_schedules = ExamScheduler::where('exam_id', $exam_day->exam_id)
                                        ->where('exam_day_id', $exam_day->id)
                                        ->orderBy('time_period_id', 'asc')
                                        ->get();
         
+       
 
         $invigilators = AssignRole::where('staff_role_id', '1')->get();
         $venues = Venue::orderBy('name', 'asc')->get();

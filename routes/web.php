@@ -72,6 +72,9 @@ use App\Http\Controllers\Admin\Admin_SupportVenueController;
 
 use App\Http\Controllers\Admin\Admin_AvailabilityListController;
 
+use App\Http\Controllers\Admin\Admin_AllocationStatisticController;
+use App\Http\Controllers\Admin\Admin_AutomaticInvigilatorAllocationController;
+
 
 
 
@@ -674,6 +677,9 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
       Route::post('exams/invigilator_allocation/{exam_day}/allocator', [Admin_InvigilatorAllocationController::class, 'post_allocator'] )->name('admin.exams.invigilator_allocation.post_allocator');
       Route::get('exams/invigilator_allocation/allocator/{allocation}/edit', [Admin_InvigilatorAllocationController::class, 'update_allocation'] )->name('admin.exams.invigilator_allocation.update_allocation');
       Route::delete('exams/invigilator_allocation/allocator/{allocation}/destroy', [Admin_InvigilatorAllocationController::class, 'destroy'] )->name('admin.exams.invigilator_allocation.destroy');
+      
+      Route::get('exams/{exam}/invigilator_allocation/automatic_allocation', [Admin_AutomaticInvigilatorAllocationController::class, 'index'])->name('admin.exams.invigilator_allocation.automatic_allocation');
+
 
 
        // Chief  Allocation
@@ -760,6 +766,12 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
        Route::delete('exams/availability_list/truncate', [Admin_AvailabilityListController::class, 'truncate_list'])->name('admin.exams.availability_list.truncate_list');
 
 
+
+       // Allocation Statistics
+       Route::get('exams/allocation_statistics/select_exam', [Admin_AllocationStatisticController::class, 'select_exam'])->name('admin.exams.allocation_statistics.select_exam');
+       Route::get('exams/{exam}/allocation_statistics', [Admin_AllocationStatisticController::class, 'index'])->name('admin.exams.allocation_statistics.index');
+
+       
     });    
 
 

@@ -32,7 +32,9 @@
             <!-- current session //-->
             <div class="py-4">
                 <div class="font-semibold">
-                    {{ $current_session->name }} Academic Session
+                    @if ($current_session)
+                        {{ $current_session->name }} Academic Session
+                    @endif
                 </div>
 
             </div>
@@ -105,16 +107,16 @@
                                                     <div class="font-medium text-lg">
                                                         Current Enrolment
                                                     </div>
-                                                
-                                                        @foreach($current_session->semesters as $semester)
-                                                            @if ($semester->current)
-                                                                <input type='hidden' name='semester_id' value="{{ $semester->id }}" />
-                                                                <div class='text-sm'>
-                                                                    {{ $semester->academic_session->name }} {{ ucfirst($semester->name) }} Semester
-                                                                </div>
-                                                            @endif
-                                                        @endforeach
-                                                    
+                                                        @if ($current_session)
+                                                                @foreach($current_session->semesters as $semester)
+                                                                    @if ($semester->current)
+                                                                        <input type='hidden' name='semester_id' value="{{ $semester->id }}" />
+                                                                        <div class='text-sm'>
+                                                                            {{ $semester->academic_session->name }} {{ ucfirst($semester->name) }} Semester
+                                                                        </div>
+                                                                    @endif
+                                                                @endforeach
+                                                        @endif
 
                                                     <!-- Course title //-->
                                                     <div class="flex flex-row border-red-900 w-[80%] md:w-[40%] py-3 space-x-0">

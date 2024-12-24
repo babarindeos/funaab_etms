@@ -290,7 +290,7 @@
                                                                      
                                                              <div class='py-2 space-x-2'>
                                                                     <a class='text-xs py-1 px-4 border border-green-500 rounded-md hover:bg-green-500 hover:text-white' 
-                                                                        href="{{ route('admin.exams.invigilator_allocation.allocator',['exam_day'=>$day_exam->id]) }}?schedule={{ $day_exam->id }}&level=main">
+                                                                        href="{{ route('admin.exams.invigilator_allocation.allocator',['exam_day'=>$day_exam->exam_day_id]) }}?schedule={{ $day_exam->id }}&level=main">
                                                                         Invigilator Allocation
                                                                     </a> 
 
@@ -314,7 +314,7 @@
                                                     </td>
                                                     <td>
                                                             <div>
-                                                                    {{$time_period->name}}
+                                                                    {{$day_exam->time_period->name}}
                                                             </div>
                                                             <div class="text-sm">
                                                                     {{ \Carbon\Carbon::parse($day_exam->time_period->start_time)->format('g:i a') }} - {{\Carbon\Carbon::parse($day_exam->time_period->end_time)->format('g:i a') }} 

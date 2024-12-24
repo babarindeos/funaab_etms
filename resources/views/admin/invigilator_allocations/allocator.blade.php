@@ -10,12 +10,27 @@
                     <div>
                             <a href="{{ route('admin.exams.index') }}" class="bg-green-600 text-white py-2 px-4 
                                             rounded-lg text-xs md:text-sm hover:bg-green-500"> Exams</a>
+                            
+
+                            <a href="{{ route('admin.exams.invigilator_allocation.automatic_allocation',['exam'=>$exam_day->exam_id]) }}" class="border-green-800 border hover:text-white 
+                                                                              py-2 px-4 text-green-800 
+                                                                              hover:border-green-500
+                                                                              rounded-lg text-xs md:text-sm 
+                                                                              hover:bg-green-500"> Automatic Allocation</a>
+                            
+                            <a href="{{ route('admin.exams.index') }}" class="border-green-800 border hover:text-white 
+                                                                              py-2 px-4 text-green-800 
+                                                                              hover:border-green-500
+                                                                              rounded-lg text-xs md:text-sm 
+                                                                              hover:bg-green-500"> Clear Allocations</a>
                            
-                    </div>              
+                    </div>  
+                         
             </div>
             
         </section>
         <!-- end of page header //-->
+        
 
 
 

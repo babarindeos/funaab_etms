@@ -105,6 +105,7 @@ class Admin_AvailabilityListController extends Controller
             }
 
             // Record the failed transactions
+            FailUpload::truncate();
             foreach($failedRecords as $fail)
             {
                 FailUpload::create([
