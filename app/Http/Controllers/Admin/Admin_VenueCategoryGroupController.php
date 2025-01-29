@@ -73,6 +73,8 @@ class Admin_VenueCategoryGroupController extends Controller
         $venue_category_group = $group;
         $added_categories = VenueCategoryGroupItem::where('venue_category_group_id', $group->id)->get();
 
+        //dd($added_categories);
+
         return view('admin.venue_category_groups.show', compact('venue_category_group','added_categories'));
     }
 

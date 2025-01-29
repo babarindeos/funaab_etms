@@ -156,4 +156,24 @@ class Admin_CourseController extends Controller
 
         return view('admin.courses.show', compact('course', 'course_enrolment', 'semesters_enrolments'))->with(['current_session'=>$current_academic_session, 'current_semester'=>$current_semester]);
     }
+
+    public function fetch_course(Request $request)
+    {
+        $course_code = $request->query('course_code');
+        
+        $courses = Course::where('code', 'LIKE', "%{$course_code}%")
+                          ->orderBy('title', 'asc')
+                          ->get();
+
+        $course_options = '';
+
+        foreach($courses as $course)
+        {
+            $course_options .= "<div class='py-3 border-b border-gray-500 cursor-pointer' id='".$course->id."'>".$course->code." - ".$course->title."</div>";
+        }
+
+        //dd($course_options);
+
+        return $course_options;
+    }
 }

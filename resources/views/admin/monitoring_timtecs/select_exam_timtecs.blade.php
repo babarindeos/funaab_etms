@@ -130,7 +130,7 @@
                                                 <tr class="border-b">
                                                     <td class='text-center py-6'>{{ ++$counter }}.</td>
                                                     <td>
-                                                        <a href="" class="hover:underline">
+                                                        <a href="{{ route('admin.monitoring.exams.timtecs.observations',['exam'=>$exam_selected,'timtec_member'=>$exam_timtec->timtec_member_id]) }}" class="hover:underline">
                                                             {{ $exam_timtec->timtec_member->staff->staff_title->title}} 
                                                             {{ ucfirst(strtolower($exam_timtec->timtec_member->staff->surname)) }} 
                                                             {{ $exam_timtec->timtec_member->staff->firstname }}

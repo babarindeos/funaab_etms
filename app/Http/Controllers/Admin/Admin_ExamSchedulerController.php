@@ -82,7 +82,10 @@ class Admin_ExamSchedulerController extends Controller
 
     public function post_scheduler(Request $request, ExamDay $exam_day)
     {
+        
+
         $formFields = $request->validate([
+            'course_id'=> 'required',
             'course' => 'required',
             'exam_type' => 'required',
             'venue' => 'required',
@@ -91,21 +94,21 @@ class Admin_ExamSchedulerController extends Controller
 
         
         // check if an exam has been scheduled for that venue and time
-        $venue_time_scheduled = ExamScheduler::where('exam_id', $exam_day->exam->id)
-                                             ->where('exam_day_id', $exam_day->id)
-                                             ->where('venue_id', $request->venue)
-                                             ->where('time_period_id', $request->time_period)
-                                             ->first();
-        if ($venue_time_scheduled)
-        {
-            $data = [
-                'error' => true,
-                'status' => 'fail',
-                'message' => 'The Venue has been alloted for '.$venue_time_scheduled->course->code.' exam at the same selected time '
-            ];
+        // $venue_time_scheduled = ExamScheduler::where('exam_id', $exam_day->exam->id)
+        //                                      ->where('exam_day_id', $exam_day->id)
+        //                                      ->where('venue_id', $request->venue)
+        //                                      ->where('time_period_id', $request->time_period)
+        //                                      ->first();
+        // if ($venue_time_scheduled)
+        // {
+        //     $data = [
+        //         'error' => true,
+        //         'status' => 'fail',
+        //         'message' => 'The Venue has been alloted for '.$venue_time_scheduled->course->code.' exam at the same selected time '
+        //     ];
 
-            return redirect()->back()->with($data)->withInput();
-        }
+        //     return redirect()->back()->with($data)->withInput();
+        // }
 
 
 
@@ -114,7 +117,7 @@ class Admin_ExamSchedulerController extends Controller
         $formFields['semester_id'] = $exam_day->exam->semester->id;
         $formFields['exam_id'] = $exam_day->exam->id;
         $formFields['exam_day_id'] = $exam_day->id;
-        $formFields['course_id'] = $request->course;
+        $formFields['course_id'] = $request->course_id;
         $formFields['exam_type_id'] = $request->exam_type;
         $formFields['venue_id'] = $request->venue;
         $formFields['time_period_id'] = $request->time_period;

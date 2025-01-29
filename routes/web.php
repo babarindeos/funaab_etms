@@ -492,6 +492,8 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
     Route::get('courses/{course}/confirm_delete', [Admin_CourseController::class, 'confirm_delete'])->name('admin.courses.confirm_delete');
     Route::post('courses/{course}/delete', [Admin_CourseController::class, 'destroy'])->name('admin.courses.delete');
 
+    Route::get('courses/fetch_course', [Admin_CourseController::class, 'fetch_course'])->name('admin.courses.fetch_course');
+
 
     // Remuneration rates
     Route::get('remuneration_rates', [Admin_RemunerationRateController::class, 'index'])->name('admin.remuneration_rates.index');
@@ -662,6 +664,7 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
       Route::post('exams/exam_scheduler/scheduler/{schedule}/update', [Admin_ExamSchedulerController::class, 'update_schedule'])->name('admin.exams.exam_scheduler.schedule.update');
       Route::delete('exams/exam_scheduler/scheduler/{schedule}/destroy', [Admin_ExamSchedulerController::class, 'destroy'])->name('admin.exams.exam_scheduler.schedule.delete');
 
+      
 
       //Add Support Venue
       Route::get('exams/exam_scheduler/{exam_day}/scheduler/{schedule}/support_venue', [Admin_SupportVenueController::class, 'index'])->name('admin.exams.exam_scheduler.support_venue.index');
@@ -718,11 +721,15 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
        // Monitoring Chief
        Route::get('monitoring/chiefs/select_exam_chief', [Admin_MonitoringChiefController::class, 'select_exam_chief'])->name('admin.monitoring.chiefs.select_exam_chief');
 
-       // Monitoring Timtec
+       // Monitoring Timtec 
        Route::get('monitoring/timtecs/select_exam_timtec', [Admin_MonitoringTimtecController::class, 'select_exam_timtec'])->name('admin.monitoring.timtecs.select_exam_timtec');
+       Route::get('monitoring/exams/{exam}/timtecs/{timtec_member}/observations', [Admin_MonitoringTimtecController::class, 'timtec_observation'])->name('admin.monitoring.exams.timtecs.observations');
+
+
 
        // Monitoring Invigilator
        Route::get('monitoring/invigilators/select_exam_invigilator', [Admin_MonitoringInvigilatorController::class, 'select_exam_invigilator'])->name('admin.monitoring.invigilators.select_exam_invigilator');
+       Route::get('monitoring/exams/{exam}/invigilators/{invigilator}/invigilation', [Admin_MonitoringInvigilatorController::class, 'invigilations'])->name('admin.monitoring.exams.invigilators.invigilations');
 
 
        // Create Announcement

@@ -33,11 +33,7 @@
                         </div>
 
 
-                        @include('partials._session_response')
-                        
-                        
-
-                       
+                        @include('partials._session_response')                  
 
                         
 
@@ -84,7 +80,7 @@
                                                 </td>
                                                 <td>
 
-                                                    <a href="{{ route('admin.venue_categories.show', ['category'=> $added_category->id ]) }}" class='hover:underline'>
+                                                    <a href="{{ route('admin.venue_categories.show', ['category'=> $added_category->venue_category_id ]) }}" class='hover:underline'>
                                                         {{ $added_category->venue_category->name  }} 
                                                     </a>
                                                 </td>

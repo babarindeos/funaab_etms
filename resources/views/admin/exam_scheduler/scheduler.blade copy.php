@@ -43,9 +43,9 @@
                                 <!-- Course //-->
                                 <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2">
                                         
-                                    <input type="hidden" name="course_id" id="course_id" />
+                                    
                                 
-                                    <input name="course" id='course'  class="border border-1 border-gray-400 bg-gray-50
+                                    <select name="course" class="border border-1 border-gray-400 bg-gray-50
                                                                             w-full p-4 rounded-md 
                                                                             focus:outline-none
                                                                             focus:border-blue-500 
@@ -54,15 +54,36 @@
                                                                             
                                                                             style="font-family:'Lato';font-size:16px;font-weight:500;"
                                                                             required
-                                                                            />                                                                    
+                                                                            >
+
+                                                                            
+                                                                            <option value=''>-- Select Course --</option>
+                                                                                @foreach($courses as $course)
+                                                                                    @php
+                                                                                            $is_scheduled = false;
+                                                                                            $old_value = old('course');
+                                                                                    @endphp
+                                                                                    @foreach( $scheduled_exams as $scheduled_exam)
+                                                                                        @if ($scheduled_exam->course_id == $course->id)
+                                                                                            @php
+                                                                                                $is_scheduled = true;
+                                                                                            @endphp
+                                                                                        @endif
+                                                                                    @endforeach 
+                                                                                   
+
+                                                                                     @if ($is_scheduled == false) 
+                                                                                        <option class='py-4' value="{{$course->id}}" @if ($old_value==$course->id) selected  @endif>{{ $course->title }} ({{ $course->code }})</option>
+                                                                                     @endif 
+
+                                                                                @endforeach                                                    
+                                                                            </select>
 
                                                                             @error('course')
                                                                                 <span class="text-red-700 text-sm">
                                                                                     {{$message}}
                                                                                 </span>
                                                                             @enderror
-                                                                            
-                                                                            <div id="suggestion-box" class="border py-2 px-2 w-[47.7%] bg-green-100 text-black" style='position:absolute; top:364px; z-index:1000; display:none;'></div>
                                     
                                 </div>
                                 
@@ -380,63 +401,3 @@
 
     </div><!-- end of container //-->
 </x-admin-layout>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function(){
-        
-        $("#course").bind("keyup", function(){
-            var courseCode = $(this).val().trim();
-            var courseCodeLength = courseCode.length;
-
-            if (courseCodeLength >= 4)
-            {
-                $.ajax({
-                    url: "{{ route('admin.courses.fetch_course') }}",
-                    method: 'GET',
-                    data: { course_code: courseCode },
-                    success: function(response){
-                        console.log(response)
-                        
-                        if (!response || $.trim(response) === "" || response.length === 0) 
-                        {
-                            //console.log("empty");
-                        }
-                        else
-                        {
-                            $("#suggestion-box").html(response);
-                            $("#suggestion-box").show();                           
-
-                        }
-                       
-                    },
-                    error: function(){
-                        
-                    }
-                });
-
-            }
-            else
-            {
-                $("#suggestion-box").html("");
-                $("#suggestion-box").hide();
-            }
-
-            
-            
-        });
-
-
-        $("#suggestion-box").on("click", ".cursor-pointer", function(){
-            var courseId = $(this).attr("id");
-            var courseText = $(this).text();
-            
-            $("#course").val(courseText);
-            $("#course_id").val(courseId);
-
-            $("#suggestion-box").hide();
-        })
-    });
-
-
-</script>
