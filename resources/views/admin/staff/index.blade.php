@@ -86,8 +86,7 @@
                                             </span>
                                             <span> 
                                                 <a class="hover:bg-red-500 bg-red-400 text-white rounded-md 
-                                                        px-4 py-1 text-xs" href="#"
-                                                href=''>Delete</a>
+                                                        px-4 py-1 text-xs" href="{{ route('admin.staff.confirm_delete', ['user' => $staff->user->id]) }}">Delete</a>
                                             </span>	
                                         </td>
                                     </tr>

@@ -226,4 +226,16 @@ class Admin_StaffController extends Controller
        
         return redirect()->back()->with($data);
     }
+
+    public function confirm_delete(User $user)
+    {
+        return view('admin.staff.confirm_delete', compact('user'));
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        return redirect()->route('admin.staff.index');
+    }
 }

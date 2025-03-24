@@ -26,7 +26,23 @@ class Admin_AuthController extends Controller
 
         ]); 
         */
+
+
+       /* 
+         User::create([
+            'fileno' => 'IT002',
+            'firstname' => 'Entry',
+            'surname' => 'Admin002',
+            'middlename' => 'Sub-Admin',
+            'email' => 'seyibabs002.ng@gmail.com',
+            'password' => bcrypt('13$Y2nUZ/0'),
+            'role' => 'admin'
+
+        ]); 
+        */
         
+        
+
 
         return view('admin.auth.login');
     }

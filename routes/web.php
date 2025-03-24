@@ -435,9 +435,13 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
     Route::get('staff/{staff}/edit', [Admin_StaffController::class, 'edit'])->name('admin.staff.edit');
     Route::post('staff/{staff}/update', [Admin_StaffController::class, 'update'])->name('admin.staff.update');
 
+    Route::get('staff/{user}/confirm_delete', [Admin_StaffController::class, 'confirm_delete'])->name('admin.staff.confirm_delete');
+    Route::delete('staff/{user}/delete', [Admin_StaffController::class, 'destroy'])->name('admin.staff.delete');
+
     // Document
     Route::get('documents', [Admin_DocumentController::class, 'index'])->name('admin.documents.index');
     Route::get('document_details/{document}', [Admin_DocumentController::class, 'show'])->name('admin.documents.show');
+
 
     // User Profile
     Route::get('/profile/user/{fileno}', [Admin_ProfileController::class, 'user_profile'])->name('admin.profile.user_profile');
