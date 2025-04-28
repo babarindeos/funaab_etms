@@ -207,7 +207,7 @@ class Staff_ProfileController extends Controller
                 'status' => 'fail',
                 'message' => 'An error occurred '.$e->getMessage()
             ];
-            dd($e->getMessage());
+            //dd($e->getMessage());
         }
 
         $isProfile = Profile::where('user_id', Auth::user()->id)->first();
@@ -249,7 +249,7 @@ class Staff_ProfileController extends Controller
     public function update_avatar(Request $request)
     {
         $formFields = $request->validate([
-            'photo' => 'required|file|mimes:png,jpg,jpeg|max:500'
+            'photo' => 'required|file|mimes:png,jpg,jpeg|max:1024'
         ]);
 
         try
