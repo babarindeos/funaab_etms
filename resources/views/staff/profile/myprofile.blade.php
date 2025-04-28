@@ -22,7 +22,10 @@
                             @csrf
                             <input type="file" name="photo" class="text-sm border-0 border-gray-500
                                                      items-center 
-                                                     justify-center w-3/5" />
+                                                     justify-center w-3/5"
+                                                      accept=".jpg, .jpeg, .png"
+                                                      required
+                                                     />
                             @error('photo')
                                 <span class="text-red-700 text-sm mx-[10%]">
                                     {{$message}}

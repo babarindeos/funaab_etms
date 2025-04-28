@@ -1,18 +1,30 @@
 <x-staff-layout>
 
 <div class="flex flex-col border-0 w-[95%] mx-auto">
-    <section class="border-b border-gray-200 py-2 mt-4 mb-2">
-            <div class="text-2xl font-semibold ">
-                Dashboard                
-            </div>
-            <div>
-                @if (Auth::check())
-                    @php
-                        $surname = ucfirst(strtolower(Auth::user()->surname))
-                    @endphp
+    <section class="flex flex-col border-b border-gray-200 py-2 mt-4 mb-2  md:flex-row md:justify-between">
+            <div class=""> 
+                    <div class="text-2xl font-semibold ">
+                        Dashboard                
+                    </div>
+                    <div>
+                        @if (Auth::check())
+                            @php
+                                $surname = ucfirst(strtolower(Auth::user()->surname))
+                            @endphp
 
-                    Welcome {{ Auth::user()->staff->staff_title->title }} {{ $surname }} {{ Auth::user()->firstname}}
-                @endif
+                            Welcome {{ Auth::user()->staff->staff_title->title }} {{ $surname }} {{ Auth::user()->firstname}}
+                        @endif
+                    </div>
+            </div>
+            <div class='text-sm mt-2 md:text-md flex flex-col items-center border-0 justify-center'>
+                    <div class='flex flex-row border-0 space-x-4'>
+                        <div>
+                            <a class='hover:underline' href="{{ route('staff.profile.myprofile') }}">My Profile</a>
+                        </div> 
+                        <div>
+                            <a class='hover:underline' href="{{ route('staff.profile.change_password') }}">Change Password</a>
+                        </div>
+                    </div>
             </div>
     </section>
 

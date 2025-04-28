@@ -11,6 +11,8 @@ use App\Models\User;
 
 use Illuminate\Support\Facades\Hash;
 
+use Intervention\Image\Facades\Image;
+
 use Mail;
 
 class Staff_ProfileController extends Controller
@@ -27,27 +29,105 @@ class Staff_ProfileController extends Controller
     public function store(Request $request)
     {
         $formFields = $request->validate([ 
-            'avatar' => 'required|image|mimes:png,jpeg,jpg|max:100',           
+            'avatar' => 'required|image|mimes:png,jpeg,jpg|max:1024',           
             'designation' => 'required',
             'phone' => 'required'
         ]);
 
         $avatar = '';
         $new_filename = '';
-        $user_id = '';
+        $user_id = auth()->user()->id;
         $bio = '';
 
-        $user_id = auth()->user()->id;
-
+        
         if ($request->hasFile('avatar'))
         {
            
             $filename = $user_id;
 
             $avatar_file = $request->file('avatar');
-            $new_filename = $filename.'.'.$avatar_file->getClientOriginalExtension();
+            $extension = strtolower($avatar_file->getClientOriginalExtension());
+            $new_filename = $filename.'.'.$extension;            
 
-            $avatar_file->storeAs('avatars', $new_filename);
+
+            // Save the file originally  -- comment out to implement compression
+            // $avatar_file->storeAs('avatars', $new_filename);
+
+
+            if (!file_exists(storage_path('app/public/avatars')))
+            {
+                mkdir(storage_path('app/public/avatars'), 0755, true);
+            }
+
+            // --- compression section -------------
+            $src_path = $avatar_file->getRealPath();
+            $dst_path = storage_path('app/public/avatars/'.$new_filename);
+
+
+            // Create image resource from uploaded file
+            if (in_array($extension, ['jpeg', 'jpg']))
+            {
+                $src = imagecreatefromjpeg($src_path);
+            }
+            elseif ($extension === 'png')
+            {
+                $src = imagecreatefrompng($src_path);
+            }
+            else
+            {
+                return back()->withErrors(['avatar' => 'Unsupported image format']);
+            }
+
+
+            // Get original dimensions
+            $width = imagesx($src);
+            $height = imagesy($src);
+
+
+            // set the new dimension
+            $new_width = 250;
+            $new_height = 250;
+
+
+            // create new empty image
+            $dst = imagecreatetruecolor($new_width, $new_height);
+            
+
+            // Preserve transparency for PNG
+            if ($extension == 'png')
+            {
+                imagealphablending($dst, false);
+                imagesavealpha($dst, true);
+            }
+
+
+            // Resize
+            imagecopyresampled($dst, $src, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+
+            // Save resized image
+            if (in_array($extension, ['jpeg', 'jpg']))
+            {
+                imagejpeg($dst, $dst_path, 90);
+            }
+            elseif ($extension === 'png')
+            {
+                imagepng($dst, $dst_path, 9);
+            }
+
+
+            // Free memory
+            imagedestroy($src);
+            imagedestroy($dst);
+
+
+
+
+            //------------------   end of compression ----------------------------------
+
+
+            // Optional: If you want it in 'public' directory instead
+            // $path = public_path('storage/avatars/' . $new_filename);
+            // $image->save($path);
         }
 
         if ($new_filename!='')
@@ -177,17 +257,86 @@ class Staff_ProfileController extends Controller
             $update = '';
             if ($request->hasFile('photo'))
             {
-                $filename = auth()->user()->id;
+                $user_id = auth()->user()->id;
                 $avatar_file = $request->file('photo');
-                $new_filename = $filename.'.'.$avatar_file->getClientOriginalExtension();
+                $extension = strtolower($avatar_file->getClientOriginalExtension());
+                $new_filename = $user_id.'.'.$extension;
                 
-                $update = $avatar_file->storeAs('avatars', $new_filename);
 
-                if ($update != '')
+                $src_path = $avatar_file->getRealPath();
+                $dst_path = storage_path('app/public/avatars/'.$new_filename);
+
+                // create avatars folder if it does not exist
+                if (!file_exists(storage_path('app/public/avatars')))
                 {
+                    mkdir(storage_path('app/public/avatars'), 0755, true);
+                }
+
+                // Create image resource from uploaded file
+                if (in_array($extension, ['jpeg', 'jpg']))
+                {
+                    $src = imagecreatefromjpeg($src_path);
+                }
+                else if ($extension === 'png')
+                {
+                    $src = imagecreatefrompng($src_path);
+                }
+                else
+                {
+                    return back()->withErrors(['photo' => 'Unsupported image format']);
+                }
+
+                // Get original dimension
+                $width = imagesx($src);
+                $height = imagesy($src);
+
+
+                // Set new dimensions
+                $new_width = 250;
+                $new_height = 250;
+               
+                // Create new empty image
+                $dst = imagecreatetruecolor($new_width, $new_height);
+
+
+                // Preserve transparency for PNG
+                if ($extension === 'png')
+                {
+                    imagealphablending($dst, false);
+                    imagesavealpha($dst, true);
+                }
+
+                // Resize
+                imagecopyresampled($dst, $src, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+
+                // Save resized image
+                if (in_array($extension, ['jpeg', 'jpg']))
+                {
+                    $update = imagejpeg($dst, $dst_path, 90); //90% quality for JPEG
+                }
+                elseif ($extension === 'png')
+                {
+                    $update = imagepng($dst, $dst_path, 9); //Compression level 9 for PNG
+                }
+
+                // Free memory
+                imagedestroy($src);
+                imagedestroy($dst);
+
+                //$update = $avatar_file->storeAs('avatars', $new_filename);
+
+                if ($update)
+                {
+
+                    // update profile
                     $profile = Profile::where('user_id', auth()->user()->id)->first();
-                    $profile->avatar = $update;
-                    $profile->save();
+
+                    if ($profile)
+                    {
+                        $profile->avatar = 'avatars/'.$new_filename;
+                        $profile->save();
+                    }
+                   
                 }
 
                 
@@ -195,7 +344,7 @@ class Staff_ProfileController extends Controller
         }
         catch(\Exception $e)
         {
-
+            return back()->withErrors(['error' => 'An error occurred: '.$e->getMessage()]);
         }
         
         return redirect()->back();
