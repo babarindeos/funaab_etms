@@ -106,14 +106,16 @@ use App\Http\Controllers\Staff\Staff_AnnouncementController;
 use App\Http\Controllers\Staff\Staff_HodController;
 use App\Http\Controllers\Staff\Staff_CourseController;
 
-
-
-
 use App\Http\Controllers\Staff\Staff_CategoryController;
 
 //use App\Http\Controllers\Staff\
 
+use App\Http\Controllers\Manager\Manager_DashboardController;
+use App\Http\Controllers\Manager\Manager_AuthController;
+
 use App\Http\Controllers\MailTestController;
+
+use App\Http\Controllers\PasswordResetController;
 
 
 /*
@@ -194,17 +196,37 @@ Route::get('testmailbody', function(){
 
 
 
-Route::get('/', function () {
-    
+Route::get('/', function () {    
     return view('welcome');
 })->name('welcome');
 
 Route::post('/', [Staff_AuthController::class, 'login'])->name('staff.auth.login');
 
 
+Route::get('/forgot_password', [PasswordResetController::class, 'forgot_password'])->name('guest.password.forgot');
+Route::post('/email_verification', [PasswordResetController::class, 'email_verification'])->name('guest.password.email_verification');
+
+Route::get('/password_reset/{token}', [PasswordResetController::class, 'password_reset_create'])->name('guest.password.reset_create');
+Route::post('/password_reset/{token}', [PasswordResetController::class, 'password_reset_store'])->name('guest.password.reset.store');
+
 
 Route::get('/admin', [Admin_AuthController::class, 'index'])->name('admin.auth.index');
 Route::post('/admin', [Admin_AuthController::class, 'login'])->name('admin.auth.login');
+
+
+Route::get('/backoffice', [Manager_AuthController::class, 'index'])->name('manager.auth.index');
+Route::post('/backoffice', [Manager_AuthController::class, 'login'])->name('manager.auth.login');
+
+
+Route::prefix('backoffice')->middleware(['auth', 'manager'])->group(function(){
+    Route::get('/dashboard', [Manager_DashboardController::class, 'index'])->name('manager.dashboard.index');
+    Route::post('/logout', [Manager_AuthController::class, 'logout'])->name('manager.auth.logout');
+
+    
+
+});
+
+
 
 
 Route::prefix('staff')->middleware(['auth', 'staff'])->group(function(){
@@ -280,7 +302,6 @@ Route::prefix('staff')->middleware(['auth', 'staff'])->group(function(){
 
     Route::get('/profile/change_password', [Staff_ProfileController::class, 'change_password'])->name('staff.profile.change_password');
     Route::post('/profile/update_password', [Staff_ProfileController::class, 'update_password'])->name('staff.profile.update_password');
-
 
 
     // Categories
@@ -437,6 +458,9 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
 
     Route::get('staff/{user}/confirm_delete', [Admin_StaffController::class, 'confirm_delete'])->name('admin.staff.confirm_delete');
     Route::delete('staff/{user}/delete', [Admin_StaffController::class, 'destroy'])->name('admin.staff.delete');
+
+
+    Route::get('staff/fetch_staff', [Admin_StaffController::class, 'fetch_staff'])->name('admin.staff.fetch_staff');
 
     // Document
     Route::get('documents', [Admin_DocumentController::class, 'index'])->name('admin.documents.index');
@@ -687,6 +711,7 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
       
       Route::get('exams/{exam}/invigilator_allocation/automatic_allocation', [Admin_AutomaticInvigilatorAllocationController::class, 'index'])->name('admin.exams.invigilator_allocation.automatic_allocation');
 
+      Route::get('invigilators/fetch_invigilator', [Admin_InvigilatorAllocationController::class, 'fetch_invigilator'])->name('admin.invigilators.fetch_invigilator');
 
 
        // Chief  Allocation

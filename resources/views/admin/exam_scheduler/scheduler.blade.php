@@ -340,9 +340,10 @@
                                                                                 
                                                                             - {{ $support_venue->venue->venue_type->name }}: {{$support_venue->venue->student_capacity}} student caps. Max Invigilators: {{$support_venue->venue->max_invigilators}}
 
-                                                                            <div class='py-2 space-x-2'>
+                                                                            <div class='py-2 space-x-2 hidden'>
                                                                                     <a class='text-xs py-1 px-4 border border-green-500 rounded-md hover:bg-green-500 hover:text-white' 
-                                                                                        href="{{ route('admin.exams.invigilator_allocation.allocator',['exam_day'=>$day_exam->id]) }}?schedule={{ $day_exam->id }}&level=support">
+                                                                                              
+                                                                                        href="{{ route('admin.exams.invigilator_allocation.allocator',['exam_day'=>$day_exam->exam_day_id]) }}?schedule={{ $day_exam->id }}&level=support">
                                                                                         Invigilator Allocation
                                                                                     </a>                                                                  
                                                                             </div>

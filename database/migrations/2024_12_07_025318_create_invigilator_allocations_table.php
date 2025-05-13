@@ -21,6 +21,7 @@ return new class extends Migration
                 $table->unsignedBigInteger('exam_schedule_id');
                 $table->unsignedBigInteger('venue_id');
                 $table->unsignedBigInteger('time_period_id');
+                $table->unsignedBigInteger('support_venue_id')->nullable();                
                 $table->unsignedBigInteger('user_id');
 
                 $table->foreign('academic_session_id')
@@ -62,6 +63,11 @@ return new class extends Migration
                 $table->foreign('time_period_id')
                     ->references('id')
                     ->on('exam_time_periods')
+                    ->onDelete('cascade');
+
+                $table->foreign('support_venue_id')
+                    ->references('id')
+                    ->on('support_venues')
                     ->onDelete('cascade');
 
                 $table->foreign('user_id')

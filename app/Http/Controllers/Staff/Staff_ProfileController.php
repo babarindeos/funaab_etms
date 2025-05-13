@@ -11,7 +11,7 @@ use App\Models\User;
 
 use Illuminate\Support\Facades\Hash;
 
-use Intervention\Image\Facades\Image;
+
 
 use Mail;
 

@@ -103,8 +103,10 @@
                                                                     {{ $invigilation->exam_schedule->course->title }} 
                                                                     ({{ $invigilation->exam_schedule->course->code }})
                                                                     <div class='text-xs'>
-                                                                                    {{ $invigilation->exam_schedule->course->department->code  }}, 
-                                                                                    {{ $invigilation->exam_schedule->course->department->college->code  }}
+                                                                                @if ($invigilation->exam_schedule->course->department != null)
+                                                                                        {{ $invigilation->exam_schedule->course->department->code  }}, 
+                                                                                        {{ $invigilation->exam_schedule->course->department->college->code  }}
+                                                                                @endif
                                                                     </div>
 
                                                             </td>

@@ -20,4 +20,9 @@ class Venue extends Model
     {
         return $this->belongsTo(VenueCategory::class, 'venue_category_id', 'id');
     }
+
+    public function support_venues()
+    {
+        return $this->hasMany(SupportVenue::class, 'venue_id', 'id');
+    }
 }

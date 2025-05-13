@@ -30,7 +30,7 @@
                        <form action="{{ route('admin.staff.roles.store_assign_role',['role'=>$role->id]) }}" method="POST">
                             @csrf
                                 
-                            @include('partials._session_response')
+                                  
                                     
                                     <div class="flex flex-row justify-center md:space-x-1">
                                                             <!-- Title name //-->
@@ -65,8 +65,8 @@
                                                         <!-- Staff //-->
                                                         <div class="flex flex-col border-red-900 w-[80%] md:w-[80%] py-2">
                                                             
-                                                                <input type='hidden' name='user_id' id='user_id' />
-                                                                <input name="user" id="user" class="border border-1 border-gray-400 bg-gray-50
+                                                            
+                                                                <select name="user" class="border border-1 border-gray-400 bg-gray-50
                                                                                                     w-full p-4 rounded-md 
                                                                                                     focus:outline-none
                                                                                                     focus:border-blue-500 
@@ -75,11 +75,28 @@
                                                                                                     
                                                                                                     style="font-family:'Lato';font-size:16px;font-weight:500;"
                                                                                                     required
-                                                                                                    />
-                                                                <div id='suggestion-box' class='border py-2 px-2 w-[47.7%] bg-green-100 text-black' 
-                                                                          style='position:absolute; top:249px; z-index:1000; display:none; padding-left:2px;'></div>
+                                                                                                    >
+                                                                                                    <option value=''>-- Select Staff --</option>
+                                                                                                        @foreach($staff as $person)
+                                                                                                            @php
+                                                                                                                $is_assigned = false;
+                                                                                                            @endphp
 
-                                                                                                    
+                                                                                                            @foreach($assigned as $assignee)
+                                                                                                                @if($assignee->user_id == $person->user_id)
+                                                                                                                        @php
+                                                                                                                                $is_assigned = true;
+                                                                                                                        @endphp
+                                                                                                                @endif
+                                                                                                            @endforeach
+                                                                                                            
+                                                                                                            @if ($is_assigned == false)
+                                                                                                                <option class='py-4' value="{{$person->user_id}}">{{$person->surname}} {{$person->firstname}} ({{$person->fileno}})</option>
+                                                                                                            @endif
+                                                                                                            
+                                                                                                        @endforeach                                                                    
+                                                                                                    </select>
+                                
                                                                                                     @error('user')
                                                                                                         <span class="text-red-700 text-sm">
                                                                                                             {{$message}}
@@ -162,63 +179,3 @@
 
 </script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function(){
-            $("#user").bind("keyup", function(){
-                var fileno = $(this).val().trim()
-
-                var fileno_length = fileno.length;
-
-                if (fileno_length == 0)
-                {
-                    $("#user_id").val(''); 
-                }
-
-                //console.log(search_term_length);
-
-                if (fileno_length >=3)
-                {
-                        $.ajax({
-                            url: "{{ route('admin.staff.fetch_staff') }}",
-                            method: 'GET',
-                            data: {fileno: fileno}, 
-                            success: function(response){
-                                console.log(response)
-
-                                if (!response || $.trim(response) === "" || response.length === 0)
-                                {
-                                    
-                                }
-                                else
-                                {
-                                    $("#suggestion-box").html(response);
-                                    $("#suggestion-box").show();
-                                }
-                            },
-                            error: function(){
-
-                            }
-                        });
-                }
-                else
-                {
-                    $("#suggestion-box").html();
-                    $("#suggestion-box").hide();
-                }
-            })
-    });
-
-
-    $("#suggestion-box").on("click", ".cursor-pointer", function(){
-        var userId = $(this).attr("id");
-        var userText = $(this).text();
-
-        $("#user").val(userText);
-        $("#user_id").val(userId);
-
-
-        $("#suggestion-box").hide();
-    });
-
-</script>

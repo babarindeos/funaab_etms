@@ -238,4 +238,28 @@ class Admin_StaffController extends Controller
 
         return redirect()->route('admin.staff.index');
     }
+
+
+    public function fetch_staff(Request $request)
+    {
+        $fileno = $request->query('fileno');
+        
+        $staff_options = '';
+
+        $staffList = Staff::where('fileno', 'LIKE', "%{$fileno}%")
+                          ->orderBy('fileno', 'asc')
+                          ->get();
+
+        
+        foreach($staffList as $staff)
+        {
+            $staff_param = "(".$staff->fileno.") - ".$staff->staff_title->title." ".$staff->surname." ".$staff->firstname;
+            $staff_options .= "<div class='py-3 px-2 border-b border-gray-500 cursor-pointer' id='".$staff->user_id."'>".$staff_param."</div>";
+        }
+
+        //dd($course_options);
+
+        return $staff_options;
+
+    }
 }

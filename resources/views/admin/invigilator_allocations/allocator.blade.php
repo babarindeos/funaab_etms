@@ -58,6 +58,8 @@
 
                                 <input type="hidden" name="query_level" value="{{ $query_level }}" />
 
+                                        
+
 
                                  <!-- Exam Schedules //-->
                                  <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2">
@@ -76,14 +78,31 @@
                                                                                 >
                                                                                 
                                                                                 <option value=''>-- Scheduled Examinations --</option>
-                                                                                    @foreach($exam_schedules as $exam_schedule)
-                                                                                        <option class='py-4' value="{{$exam_schedule->id}}"  @if($exam_schedule->id == $query_schedule) selected  @endif >{{ $exam_schedule->course->code }} - {{ $exam_schedule->time_period->name }} 
-                                                                                            ({{ \Carbon\Carbon::parse($exam_schedule->time_period->start_time)->format('g:i a') }} - 
-                                                                                            {{ \Carbon\Carbon::parse($exam_schedule->time_period->end_time)->format('g:i a') }})
-                                                                                        </option>
+
+                                                                                        @if ($exam_schedule)
+                                                                                            <option class='py-4' value="{{$exam_schedule->id}}"  @if($exam_schedule->id == $query_schedule) selected  @endif >
+                                                                                                [ {{ $exam_schedule->course->code }} ] -
+                                                                                                {{$exam_schedule->venue->name }}
+                                                                                                - {{ $exam_schedule->time_period->name }} 
+                                                                                                ({{ \Carbon\Carbon::parse($exam_schedule->time_period->start_time)->format('g:i a') }} - 
+                                                                                                {{ \Carbon\Carbon::parse($exam_schedule->time_period->end_time)->format('g:i a') }})
+                                                                                            </option>
+                                                                                        @else
+                                                                                             @foreach($exam_day_schedules as $exam_schedule)
+                                                                                                    <option class='py-4' value="{{$exam_schedule->id}}"  @if($exam_schedule->id == $query_schedule) selected  @endif >
+                                                                                                        [ {{ $exam_schedule->course->code }} ] -
+                                                                                                        {{$exam_schedule->venue->name }}
+                                                                                                        - {{ $exam_schedule->time_period->name }} 
+                                                                                                        ({{ \Carbon\Carbon::parse($exam_schedule->time_period->start_time)->format('g:i a') }} - 
+                                                                                                        {{ \Carbon\Carbon::parse($exam_schedule->time_period->end_time)->format('g:i a') }})
+                                                                                                    </option>
+                                                                                                
+                
+                                                                                             @endforeach            
+                                                                                        @endif
                                                                                     
     
-                                                                                    @endforeach               
+                                                                                           
                                                                                                                          
                                                                                 </select>
     
@@ -101,9 +120,9 @@
                                 <!-- Invigilator //-->
                                 <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2">
                                         
-                                    
+                                    <input type='hidden' name='invigilator_id' id='invigilator_id' />
                                 
-                                    <select name="invigilator" class="border border-1 border-gray-400 bg-gray-50
+                                    <input name="invigilator" id="invigilator" class="border border-1 border-gray-400 bg-gray-50
                                                                             w-full p-4 rounded-md 
                                                                             focus:outline-none
                                                                             focus:border-blue-500 
@@ -112,16 +131,10 @@
                                                                             
                                                                             style="font-family:'Lato';font-size:16px;font-weight:500;"
                                                                             required
-                                                                            >
+                                                                            />
                                                                             
-                                                                            <option value=''>-- Select Invigilator --</option>
-                                                                            @foreach($invigilators as $invigilator)
-                                                                                    <option class='py-4'  value="{{$invigilator->user->id}}" >{{ $invigilator->user->staff->staff_title->title }} {{ ucfirst(strtolower($invigilator->user->staff->surname)) }} {{ $invigilator->user->staff->firstname }} ({{ $invigilator->user->staff->fileno }})</option>
-                                                                                
-
-                                                                                @endforeach               
-                                                                                                                     
-                                                                            </select>
+                                                                            <div id='suggestion-box' class='border py-2 px-2 w-[47.7%] bg-green-100 text-black' 
+                                                                                 style='position:absolute; top:439px; z-index:1000; display:none; padding-left:2px;'></div>
 
                                                                             @error('invigilator')
                                                                                 <span class="text-red-700 text-sm">
@@ -176,115 +189,287 @@
         </section>
         <!-- end of Search //-->
 
-        <!-- scheduled Day Exams //-->
+        <!-- scheduled Venue Invigilation  //-->
+        @if ($schedule_venue_invigilation != null)
+                        <section class="flex flex-col mx-auto w-[90%] items-center justify-center border-0 mb-8">
+                            
+                            <!-- Added Venue Categories //-->
+                            <div class="flex flex-col border-red-900 w-[80%] md:w-[100%] py-2 border-0 mt-0">
+                                
+                                <div class="flex flex-col w-full py-2 border-b text-lg font-semibold py-1">
+                                    <!-- Invigilation Day Exam ({{ $invigilation_day_exams->count() }} of {{ $invigilation_exams_count }}) -->
+                                    {{ $exam_schedule->venue->name }}
+                                    <div>Invigilations ({{ $schedule_venue_invigilation->count() }})</div>
+                                </div>
 
-        <section class="flex flex-col mx-auto w-[90%] items-center justify-center border-0 mb-8">
-             
-             <!-- Added Venue Categories //-->
-             <div class="flex flex-col border-red-900 w-[80%] md:w-[100%] py-2 border-0 mt-0">
-                
-                <div class="flex flex-row w-full py-2 border-b text-lg font-semibold py-1">
-                    Invigilation Day Exam ({{ $invigilation_day_exams->count() }} of {{ $invigilation_exams_count }})
-                </div>
+                                @if (count($schedule_venue_invigilation))
+                                    
+                                        <table class="table-auto border-collapse border border-1 border-gray-200" >
+                                                        <thead>
+                                                            <tr class="bg-gray-200">
+                                                                <th width='5%' class="text-center font-semibold py-4">SN</th>
+                                                                <th width='25%' class="font-semibold py-2 text-left">Invigilator</th> 
+                                                                <th width='20%' class="font-semibold py-2 text-left">Venue</th> 
+                                                                <th width='20%' class="font-semibold py-2 text-left">Time Period</th>                                      
+                                                                <th width='10%' class="font-semibold py-2 text-center">Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @php
+                                                                $counter = 0;
+                                                            @endphp
 
-                @if (count($invigilation_day_exams))
-                    
-                        <table class="table-auto border-collapse border border-1 border-gray-200" >
-                                        <thead>
-                                            <tr class="bg-gray-200">
-                                                <th width='5%' class="text-center font-semibold py-4">SN</th>
-                                                <th width='25%' class="font-semibold py-2 text-left">Invigilator</th> 
-                                                <th width='20%' class="font-semibold py-2 text-left">Venue</th> 
-                                                <th width='20%' class="font-semibold py-2 text-left">Time Period</th>                                      
-                                                <th width='10%' class="font-semibold py-2 text-center">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php
-                                                $counter = 0;
-                                            @endphp
+                                                                @foreach ($schedule_venue_invigilation as $invigilation)
+                                                                <tr class="border border-b border-gray-200">
+                                                                    <td class='text-center py-16'>{{ ++$counter }}.</td>
+                                                                    <td>        
+                                                                            <a href="{{ route('admin.profile.user_profile',['fileno'=>$invigilation->invigilator->staff->fileno]) }}" class="hover:underline"> 
+                                                                                    {{ $invigilation->invigilator->staff->staff_title->title }}                               
+                                                                                    {{ ucfirst(strtolower($invigilation->invigilator->staff->surname)) }}  
+                                                                                    {{ $invigilation->invigilator->staff->firstname }}
+                                                                                    ({{ $invigilation->invigilator->staff->fileno }})                                                      
+                                                                            </a>     
+                                                                            - <span class='text-xs hover:overline' style="cursor:pointer;" title="Gender" >
+                                                                                    [ {{ $invigilation->invigilator->staff->gender }} ]
+                                                                            </span>
 
-                                                @foreach ($invigilation_day_exams as $invigilation)
-                                                <tr class="border border-b border-gray-200">
-                                                    <td class='text-center py-8'>{{ ++$counter }}.</td>
-                                                    <td>        
-                                                            <a href="{{ route('admin.profile.user_profile',['fileno'=>$invigilation->invigilator->staff->fileno]) }}" class="hover:underline"> 
-                                                                    {{ $invigilation->invigilator->staff->staff_title->title }}                               
-                                                                    {{ ucfirst(strtolower($invigilation->invigilator->staff->surname)) }}  
-                                                                    {{ $invigilation->invigilator->staff->firstname }}
-                                                                    ({{ $invigilation->invigilator->staff->fileno }})                                                      
-                                                            </a>     
-                                                            - <span class='text-xs hover:overline' style="cursor:pointer;" title="Gender" >
-                                                                    [ {{ $invigilation->invigilator->staff->gender }} ]
-                                                            </span>
+                                                                            <div class='text-xs'>
+                                                                                {{ $invigilation->invigilator->staff->department->code }}, {{ $invigilation->invigilator->staff->department->college->code }}
+                                                                            </div>
+                                                                                            
+                                                                        
+                                                                    </td>
+                                                                    <td>
+                                                                            <a href="{{ route('admin.venues.show',['venue'=>$invigilation->venue_id]) }}" class="hover:underline">                                
+                                                                                    {{ $invigilation->venue->name }}  ( {{$invigilation->venue->venue_category->name }} )                                                     
+                                                                            </a>  
+                                                                            <div class='text-sm'>
+                                                                                
+                                                                                            {{ $invigilation->venue->venue_type->name }}: {{$invigilation->venue->student_capacity}} student caps. 
+                                                                                            <br/>Max. Invigilators: {{ $invigilation->venue->max_invigilators }}
+                                                                                    
+                                                                            </div>
+                                                                    </td>
+                                                                    <td>
+                                                                            <div>
+                                                                                    {{$invigilation->time_period->name}}
+                                                                            </div>
+                                                                            <div class="text-sm">
+                                                                                    {{ \Carbon\Carbon::parse($invigilation->time_period->start_time)->format('g:i a') }} - {{\Carbon\Carbon::parse($invigilation->time_period->end_time)->format('g:i a') }} 
 
-                                                            <div class='text-xs'>
-                                                                {{ $invigilation->invigilator->staff->department->code }}, {{ $invigilation->invigilator->staff->department->college->code }}
-                                                            </div>
-                                                                              
-                                                        
-                                                    </td>
-                                                    <td>
-                                                            <a href="{{ route('admin.venues.show',['venue'=>$invigilation->venue_id]) }}" class="hover:underline">                                
-                                                                    {{ $invigilation->venue->name }}  ( {{$invigilation->venue->venue_category->name }} )                                                     
-                                                            </a>  
-                                                            <div class='text-sm'>
-                                                                  
-                                                                            {{ $invigilation->venue->venue_type->name }}: {{$invigilation->venue->student_capacity}} student caps. 
-                                                                            <br/>Max. Invigilators: {{ $invigilation->venue->max_invigilators }}
+                                                                            </div>
+                                                                    </td>
                                                                     
-                                                            </div>
-                                                    </td>
-                                                    <td>
-                                                            <div>
-                                                                    {{$invigilation->time_period->name}}
-                                                            </div>
-                                                            <div class="text-sm">
-                                                                    {{ \Carbon\Carbon::parse($invigilation->time_period->start_time)->format('g:i a') }} - {{\Carbon\Carbon::parse($invigilation->time_period->end_time)->format('g:i a') }} 
+                                                                    
+                                                                    <td class="text-center">
+                                                                        <div class='flex flex-row space-x-1 justify-center items-center'>
+                                                                                
 
-                                                            </div>
-                                                    </td>
-                                                    
-                                                    
-                                                    <td class="text-center">
-                                                        <div class='flex flex-row space-x-1 justify-center items-center'>
-                                                                
+                                                                                <div class="text-sm">
+                                                                                    <form action="{{ route('admin.exams.invigilator_allocation.destroy',['allocation'=>$invigilation->id]) }}" method="POST">
+                                                                                        @csrf
+                                                                                        @method("delete")
+                                                                                        <button class="hover:bg-red-500 bg-red-400 text-white rounded-md 
+                                                                                            px-4 py-1 text-xs">Delete</button>
+                                                                                    </form>
+                                                                                </div>
+                                                                        </div>                                                        
+                                                                    </td>
 
-                                                                <div class="text-sm">
-                                                                    <form action="{{ route('admin.exams.invigilator_allocation.destroy',['allocation'=>$invigilation->id]) }}" method="POST">
-                                                                        @csrf
-                                                                        @method("delete")
-                                                                        <button class="hover:bg-red-500 bg-red-400 text-white rounded-md 
-                                                                            px-4 py-1 text-xs">Delete</button>
-                                                                    </form>
-                                                                </div>
-                                                        </div>                                                        
-                                                    </td>
+                                                                </tr>
+                                                                @endforeach
+                                                            
+                                                            
+                                                        </tbody>
 
-                                                </tr>
-                                                @endforeach
-                                            
-                                            
-                                        </tbody>
-
-                        </table>
-                       
+                                        </table>
+                                    
 
 
 
-                @endif
-                
+                                @endif
+                                
 
 
-            </div>
+                            </div>
 
 
-        </section>
+                        </section>
+        @endif
         <!--end of added category //-->
 
 
+        <!-- end of scheduled Venue Invigilation //-->
+
+
+
+
+        <!-- scheduled Day Exams //-->
+        @if ($schedule_day_invigilation)
+                    <section class="flex flex-col mx-auto w-[90%] items-center justify-center border-0 mb-8">
+                        
+                        <!-- Added Venue Categories //-->
+                        <div class="flex flex-col border-red-900 w-[80%] md:w-[100%] py-2 border-0 mt-0">
+                            
+                            <div class="flex flex-row w-full py-2 border-b text-lg font-semibold py-1">
+                                Invigilation Day Exam ({{ $invigilation_day_exams->count() }} of {{ $invigilation_exams_count }})
+                            </div>
+
+                            @if (count($invigilation_day_exams))
+                                
+                                    <table class="table-auto border-collapse border border-1 border-gray-200" >
+                                                    <thead>
+                                                        <tr class="bg-gray-200">
+                                                            <th width='5%' class="text-center font-semibold py-4">SN</th>
+                                                            <th width='25%' class="font-semibold py-2 text-left">Invigilator</th> 
+                                                            <th width='20%' class="font-semibold py-2 text-left">Venue</th> 
+                                                            <th width='20%' class="font-semibold py-2 text-left">Time Period</th>                                      
+                                                            <th width='10%' class="font-semibold py-2 text-center">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @php
+                                                            $counter = 0;
+                                                        @endphp
+
+                                                            @foreach ($invigilation_day_exams as $invigilation)
+                                                            <tr class="border border-b border-gray-200">
+                                                                <td class='text-center py-8'>{{ ++$counter }}.</td>
+                                                                <td>        
+                                                                        <a href="{{ route('admin.profile.user_profile',['fileno'=>$invigilation->invigilator->staff->fileno]) }}" class="hover:underline"> 
+                                                                                {{ $invigilation->invigilator->staff->staff_title->title }}                               
+                                                                                {{ ucfirst(strtolower($invigilation->invigilator->staff->surname)) }}  
+                                                                                {{ $invigilation->invigilator->staff->firstname }}
+                                                                                ({{ $invigilation->invigilator->staff->fileno }})                                                      
+                                                                        </a>     
+                                                                        - <span class='text-xs hover:overline' style="cursor:pointer;" title="Gender" >
+                                                                                [ {{ $invigilation->invigilator->staff->gender }} ]
+                                                                        </span>
+
+                                                                        <div class='text-xs'>
+                                                                            {{ $invigilation->invigilator->staff->department->code }}, {{ $invigilation->invigilator->staff->department->college->code }}
+                                                                        </div>
+                                                                                        
+                                                                    
+                                                                </td>
+                                                                <td>
+                                                                        <a href="{{ route('admin.venues.show',['venue'=>$invigilation->venue_id]) }}" class="hover:underline">                                
+                                                                                {{ $invigilation->venue->name }}  ( {{$invigilation->venue->venue_category->name }} )                                                     
+                                                                        </a>  
+                                                                        <div class='text-sm'>
+                                                                            
+                                                                                        {{ $invigilation->venue->venue_type->name }}: {{$invigilation->venue->student_capacity}} student caps. 
+                                                                                        <br/>Max. Invigilators: {{ $invigilation->venue->max_invigilators }}
+                                                                                
+                                                                        </div>
+                                                                </td>
+                                                                <td>
+                                                                        <div>
+                                                                                {{$invigilation->time_period->name}}
+                                                                        </div>
+                                                                        <div class="text-sm">
+                                                                                {{ \Carbon\Carbon::parse($invigilation->time_period->start_time)->format('g:i a') }} - {{\Carbon\Carbon::parse($invigilation->time_period->end_time)->format('g:i a') }} 
+
+                                                                        </div>
+                                                                </td>
+                                                                
+                                                                
+                                                                <td class="text-center">
+                                                                    <div class='flex flex-row space-x-1 justify-center items-center'>
+                                                                            
+
+                                                                            <div class="text-sm">
+                                                                                <form action="{{ route('admin.exams.invigilator_allocation.destroy',['allocation'=>$invigilation->id]) }}" method="POST">
+                                                                                    @csrf
+                                                                                    @method("delete")
+                                                                                    <button class="hover:bg-red-500 bg-red-400 text-white rounded-md 
+                                                                                        px-4 py-1 text-xs">Delete</button>
+                                                                                </form>
+                                                                            </div>
+                                                                    </div>                                                        
+                                                                </td>
+
+                                                            </tr>
+                                                            @endforeach
+                                                        
+                                                        
+                                                    </tbody>
+
+                                    </table>
+                                
+
+
+
+                            @endif
+                            
+
+
+                        </div>
+
+
+                    </section>
+        <!--end of added category //-->
+
+        @endif
         <!-- end of scheduled Day Exam //-->
+
 
 
     </div><!-- end of container //-->
 </x-admin-layout>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function(){
+            $("#invigilator").bind("keyup", function(){
+                var searchTerm = $(this).val().trim()
+
+                var search_term_length = searchTerm.length;
+
+                //console.log(search_term_length);
+
+                if (search_term_length >=3)
+                {
+                        $.ajax({
+                            url: "{{ route('admin.invigilators.fetch_invigilator') }}",
+                            method: 'GET',
+                            data: {search_term: searchTerm}, 
+                            success: function(response){
+                                console.log(response)
+
+                                if (!response || $.trim(response) === "" || response.length === 0)
+                                {
+                                    
+                                }
+                                else
+                                {
+                                    $("#suggestion-box").html(response);
+                                    $("#suggestion-box").show();
+                                }
+                            },
+                            error: function(){
+
+                            }
+                        });
+                }
+                else
+                {
+                    $("#suggestion-box").html();
+                    $("#suggestion-box").hide();
+                }
+            })
+    });
+
+
+    $("#suggestion-box").on("click", ".cursor-pointer", function(){
+        var invigilatorId = $(this).attr("id");
+        var invigilatorText = $(this).text();
+
+        $("#invigilator").val(invigilatorText);
+        $("#invigilator_id").val(invigilatorId);
+
+
+        $("#suggestion-box").hide();
+    });
+
+</script>

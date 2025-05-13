@@ -30,15 +30,37 @@ class Admin_StaffRoleController extends Controller
 
     public function store_assign_role(Request $request, StaffRole $role)
     {
+
+        // /dd($request);
+
         $request->validate([
             'user' => 'required|string'
         ]);
+
+        // check if user has already been added
+
+        $user_assigned = AssignRole::where('user_id', $request->user_id)
+                                     ->where('staff_role_id', '1')
+                                     ->exists();
+
+        //dd($user_assigned);
+
+        if ($user_assigned)
+        {
+            $data = [
+                'error' => true,
+                'status' => 'fail',
+                'message' => 'The Staff has been assigned to the role'
+            ];
+
+            return redirect()->back()->with($data);
+        }
 
         try
         {
             $create = AssignRole::create([
                 'staff_role_id' => $role->id,
-                'user_id' => $request->user
+                'user_id' => $request->user_id
             ]);
 
             if ($create)
