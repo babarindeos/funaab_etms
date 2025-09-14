@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Exam;
-use App\Models\TimTecAllocation;
+use App\Models\TimtecAllocation;
 use App\Models\User;
 
 class Admin_MonitoringTimtecController extends Controller
@@ -23,7 +23,8 @@ class Admin_MonitoringTimtecController extends Controller
             $exam_selected = $request->get('exam');
 
 
-            $exam_timtecs_allocations = TimTecAllocation::where('exam_id', $request->get('exam'))
+            $exam_timtecs_allocations = TimtecAllocation::where('exam_id', $request->get('exam'))
+                                    ->groupBy('timtec_member_id')
                                     ->orderBy('timtec_member_id','asc')
                                     ->get();
 

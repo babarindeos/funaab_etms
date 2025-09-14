@@ -66,5 +66,7 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\AdminAuth::class,
         'staff' => \App\Http\Middleware\StaffAuth::class,
         'manager' => \App\Http\Middleware\ManagerAuth::class,
+        'vetter' => \App\Http\Middleware\VetterAuth::class,
+        'vetter_supervisor' => \App\Http\Middleware\VetterSupervisor::class
     ];
 }

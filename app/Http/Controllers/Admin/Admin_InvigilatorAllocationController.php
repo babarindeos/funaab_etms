@@ -87,6 +87,7 @@ class Admin_InvigilatorAllocationController extends Controller
                 $schedule_venue_invigilation = InvigilatorAllocation::where('exam_id', $exam_schedule->exam_id)
                                                              ->where('exam_day_id', $exam_schedule->exam_day_id)
                                                              ->where('venue_id', $exam_schedule->venue_id)
+                                                             ->where('time_period_id', $exam_schedule->time_period_id)
                                                              ->orderBy('time_period_id', 'asc')
                                                              ->get();
         }
