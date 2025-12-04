@@ -6,11 +6,11 @@
 
 
             <!-- Right  panel //-->
-            <div class="flex flex-col w-full  md:w-100%] items-center justify-center py-4">
+            <div class="flex flex-col w-full  md:w-[100%] items-center justify-center py-4">
 
                 <section class="flex flex-col w-full border border-0">
                     <div class="flex flex-col w-full border border-0" >
-                    <form  action="{{ route('guest.password.email_verification') }}" method="POST" class="flex flex-col mx-auto w-[30%] items-center justify-center space-y-2">
+                    <form  action="{{ route('guest.password.email_verification') }}" method="POST" class="flex flex-col mx-auto w-[30%] md:w-[50%] items-center justify-center space-y-2">
                             @csrf
 
 

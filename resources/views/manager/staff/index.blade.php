@@ -1,4 +1,4 @@
-<x-admin-layout>
+<x-manager-layout>
     <div class="flex flex-col w-full border-0 border-blue-900 mx-auto">
         <!-- page header //-->
         <section class="flex flex-col w-[95%] md:w-[95%] py-1 mt-6 px-2 md:px-4 border-red-900 mx-auto">
@@ -16,7 +16,7 @@
         <!-- end of page header //-->
 
         <section class="flex flex-col py-2 px-2 justify-end w-[95%] mx-auto md:px-4 ">
-                    <form action="{{ route('admin.staff.index') }}" method="GET">
+                    <form action="{{ route('manager.staff.index') }}" method="GET">
                     @csrf
                             <div class="flex justify-end border-0 gap-2">
                             
@@ -71,23 +71,7 @@
                                                             @if ($staff->department != null) ({{ $staff->department->code }})  @endif 
                                                     </div>
 
-                                                    <div class="text-center py-2">
-                                                            <span class="px-1">
-                                                                <a class="bg-green-400 hover:bg-green-500 text-white rounded-md px-4 py-1 text-xs"
-                                                                    href="{{ route('admin.profile.user_profile', ['fileno'=> $staff->fileno])}}">
-                                                                    View
-                                                                </a>
-                                                            </span>
-                                                            <span class="text-sm">
-                                                                <a class="hover:bg-blue-500 bg-blue-400 text-white rounded-md 
-                                                                        px-4 py-1 text-xs" href="{{ route('admin.staff.edit', ['staff' => $staff->id]) }}">Edit</a>
-                                                            </span>
-                                                            <span> 
-                                                                <a class="hover:bg-red-500 bg-red-400 text-white rounded-md 
-                                                                        px-4 py-1 text-xs" href="{{ route('admin.staff.confirm_delete', ['user' => $staff->user->id]) }}">Delete</a>
-                                                            </span>	
-                                                    </div>
-
+                                                    
                                                     
 
                                                 </div>
@@ -111,7 +95,7 @@
 
         
     </div>
-</x-admin-layout>
+</x-manager-layout>
 
 <script>
     $(document).ready(function(){

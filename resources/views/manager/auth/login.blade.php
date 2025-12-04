@@ -22,7 +22,7 @@
 
                         <div class="flex flex-col w-[80%] md:w-[60%] py-4 mt-4 font-serif" >
                             <h2 class="font-semibold text-xl py-1" >Sign In</h2>
-                            TIMTEC Management Only 
+                            TIMTEC Administrative Office 
                             
                         </div>
 

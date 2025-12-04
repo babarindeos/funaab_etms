@@ -52,7 +52,7 @@ class Manager_AuthController extends Controller
 
         $email = $request->input('email');
         $password = $request->input('password');
-        //dd($password);
+
         
         if (Auth::attempt(['email'=>$email, 'password'=>$password, 'role'=>'manager' ])){
             $request->session()->regenerate();

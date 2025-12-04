@@ -21,12 +21,27 @@ use App\Models\StaffStatus;
 class Admin_StaffController extends Controller
 {
     //
-    public function index(){
+    public function index(Request $request){
        
-        $staffs = Staff::orderBy('surname', 'asc')
+        $query = $request->query('q');
+        
+        if ($query == null)
+        {
+             $staffs = Staff::orderBy('surname', 'asc')
                         ->orderBy('firstname', 'asc')
                         ->orderBy('middlename', 'asc')
-                        ->paginate(20);
+                        ->paginate(100);
+        }
+        else
+        {
+             $staffs = Staff::where('surname','like',"%{$query}%")
+                        ->orderBy('surname', 'asc')
+                        ->orderBy('firstname', 'asc')
+                        ->orderBy('middlename', 'asc')
+                        ->paginate(100);
+        }
+
+       
         return view('admin.staff.index', compact('staffs'));
 
     }

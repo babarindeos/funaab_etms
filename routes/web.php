@@ -77,9 +77,6 @@ use App\Http\Controllers\Admin\Admin_AutomaticInvigilatorAllocationController;
 
 
 
-
-
-
 use App\Http\Controllers\Staff\Staff_AuthController;
 use App\Http\Controllers\Staff\Staff_DashboardController;
 use App\Http\Controllers\Staff\Staff_DocumentController;
@@ -109,13 +106,33 @@ use App\Http\Controllers\Staff\Staff_CourseController;
 use App\Http\Controllers\Staff\Staff_CategoryController;
 
 //use App\Http\Controllers\Staff\
-
+// Manager
 use App\Http\Controllers\Manager\Manager_DashboardController;
 use App\Http\Controllers\Manager\Manager_AuthController;
+use App\Http\Controllers\Manager\Manager_AnnouncementController;
+use App\Http\Controllers\Manager\Manager_ExamDayController;
+
+// Manager Monitoring
+use App\Http\Controllers\Manager\Manager_MonitoringTimtecController;
+use App\Http\Controllers\Manager\Manager_MonitoringInvigilatorController;
+
+// Exam
+use App\Http\Controllers\Manager\Manager_ExamController;
+
+use App\Http\Controllers\Manager\Manager_ExamSchedulerController;
+use App\Http\Controllers\Manager\Manager_StaffController;
+use App\Http\Controllers\Manager\Manager_CourseInvigilationController;
+
 
 use App\Http\Controllers\MailTestController;
 
 use App\Http\Controllers\PasswordResetController;
+
+
+// BackOffice 
+use App\Http\Controllers\BackOffice\BackOffice_AuthController;
+
+
 
 
 /*
@@ -218,11 +235,71 @@ Route::get('/backoffice', [Manager_AuthController::class, 'index'])->name('manag
 Route::post('/backoffice', [Manager_AuthController::class, 'login'])->name('manager.auth.login');
 
 
+
 Route::prefix('backoffice')->middleware(['auth', 'manager'])->group(function(){
     Route::get('/dashboard', [Manager_DashboardController::class, 'index'])->name('manager.dashboard.index');
     Route::post('/logout', [Manager_AuthController::class, 'logout'])->name('manager.auth.logout');
 
+// Create Announcement
+    Route::get('announcements', [Manager_AnnouncementController::class, 'index'])->name('manager.announcements.index');
+    Route::get('announcements/{announcement}/show', [Manager_AnnouncementController::class, 'show'])->name('manager.announcements.show');
+
+    Route::get('announcements/create', [Manager_AnnouncementController::class, 'create'])->name('manager.announcements.create');
+
+    Route::post('announcements/store', [Manager_AnnouncementController::class, 'store'])->name('manager.announcements.store');
+
+    Route::post('announcements/{announcement}/comments/store', [Manager_AnnouncementController::class, 'store_comment'])->name('manager.announcements.comments.store');
+    Route::delete('announcements/{comment}/comments/delete', [Manager_AnnouncementController::class, 'delete_comment'])->name('manager.announcements.comments.delete_comment');
     
+    Route::get('announcements/{announcement}/notify', [Manager_AnnouncementController::class, 'notify'])->name('manager.announcements.notify');
+    Route::post('announcements/{announcement}/notify', [Manager_AnnouncementController::class, 'post_notify'])->name('manager.announcements.post_notify');
+
+    Route::get('announcements/{announcement}/edit', [Manager_AnnouncementController::class, 'edit'])->name('manager.announcements.edit');
+    Route::post('announcements/{announcement}/update', [Manager_AnnouncementController::class, 'update'])->name('manager.announcements.update');
+
+    Route::get('announcements/{announcement}/confirm_delete', [Manager_AnnouncementController::class, 'confirm_delete'])->name('manager.announcements.confirm_delete');
+    Route::delete('announcements/{announcement}/delete', [Manager_AnnouncementController::class, 'destroy'])->name('manager.announcements.delete');
+
+    Route::get('announcements/{announcement}/delete_file', [Manager_AnnouncementController::class, 'delete_file'])->name('manager.announcements.delete_file');
+
+
+
+    // ExamDay
+    Route::get('exams/exam_days', [Manager_ExamDayController::class, 'index'])->name('manager.exams.exam_days.index');
+    Route::get('exams/exam_days/select_exam_days', [Manager_ExamDayController::class, 'select_exam_days'])->name('manager.exams.exam_days.select_exam_days');
+    Route::post('exams/exam_days/select_exam_days', [Manager_ExamDayController::class, 'load_exam_day_schedule'])->name('manager.exams.exam_days.load_exam_day_schedule');
+    Route::get('exams/exam_days/day/{exam_day}/exam_schedule', [Manager_ExamDayController::class, 'exam_day_schedule'])->name('manager.exams.exam_days.exam_day_schedule');  
+
+
+
+    // Monitoring Timtec 
+    Route::get('monitoring/timtecs/select_exam_timtec', [Manager_MonitoringTimtecController::class, 'select_exam_timtec'])->name('manager.monitoring.timtecs.select_exam_timtec');
+    Route::get('monitoring/exams/{exam}/timtecs/{timtec_member}/observations', [Manager_MonitoringTimtecController::class, 'timtec_observation'])->name('manager.monitoring.exams.timtecs.observations');
+
+
+
+    // Monitoring Invigilator
+    Route::get('monitoring/invigilators/select_exam_invigilator', [Manager_MonitoringInvigilatorController::class, 'select_exam_invigilator'])->name('manager.monitoring.invigilators.select_exam_invigilator');
+    Route::get('monitoring/exams/{exam}/invigilators/{invigilator}/invigilation', [Manager_MonitoringInvigilatorController::class, 'invigilations'])->name('manager.monitoring.exams.invigilators.invigilations');
+
+
+    // Exams
+    Route::get('exams', [Manager_ExamController::class, 'index'])->name('manager.exams.index');
+    Route::get('exams/{exam}/show', [Manager_ExamController::class, 'show'])->name('manager.exams.show');
+
+
+    Route::get('exams/{exam}/days', [Manager_ExamDayController::class, 'index'])->name('manager.exams.days.index');
+    Route::get('exams/exam_scheduler/{exam_day}/scheduler', [Manager_ExamSchedulerController::class, 'scheduler'])->name('manager.exams.exam_scheduler.scheduler');
+
+
+    // Staff
+    Route::get('staff', [Manager_StaffController::class, 'index'])->name('manager.staff.index');
+
+    // Course Invigilation 
+    Route::get('course_invigilation', [Manager_CourseInvigilationController::class, 'index'])->name('manager.course.invigilation.index');
+    Route::post('course_invigilation', [Manager_CourseInvigilationController::class, 'invigilation'])->name('manager.course.invigilation.get_result');
+
+    Route::get('courses/fetch_course', [Manager_CourseInvigilationController::class, 'fetch_course'])->name('manager.courses.fetch_course');
 
 });
 
@@ -359,6 +436,9 @@ Route::prefix('staff')->middleware(['auth', 'staff'])->group(function(){
     Route::get('users/hod/department/courses/{course}/show', [Staff_CourseController::class, 'show'])->name('staff.hod.department.course.show');
 
     Route::get('users/courses/my_courses', [Staff_CourseController::class, 'my_courses'])->name('staff.courses.my_courses');
+
+
+    
     
     // 
 
@@ -765,11 +845,9 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
        Route::get('announcements', [Admin_AnnouncementController::class, 'index'])->name('admin.announcements.index');
        Route::get('announcements/{announcement}/show', [Admin_AnnouncementController::class, 'show'])->name('admin.announcements.show');
 
-       Route::get('announcements/create', [Admin_AnnouncementController::class, 'create']
-        )->name('admin.announcements.create');
+       Route::get('announcements/create', [Admin_AnnouncementController::class, 'create'])->name('admin.announcements.create');
 
-       Route::post('announcements/store', [Admin_AnnouncementController::class, 'store']
-        )->name('admin.announcements.store');
+       Route::post('announcements/store', [Admin_AnnouncementController::class, 'store'])->name('admin.announcements.store');
 
        Route::post('announcements/{announcement}/comments/store', [Admin_AnnouncementController::class, 'store_comment'])->name('admin.announcements.comments.store');
        Route::delete('announcements/{comment}/comments/delete', [Admin_AnnouncementController::class, 'delete_comment'])->name('admin.announcements.comments.delete_comment');
