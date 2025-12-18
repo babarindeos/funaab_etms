@@ -218,8 +218,8 @@
 
                                                 @foreach ($timtec_day_exams as $timtec_allocation)
                                                 <tr class="border border-b border-gray-200">
-                                                    <td class='text-center py-8'>{{ ++$counter }}.</td>
-                                                    <td>        
+                                                    <td class='text-center'>{{ ++$counter }}.</td>
+                                                    <td class='py-8'>        
                                                             <a href="{{ route('admin.profile.user_profile',['fileno' => $timtec_allocation->timtec_member->staff->fileno ]) }}" class="hover:underline">                                
                                                                 {{ $timtec_allocation->timtec_member->staff->staff_title->title }} {{ ucfirst(strtolower($timtec_allocation->timtec_member->staff->surname)) }} {{ $timtec_allocation->timtec_member->staff->firstname }} ({{ $timtec_allocation->timtec_member->staff->fileno }})                                    
                                                             </a>  

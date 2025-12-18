@@ -1,4 +1,4 @@
-<x-admin-layout>
+<x-manager-layout>
 
     <div class="flex flex-col border-0 w-[95%] mx-auto">
         <section class="border-b border-gray-200 py-2 mt-6">
@@ -24,7 +24,7 @@
 
                             <!-- announcement header //-->
                             <div class="flex flex-col border-b pb-4 space-y-2 md:space-y-1">
-                                    <div class="py-1 font-semibold">
+                                    <div class="py-1 font-semibold text-xl">
                                             {{ $announcement->subject }}
                                     </div>
                                     <div class="flex flex-col md:flex-row text-sm md:space-x-6 border-0 md:items-center space-y-2 md:space-y-0">
@@ -100,7 +100,7 @@
 
                 <!-- bottom panel //-->
                 <div class="flex flex-col  md:w-[60%] md:px-3 py-2 mt-8"><!-- Bottom pane //-->
-                    <form action="{{ route('admin.announcements.comments.store', ['announcement'=>$announcement->id]) }}" method="POST">
+                    <form action="{{ route('manager.announcements.comments.store', ['announcement'=>$announcement->id]) }}" method="POST">
                             @csrf
 
                             <div class="py-1">
@@ -220,4 +220,4 @@
 
 
     </div>
-</x-admin-layout>
+</x-manager-layout>

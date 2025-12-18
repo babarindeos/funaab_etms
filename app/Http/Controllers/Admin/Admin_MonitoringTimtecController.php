@@ -46,6 +46,9 @@ class Admin_MonitoringTimtecController extends Controller
                                               ->orderBy('exam_day_id', 'asc')
                                               ->orderBy('time_period_id', 'asc')
                                               ->get();
+
+        //dd($timtec_allocations);
+
         return view('admin.monitoring_timtecs.timtec_observations', compact('exam','timtec_allocations','timtec_member'));
     }
 

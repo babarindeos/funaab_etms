@@ -38,7 +38,7 @@
                     
                 </section>
 
-                <section class="flex flex-col w-[95%] md:w-[95%] mx-auto px-2 md:px-4">
+                <section class="flex flex-col w-[95%] md:w-[95%] mx-auto px-2 md:px-4 mb-16">
                     <table class="table-auto border-collapse border border-1 border-gray-200" 
                                 >
                         <thead>
@@ -57,8 +57,8 @@
 
                                 @foreach ($departments as $department)
                                 <tr class="border border-b border-gray-200">
-                                    <td class='text-center py-8'>{{ ++$counter }}.</td>
-                                    <td>
+                                    <td class='text-center'>{{ ++$counter }}.</td>
+                                    <td class='py-8'>
                                         <a class="hover:underline" href="{{ route('admin.departments.show', ['department'=>$department->id]) }}">
                                             {{ $department->name }} 
                                         </a>

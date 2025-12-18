@@ -15,10 +15,34 @@ use App\Http\Classes\AcademicSessionClass;
 class Admin_CourseController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
-        $courses = Course::orderBy('id', 'desc')->paginate(20);
+        $query = $request->query('q');
+
+        if ($query == null)
+        {
+             $courses = Course::orderBy('id', 'desc')->paginate(105);
+             
+        }
+        else
+        {
+            $courses = Course::with('department.college')
+                              ->where('title', 'like', "%{$query}%")
+                              ->orWhere('code', 'like', "%{$query}%")
+                              ->orWhereHas('department', function($q) use ($query){
+                                    $q->where('code', 'like', "%{$query}%");
+                                    
+                              })
+                              ->orWhereHas('department.college', function($q2) use ($query){
+                                    $q2->where('code', 'like', "%{$query}%");
+                              })
+                              ->paginate(105);
+            //dd($courses);
+
+        }
+
         return view('admin.courses.index', compact('courses'));
+       
     }
 
     public function create()

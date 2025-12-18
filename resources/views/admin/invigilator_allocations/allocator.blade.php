@@ -334,8 +334,8 @@
 
                                                             @foreach ($invigilation_day_exams as $invigilation)
                                                             <tr class="border border-b border-gray-200">
-                                                                <td class='text-center py-8'>{{ ++$counter }}.</td>
-                                                                <td>        
+                                                                <td class='text-center'>{{ ++$counter }}.</td>
+                                                                <td >        
                                                                         <a href="{{ route('admin.profile.user_profile',['fileno'=>$invigilation->invigilator->staff->fileno]) }}" class="hover:underline"> 
                                                                                 {{ $invigilation->invigilator->staff->staff_title->title }}                               
                                                                                 {{ ucfirst(strtolower($invigilation->invigilator->staff->surname)) }}  
@@ -352,11 +352,11 @@
                                                                                         
                                                                     
                                                                 </td>
-                                                                <td>
+                                                                <td class='py-8'>
                                                                         <a href="{{ route('admin.venues.show',['venue'=>$invigilation->venue_id]) }}" class="hover:underline">                                
                                                                                 {{ $invigilation->venue->name }}  ( {{$invigilation->venue->venue_category->name }} )                                                     
                                                                         </a>  
-                                                                        <div class='text-sm'>
+                                                                        <div class='text-sm py-1'>
                                                                             
                                                                                         {{ $invigilation->venue->venue_type->name }}: {{$invigilation->venue->student_capacity}} student caps. 
                                                                                         <br/>Max. Invigilators: {{ $invigilation->venue->max_invigilators }}

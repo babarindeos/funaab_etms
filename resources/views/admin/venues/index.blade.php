@@ -22,38 +22,46 @@
         @if (count($venues) > 0)
 
                     <section class="flex flex-col py-2 px-2 justify-end w-[95%] mx-auto md:px-4">
-                        <div class="flex justify-end border-0">
-                        
-                            <input type="text" name="search" class="w-4/5 md:w-2/5 border border-gray-400 bg-gray-50
-                                        p-2 rounded-l-md 
-                                        focus:outline-none
-                                        focus:border-blue-500 
-                                        focus:ring
-                                        focus:ring-blue-100" placeholder="Search"                
+                        <form action="{{ route('admin.venues.index') }}" method="GET">
+                            @csrf
+                                <div class="flex justify-end border-0">
+                                
+                                    <input type="text" name="q" class="w-4/5 md:w-2/5 border border-gray-400 bg-gray-50
+                                                p-2 rounded-l-md 
+                                                focus:outline-none
+                                                focus:border-blue-500 
+                                                focus:ring
+                                                focus:ring-blue-100" placeholder="Search"                
+                                            
+                                                style="font-family:'Lato';font-size:16px;font-weight:500;"                                                                  
                                     
-                                        style="font-family:'Lato';font-size:16px;font-weight:500;"                                                                  
-                            
-                            /> 
-                            <button class="bg-green-600 text-white px-5 border-r rounded-r-md "><i class="fa-solid fa-magnifying-glass"></i><button> 
-                        </div>
+                                    /> 
+                                    <button class="bg-green-600 text-white px-5 border-r rounded-r-md "><i class="fa-solid fa-magnifying-glass"></i><button> 
+                                </div>
+                        </fotm>
                         
                     </section>
                     
-                <div class="flex flex-col overflow-x-auto">
+                <div class="flex flex-col overflow-x-auto mb-16">
+                    
                    
                     <section class="flex flex-col w-[95%] md:w-[95%] mx-auto px-2 md:px-4">
+                    <div class="py-2">
+                            {{ $venues->links() }}
+
+                    </div>
 
                        
                                     <table class="table-auto border-collapse border border-1 border-gray-200" 
                                                 >
                                         <thead>
                                             <tr class="bg-gray-200">
-                                                <th width='5%' class="text-center font-semibold py-2">SN</th>
-                                                <th width='15%' class="font-semibold py-2 text-left">Name</th>                                
+                                                <th width='5%' class="text-center font-semibold py-4">SN</th>
+                                                <th width='25%' class="font-semibold py-2 text-left">Name</th>                                
                                                 <th width='20%' class="font-semibold py-2 text-left">Venue Type</th>
                                                 <th width='20%' class="font-semibold py-2 text-left">Venue Category</th>
                                                 <th width='10%' class="font-semibold py-2 text-center">Students Cap</th>
-                                                <th width='10%' class="font-semibold py-2 text-center">Invigilators</th>
+                                                <th width='5%' class="font-semibold py-2 text-center">Invigilators</th>
                                                 <th width='30%' class="font-semibold py-2 text-center">Action</th>
                                             </tr>
                                         </thead>
@@ -64,18 +72,18 @@
 
                                                 @foreach ($venues as $venue)
                                                 <tr class="border border-b border-gray-200">
-                                                    <td class='text-center py-4'>{{ ++$counter }}.</td>
-                                                    <td>    
+                                                    <td class='text-center'>{{ ++$counter }}.</td>
+                                                    <td class='py-8'>    
                                                             <a class='hover:underline' href="{{ route('admin.venues.show',['venue'=>$venue->id]) }}">                                    
                                                                 {{ $venue->name }}   
                                                             </a>                              
                                                         
                                                     </td>
                                                     
-                                                    <td>   
+                                                    <td class='py-8'>   
                                                             {{ $venue->venue_type->name }}
                                                     </td>
-                                                    <td>   
+                                                    <td class='py-4'>   
                                                     
                                                             {{ $venue->venue_category->name }}
                                                     </td>

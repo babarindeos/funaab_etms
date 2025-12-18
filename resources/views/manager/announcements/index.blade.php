@@ -49,7 +49,7 @@
                             @foreach($announcements as $announcement)
                             <tr class="border border-b border-gray-200 ">
                                 <td class='text-center py-4'>{{ ++$counter }}.</td>
-                                <td class="py-2 pr-4">
+                                <td class="py-8 pr-8">
                                     
                                     <div>
                                         <a href="" 

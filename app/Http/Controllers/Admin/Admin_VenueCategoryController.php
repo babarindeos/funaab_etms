@@ -11,7 +11,7 @@ class Admin_VenueCategoryController extends Controller
     //
     public function index()
     {
-        $venue_categories = VenueCategory::orderBy('id', 'desc')->paginate(20);
+        $venue_categories = VenueCategory::orderBy('id', 'desc')->paginate(100);
         return view('admin.venue_categories.index', compact('venue_categories'));
     }
 

@@ -13,106 +13,65 @@
 
         <!-- board //-->
         <section class="flex flex-row border border-0 py-1 mt-3">
-                <div class="flex flex-col md:flex-row mx-auto md:space-x-2 w-4/5 justify-center items-center">
-                    <div class="flex flex-col border border-1 border-yellow-500 
-                                w-full md:w-[20%] px-4 py-4 mt-1 rounded-md bg-yellow-500">
+                <div class="flex flex-col md:flex-row mx-auto md:space-x-2 w-4/5 justify-center items-center border-0 border-black">
+                    
+                    <a href="{{ route('admin.exams.index') }}" class="flex flex-col border border-1 border-yellow-500 
+                                w-full md:w-1/6 px-4 py-4 mt-1 rounded-md bg-yellow-500 hover:bg-yellow-400">
                         <div class="text-white text-3xl">
-                            {{ number_format($documents_count)}}
+                            {{ number_format($exams_count)}}
                         </div>
                         <div class="text-sm text-white font-normal">
-                            Documents
+                            Exams
                         </div>
-                    </div>
+                    </a>
 
-                    <div class="flex flex-col border border-1 border-pink-500 
-                                w-full md:w-[20%] px-4 py-4 mt-1 rounded-md bg-pink-500">
+                    <a href="{{ route('admin.courses.index') }}" class="flex flex-col border border-1 border-pink-500 
+                                w-full md:w-1/6 px-4 py-4 mt-1 rounded-md bg-pink-500 hover:bg-pink-400">
                         <div class="text-white text-3xl">
-                            {{ $workflows_count}}
+                            {{ number_format($courses_count)}}
                         </div>
                         <div class="text-sm text-white font-normal">
-                            Workflows
+                            Courses
                         </div>
-                    </div>
+                    </a>
 
 
-                    <div class="flex flex-col border border-1 border-blue-500 
-                                w-full md:w-[20%] px-4 py-4 mt-1 rounded-md bg-blue-500">
+                    <a href="{{ route('admin.colleges.index') }}" class="flex flex-col border border-1 border-blue-500 
+                                w-full md:w-1/6 px-4 py-4 mt-1 rounded-md bg-blue-500 hover:bg-blue-400">
+                        <div class="text-white text-3xl">
+                             {{ number_format($colleges_count) }}
+                        </div>
+                        <div class="text-sm text-white">
+                            Colleges
+                        </div>
+                    </a>
+
+
+                    <a href="{{ route('admin.departments.index') }}" class="flex flex-col border border-1 border-green-500 
+                                w-full md:w-1/6 px-4 py-4 mt-1 rounded-md bg-green-500 hover:bg-green-400">
+                        <div class="text-white text-3xl">
+                             {{ number_format($departments_count) }}
+                        </div>
+                        <div class="text-sm text-white">
+                            Departments
+                        </div>
+                    </a>
+
+                    <a href="{{ route('admin.staff.index') }}" class="flex flex-col border border-1 border-purple-500 
+                                w-full md:w-1/6 px-4 py-4 mt-1 rounded-md bg-purple-500 hover:bg-purple-400">
                         <div class="text-white text-3xl">
                             {{ $staff_count}}
                         </div>
                         <div class="text-sm text-white">
                             Staff
                         </div>
-                    </div>
-
-                    <div class="flex flex-col border border-1 border-purple-500 
-                                w-full md:w-[20%] px-4 py-4 mt-1 rounded-md bg-purple-500">
-                        <div class="text-white text-3xl">
-                            {{ $departments_count}}
-                        </div>
-                        <div class="text-sm text-white">
-                            Departments
-                        </div>
-                    </div>
+                    </a>
 
                     
                 </div>
         </section>
         <!-- end of board //-->
 
-
-        <!-- Document Charts 
-        <section class="flex flex-col w-full md:flex-row border-0 py-4">
-                <!-- Documents by Ministries 
-                <div class="flex-1 border-0">
-                        <div class="hidden">
-                            Documents By Ministries
-                        </div>
-                        <div>
-                            <div id="ministry_document_piechart_3d" style="width: 650px; height: 400px;"></div>
-                        </div>
-                </div>
-                <!-- end of Documents by Ministries 
-
-                <!-- Documents by Departments 
-                <div class="flex-1">
-                        <div class="hidden">
-                            Departments Chart
-                        </div>
-                        <div>
-                            <div id="department_document_piechart_3d" style="width:650px; height:400px"></div>
-                        </div>
-                </div>
-                <!-- end of Documents by Departments //-->
-        </section>
-        <!-- end of Document Charts 
-        
-        
-        <!-- Staff Charts 
-        <section class="flex flex-col w-full md:flex-row border-0 py-4">
-                <!-- Staff by Ministries 
-                <div class="flex-1 border-0">
-                        <div class="hidden">
-                            Staff By Ministries
-                        </div>
-                        <div>
-                            <div id="ministry_staff_piechart" style="width: 650px; height: 400px;"></div>
-                        </div>
-                </div>
-                <!-- end of Staff by Ministries 
-
-                <!-- Staff by Departments 
-                <div class="flex-1">
-                        <div class="hidden">
-                            Staff by Departments
-                        </div>
-                        <div>
-                            <div id="department_staff_dotnut" style="width:650px; height:400px"></div>
-                        </div>
-                </div>
-                <!-- end of Staff by Departments 
-        </section>
-        <!-- end of Staff Charts //-->
 
 
 

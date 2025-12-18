@@ -11,7 +11,7 @@ class Admin_ExamTimePeriodController extends Controller
     //
     public function index()
     {
-        $exam_time_periods = ExamTimePeriod::orderBy('created_at','desc')->paginate(20);
+        $exam_time_periods = ExamTimePeriod::orderBy('created_at','desc')->paginate(100);
 
         return view('admin.exam_time_periods.index', compact('exam_time_periods'));
     }

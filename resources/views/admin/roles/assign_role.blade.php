@@ -58,7 +58,7 @@
                                                                                                             </span>
                                                                                                         @enderror
                                                             
-                                                        </div><!-- end of name //-->
+                                                            </div><!-- end of name //-->
 
                                 
                                         
@@ -102,10 +102,35 @@
 
 
 
+           
+
+
+
 
             <!-- list of assigned staff to role //-->
             <section class="flex flex-col w-[95%] md:w-[50%] mx-auto px-2 md:px-4 border-0 mt-8">
-            <h2 class='py-2 border-b font-semibold'>Assigned Staff</h2>
+            <div class="flex flex-col md:flex-row md:justify-between py-2 border-b">
+                    <div class='flex flex-col justify-center'>
+                        <h2 class='font-semibold'>Assigned Staff</h2>
+                    </div>
+                    <!-- search //-->
+                    <div>
+                            <input type="text" name="search" class="border border-1 border-gray-400 bg-gray-50
+                                                                                                        w-full p-2 rounded-md 
+                                                                                                        focus:outline-none
+                                                                                                        focus:border-blue-500 
+                                                                                                        focus:ring
+                                                                                                        focus:ring-blue-100" placeholder="Search..."
+                                                                                                        
+                                                                                                       
+                                                                                                        
+                                                                                                        style="font-family:'Lato';font-size:16px;font-weight:500;"                                                                     
+                                                                                                        required
+                                                                                                        />  
+
+                    </div>
+                    <!-- end of search //-->
+            </div>
 
             <table>
             @php

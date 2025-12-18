@@ -103,20 +103,20 @@
          <section class="flex flex-col mx-auto w-[90%] items-center justify-center border-0">
              
              <!-- Added Venue Categories //-->
-             <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2 border-0 mt-8">
+             <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-2 border-0 mt-8 mb-16">
                 
-                <div class="flex flex-row w-full py-2 border-b">
+                <div class="flex flex-row w-full py-2 border-b font-semibold">
                     Added Categories ({{ $added_categories->count() }})
                 </div>
 
                 @if (count($added_categories))
-                        <div>
+                        <div class='border'>
                                 @php
                                     $counter = 0;
                                 @endphp
 
                                 @foreach($added_categories as $added_category)
-                                    <div class='flex flex-row py-4 items-center'>
+                                    <div class='flex flex-row py-4 items-center border-b p-6 py-8'>
                                         {{ ++$counter }}. 
                                         <span class='px-4'>
                                             {{ $added_category->venue_category->name  }}

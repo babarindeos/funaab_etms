@@ -9,6 +9,10 @@ use App\Models\Staff;
 use App\Models\User;
 use App\Models\Workflow;
 use App\Models\Department;
+use App\Models\Venue;
+use App\Models\College;
+use App\Models\Exam;
+use App\Models\Course;
 use Illuminate\Support\Facades\DB;
 
 class Admin_DashboardController extends Controller
@@ -21,6 +25,12 @@ class Admin_DashboardController extends Controller
         $staff_count = Staff::count();
         $workflows_count = Workflow::count();
         $departments_count = Department::count();
+        $venues_count = Venue::count();
+        $colleges_count = College::count();
+        $exams_count = Exam::count();
+        $courses_count = Course::count();
+
+        
 
         /* $ministries_documents = DB::table("documents")
                                     ->join("users", "documents.uploader","=", "users.id")
@@ -121,6 +131,11 @@ class Admin_DashboardController extends Controller
             "staff_count" =>$staff_count,
             "workflows_count" => $workflows_count,
             "departments_count" => $departments_count,
+            "venues_count" => $venues_count,
+            "colleges_count" => $colleges_count,
+            "courses_count" => $courses_count,
+            "exams_count" => $exams_count
+
            /*  "ministries_documents_chart_data" => $ministries_documents_chart_data,
             "departments_documents_chart_data" => $departments_documents_chart_data,
             "ministries_staff_chart_data" => $ministries_staff_chart_data,

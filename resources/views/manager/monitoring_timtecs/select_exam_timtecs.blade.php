@@ -134,7 +134,8 @@
                                                             {{ $exam_timtec->timtec_member->staff->staff_title->title}} 
                                                             {{ ucfirst(strtolower($exam_timtec->timtec_member->staff->surname)) }} 
                                                             {{ $exam_timtec->timtec_member->staff->firstname }}
-                                                        </a>
+
+                                                            
                                                     </td>
                                                     
 

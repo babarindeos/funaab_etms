@@ -22,12 +22,12 @@
         @if (count($remuneration_rates) > 0)
                 
 
-                <section class="flex flex-col w-[95%] md:w-[95%] mx-auto px-2 md:px-4">
+                <section class="flex flex-col w-[95%] md:w-[95%] mx-auto px-2 md:px-4 mb-4">
                     <table class="table-auto border-collapse border border-1 border-gray-200" 
                                 >
                         <thead>
                             <tr class="bg-gray-200">
-                                <th width='10%' class="text-center font-semibold py-3">SN</th>
+                                <th width='10%' class="text-center font-semibold py-4">SN</th>
                                 <th width='30%' class="font-semibold py-2 text-left">Name</th>                                
                                 <th width='30%' class="font-semibold py-2 text-left">Amount</th>
                                 <th width='10%' class="font-semibold py-2 text-left">Point</th>
@@ -42,7 +42,7 @@
                                 @foreach ($remuneration_rates as $rate)
                                 <tr class="border border-b border-gray-200">
                                     <td class='text-center py-4'>{{ ++$counter }}.</td>
-                                    <td>                                        
+                                    <td class='py-8'>                                        
                                             {{ $rate->name }}                                 
                                         
                                     </td>

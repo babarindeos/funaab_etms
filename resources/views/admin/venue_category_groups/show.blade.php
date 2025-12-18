@@ -50,14 +50,14 @@
          <section class="flex flex-col mx-auto w-[90%] items-center justify-center border-0">
              
              <!-- Added Venue Categories //-->
-             <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-0 border-0 mt-4">
+             <div class="flex flex-col border-red-900 w-[80%] md:w-[60%] py-0 border-0 mt-4 mb-16 ">
                 
                 <div class="flex flex-row w-full py-2 border-b text-lg">
                     Added Categories ({{ $added_categories->count() }})
                 </div>
 
                 @if (count($added_categories))
-                        <div>
+                        <div class="border"> 
                                 @php
                                     $counter = 0;
                                 @endphp
@@ -65,7 +65,7 @@
                                 <table width='100%' class="">
                                     <thead>
                                         <tr class='bg-gray-100'>
-                                            <th width='10%' class='py-2'>SN</th>
+                                            <th width='10%' class='py-4'>SN</th>
                                             <th class='text-left'>Category</th>
                                             <th class='text-center'>Venue Count</th>
                                             <th>Action</th>
@@ -78,7 +78,7 @@
                                                 <td class='text-center py-5'>
                                                     {{ ++$counter }}. 
                                                 </td>
-                                                <td>
+                                                <td class='py-8'>
 
                                                     <a href="{{ route('admin.venue_categories.show', ['category'=> $added_category->venue_category_id ]) }}" class='hover:underline'>
                                                         {{ $added_category->venue_category->name  }} 

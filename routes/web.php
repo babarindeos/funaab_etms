@@ -64,6 +64,9 @@ use App\Http\Controllers\Admin\Admin_MonitoringChiefController;
 use App\Http\Controllers\Admin\Admin_MonitoringInvigilatorController;
 use App\Http\Controllers\Admin\Admin_MonitoringTimtecController;
 
+
+use App\Http\Controllers\Admin\Admin_MonitoringAttendanceController;
+
 use App\Http\Controllers\Admin\Admin_AnnouncementController;
 
 use App\Http\Controllers\Admin\Admin_CourseEnrolmentController;
@@ -841,6 +844,11 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
        Route::get('monitoring/exams/{exam}/invigilators/{invigilator}/invigilation', [Admin_MonitoringInvigilatorController::class, 'invigilations'])->name('admin.monitoring.exams.invigilators.invigilations');
 
 
+       // Monitoring Attendance
+       Route::get('monitoring/attendances/select_exam_attendance', [Admin_MonitoringAttendanceController::class, 'select_exam_attendance'])->name('admin.monitoring.attendances.select_exam_attendance');
+       Route::get('monitoring/exams/{exam}/attendances/{attendance}/attendance_register', [Admin_MonitoringAttendanceController::class, 'attendance_register'])->name('admin.monitoring.exams.attendances.attendance_register');
+        
+        
        // Create Announcement
        Route::get('announcements', [Admin_AnnouncementController::class, 'index'])->name('admin.announcements.index');
        Route::get('announcements/{announcement}/show', [Admin_AnnouncementController::class, 'show'])->name('admin.announcements.show');

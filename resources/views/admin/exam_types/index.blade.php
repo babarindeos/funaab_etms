@@ -51,7 +51,7 @@
                                                 >
                                         <thead>
                                             <tr class="bg-gray-200">
-                                                <th width='10%' class="text-center font-semibold py-2">SN</th>
+                                                <th width='10%' class="text-center font-semibold py-4">SN</th>
                                                 <th width='50%' class="font-semibold py-2 text-left">Name</th>                                      
                                                 <th width='30%' class="font-semibold py-2 text-center">Action</th>
                                             </tr>
@@ -64,7 +64,7 @@
                                                 @foreach ($exam_types as $exam_type)
                                                 <tr class="border border-b border-gray-200">
                                                     <td class='text-center py-4'>{{ ++$counter }}.</td>
-                                                    <td>        
+                                                    <td class='py-8'>        
                                                             <a href="#" class="hover:underline">                                
                                                                 {{ $exam_type->name }}                                                                
                                                             </a>         

@@ -5,7 +5,7 @@
             
             <div class="flex border-b border-gray-300 py-2 justify-between">
                     <div >
-                        <h1 class="text-2xl font-semibold font-serif text-gray-800">Monitoring: Invigilators</h1>
+                        <h1 class="text-2xl font-semibold font-serif text-gray-800">Attendance Register</h1>
                     </div>  
                     <div>
                             <a href="{{ route('admin.exams.index') }}" class="bg-green-600 text-white py-2 px-4 
@@ -22,7 +22,7 @@
         <!-- new exam type form //-->
         <section>
                 <div>
-                    <form  action="{{ route('admin.monitoring.invigilators.select_exam_invigilator')}} " method="GET" class="flex flex-col mx-auto w-[90%] items-center justify-center">
+                    <form  action="{{ route('admin.monitoring.attendances.select_exam_attendance') }} " method="GET" class="flex flex-col mx-auto w-[90%] items-center justify-center">
                         @csrf                        
 
                         <div class="flex flex-col w-[80%] md:w-[60%] py-2 md:py-4" style="font-family:'Lato'; font-size:18px; font-weight:400;">
@@ -87,7 +87,7 @@
                             <div class="flex flex-col md:flex-row md:w-full border-0 justify-between mt-8">
 
                                     <div class='py-4 w-full md:w-1/2 font-semibold border-0 text-lg'>
-                                        Invigilators
+                                        Attendance Register
                                     </div>
 
                                     <div class='w-full px-3 md:px-0 md:w-1/2 border-0 mx-auto items-center justify-center'>
@@ -117,7 +117,9 @@
                                         <thead>
                                             <tr class="bg-gray-200">
                                                 <th width='15%' class="text-center font-semibold py-4">SN</th>
-                                                <th width='85%' class="font-semibold py-2 text-left">Invigilator</th>                                                
+                                                <th width='85%' class="font-semibold py-2 text-left">Invigilator</th>
+                                                <th width='85%' class="font-semibold py-2 text-left">Attendance</th>
+                                                <th width='85%' class="font-semibold py-2 text-left">Supervisor</th>                                                
                                                
                                             </tr>
                                         </thead>
@@ -125,31 +127,16 @@
                                             @php
                                                 $counter = 0;
                                             @endphp
-                                            @foreach($exam_invigilators_allocations as $invigilator_id=>$group)
-
-                                                @php
-                                                    $inv = $group->first()->invigilator;
-                                                    $count = $group->count();
-
-                                                @endphp
+                                            @foreach(exam_attendance_register as $register)
                                             
                                                 <tr class='border-b'>
                                                     <td class='text-center py-6'>{{ ++$counter }}.</td>
                                                     <td>
-                                                        <div class='flex flex-row justify-between'>
-                                                                <div>
-                                                                        <a href="{{ route('admin.monitoring.exams.invigilators.invigilations',['exam'=>$exam_selected,'invigilator'=>$invigilator_id]) }}" class="hover:underline">
-                                                                            {{ $inv->staff->staff_title->title}} 
-                                                                            {{ ucfirst(strtolower($inv->staff->surname)) }} 
-                                                                            {{ $inv->staff->firstname }}
-                                                                        </a>
-                                                                </div>
-
-                                                                <div>
-                                                                    <span class="text-gray-500 mx-2">({{ $count }} slots)</span>
-                                                                </div>
-                                                        </div>                                                        
-
+                                                        <a href="{{ route('admin.monitoring.exams.invigilators.invigilations',['exam'=>$exam_selected,'invigilator'=>$exam_invigilator->invigilator_id]) }}" class="hover:underline">
+                                                            {{ $exam_invigilator->invigilator->staff->staff_title->title}} 
+                                                            {{ ucfirst(strtolower($exam_invigilator->invigilator->staff->surname)) }} 
+                                                            {{ $exam_invigilator->invigilator->staff->firstname }}
+                                                        </a>
                                                     </td>
                                                     
 

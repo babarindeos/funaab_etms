@@ -60,7 +60,7 @@
                 </div>
 
                 @if (count($venue_category->venues))
-                        <div>
+                        <div class='border'>
                                 @php
                                     $counter = 0;
                                 @endphp

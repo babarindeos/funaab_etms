@@ -126,8 +126,9 @@
                                                 $counter = 1;
                                             @endphp
                                             @foreach($exam_invigilators_allocations as $invigilator_id => $group)
-                                                @php
-                                                    $inv = $group->first()->invigilator;
+                                                
+                                                @php                                                    
+                                                    $inv = $group->first()->invigilator;                                                   
                                                     $count = $group->count();
                                                 @endphp
 

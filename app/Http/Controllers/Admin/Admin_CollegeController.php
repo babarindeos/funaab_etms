@@ -10,7 +10,7 @@ class Admin_CollegeController extends Controller
 {
     //
     public function index(){
-        $colleges = College::orderBy('id', 'desc')->paginate(10);
+        $colleges = College::orderBy('id', 'desc')->paginate(100);
         return view('admin.college.index', compact('colleges'));
     }
 

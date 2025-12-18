@@ -52,7 +52,7 @@
                                                 >
                                         <thead>
                                             <tr class="bg-gray-200">
-                                                <th width='5%' class="text-center font-semibold py-2">SN</th>
+                                                <th width='5%' class="text-center font-semibold py-4">SN</th>
                                                 <th width='15%' class="font-semibold py-2 text-left">Academic Session</th> 
                                                 <th width='10%' class="font-semibold py-2 text-left">Semester</th>
                                                 <th width='25%' class="font-semibold py-2 text-left">Exam Name</th>  
@@ -68,8 +68,8 @@
 
                                                 @foreach ($exams as $exam)
                                                 <tr class="border border-b border-gray-200">
-                                                    <td class='text-center py-4'>{{ ++$counter }}.</td>
-                                                    <td>
+                                                    <td class='text-center '>{{ ++$counter }}.</td>
+                                                    <td class='py-8'>
                                                          {{ $exam->semester->academic_session->name}}
                                                     </td>
                                                     <td>        

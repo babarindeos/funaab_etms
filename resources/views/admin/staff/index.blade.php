@@ -54,7 +54,7 @@
                                                 <div class='flex flex-col w-full items-center justify-center'>
                                                         <div class='flex justify-center border-0'>
                                                             @if ($staff->profile)
-                                                                    <img class='w-36 h-36 rounded-full' src="{{ asset('storage/avatars/'.$staff->profile->avatar )}}" alt="User Avatar" />
+                                                                    <img class='w-36 h-36 rounded-full' src="{{ asset('storage/'.$staff->profile->avatar )}}" alt="User Avatar" />
                                                             @else
                                                                     <img class='w-24 h-24 rounded-full' src="{{ asset('images/avatar_64.jpg') }}" alt="Default Avatar" />
                                                             @endif

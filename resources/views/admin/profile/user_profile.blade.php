@@ -21,7 +21,7 @@
                         border px-8 py-4 rounded-md">
                         <div class="">
                         @if ($userprofile->user->profile!=null && ($userprofile->user->profile->avatar != "" || $userprofile->user->profile->avatar != null))
-                                <img src="{{ asset('storage/'.$staff->user->profile->avatar) }}" class="w-36 h-36 rounded-full" />
+                                <img src="{{ asset('storage/'.$userprofile->user->profile->avatar) }}" class="w-36 h-36 rounded-full" />
                         @else
                                 <img src="{{ asset('images/avatar_150.jpg') }}" />
                         @endif

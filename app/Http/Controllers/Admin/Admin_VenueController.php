@@ -13,9 +13,28 @@ class Admin_VenueController extends Controller
 {
     //
 
-    public function index()
+    public function index(Request $request)
     {
-        $venues = Venue::orderBy('id', 'desc')->paginate(20);
+
+        $query = $request->query('q');
+
+        if ($query == null)
+        {
+             $venues = Venue::orderBy('id', 'desc')->paginate(20);
+        }
+        else
+        {
+            $venues = Venue::with('venue_type', 'venue_category')
+                            ->where('name', 'like', "%{$query}%")
+                            ->orWhereHas('venue_type', function($q) use ($query){
+                                $q->where('name', 'like', "%{$query}%");
+                            })
+                            ->orWhereHas('venue_category', function($q2) use ($query){
+                                $q2->where('name', 'like', "%{$query}%");
+                            })
+                            ->paginate(20);
+            
+        }
 
         return view('admin.venues.index', compact('venues'));
     }

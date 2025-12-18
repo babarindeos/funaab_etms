@@ -38,12 +38,12 @@
                     
                 </section>
 
-                <section class="flex flex-col w-[95%] md:w-[95%] mx-auto px-2 md:px-4">
+                <section class="flex flex-col w-[95%] md:w-[95%] mx-auto px-2 md:px-4 mb-16">
                     <table class="table-auto border-collapse border border-1 border-gray-200" 
                                 >
                         <thead>
                             <tr class="bg-gray-200">
-                                <th width='10%' class="text-center font-semibold py-2">SN</th>
+                                <th width='10%' class="text-center font-semibold py-4">SN</th>
                                 <th width='35%' class="font-semibold py-2 text-left">HOD</th>                                
                                 <th width='35%' class="font-semibold py-2 text-left">Department</th>                               
                                 <th width='30%' class="font-semibold py-2 text-center">Action</th>
@@ -66,7 +66,7 @@
                                        
                                         
                                     </td>
-                                    <td>
+                                    <td class='py-8'>
                                         <a class='hover:underline' href="{{ route('admin.departments.show',['department'=>$hod->department_id]) }}">
                                             {{ $hod->department->name }} ({{ $hod->department->code }})
                                         </a>

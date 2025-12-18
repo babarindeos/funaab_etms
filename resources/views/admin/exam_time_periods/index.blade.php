@@ -23,7 +23,7 @@
         @if (count($exam_time_periods) > 0)
 
                     <section class="flex flex-col py-2 px-2 justify-end w-[100%] border-0 md:px-4">
-                        <div class='w-full px-3 md:px-2 md:w-1/2 border-0 mx-auto'>
+                        <div class='w-full px-3 md:px-2 md:w-4/5 border-0 mx-auto'>
                                     <div class="flex justify-end border-0">
                                     
                                             <input type="text" name="search" class="w-full md:w-2/5 border border-gray-400 bg-gray-50
@@ -44,17 +44,17 @@
                     
                 <div class="flex flex-col overflow-x-auto">
                    
-                    <section class="flex flex-col w-[95%] md:w-[50%] mx-auto px-2 md:px-4">
+                    <section class="flex flex-col w-[95%] md:w-4/5 mx-auto px-2 md:px-4 mb-16">
 
                        
                                     <table class="table-auto border-collapse border border-1 border-gray-200" 
                                                 >
                                         <thead>
                                             <tr class="bg-gray-200">
-                                                <th width='10%' class="text-center font-semibold py-2">SN</th>
-                                                <th width='30%' class="font-semibold py-2 text-left">Name</th>  
-                                                <th width='20%' class="font-semibold py-2 text-left">Start Time</th>
-                                                <th width='20%' class="font-semibold py-2 text-left">End Time</th>                                      
+                                                <th width='10%' class="text-center font-semibold py-4">SN</th>
+                                                <th width='50%' class="font-semibold py-2 text-left">Name</th>  
+                                                <th width='10%' class="font-semibold py-2 text-left">Start Time</th>
+                                                <th width='10%' class="font-semibold py-2 text-left">End Time</th>                                      
                                                 <th width='30%' class="font-semibold py-2 text-center">Action</th>
                                             </tr>
                                         </thead>
@@ -65,8 +65,8 @@
 
                                                 @foreach ($exam_time_periods as $exam_time_period)
                                                 <tr class="border border-b border-gray-200">
-                                                    <td class='text-center py-4'>{{ ++$counter }}.</td>
-                                                    <td>        
+                                                    <td class='text-center'>{{ ++$counter }}.</td>
+                                                    <td class='py-8'>        
                                                             <a href="#" class="hover:underline">                                
                                                                 {{ $exam_time_period->name }}                                                                
                                                             </a>         
