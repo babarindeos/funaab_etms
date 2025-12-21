@@ -170,12 +170,19 @@ class Admin_ExamDayController extends Controller
 
     public function exam_day_schedule(ExamDay $exam_day)
     {
+        //dd($exam_day);
+        
         $exam_schedules = ExamScheduler::where('exam_day_id', $exam_day->id)
                                         ->orderBy('time_period_id', 'asc')
+                                        ->orderBy('venue_id', 'asc')
                                         ->get();    
+
+        //dd($exam_schedules);
         
         $invigilators = InvigilatorAllocation::where('exam_day_id', $exam_day->id)
                                                ->get();
+        
+
         
         $chiefs = ChiefAllocation::where('exam_day_id', $exam_day->id)->get();
 

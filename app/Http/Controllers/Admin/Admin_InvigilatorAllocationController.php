@@ -58,6 +58,7 @@ class Admin_InvigilatorAllocationController extends Controller
 
     public function load_allocator(Request $request)
     {
+        
         $request->validate([
             'exam_day' => 'required'
         ]);

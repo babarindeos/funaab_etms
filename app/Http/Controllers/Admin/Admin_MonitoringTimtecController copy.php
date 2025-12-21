@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Manager;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use App\Models\Exam;
 use App\Models\TimtecAllocation;
 use App\Models\User;
 
-class Manager_MonitoringTimtecController extends Controller
+class Admin_MonitoringTimtecController extends Controller
 {
     //
     public function select_exam_timtec(Request $request)
@@ -24,16 +23,16 @@ class Manager_MonitoringTimtecController extends Controller
             $exam_selected = $request->get('exam');
 
 
-            $exam_timtecs_allocations = TimtecAllocation::where('exam_id', $request->get('exam'))                                   
+            $exam_timtecs_allocations = TimtecAllocation::where('exam_id', $request->get('exam'))
+                                    ->groupBy('timtec_member_id')
                                     ->orderBy('timtec_member_id','asc')
-                                    ->get()
-                                    ->groupBy('timtec_member_id');
+                                    ->get();
 
             
         }
 
         $exams = Exam::orderBy('created_at', 'desc')->get();
-        return view('manager.monitoring_timtecs.select_exam_timtecs', compact('exams'))->with(['isPostBack'=>$isPostBack, 
+        return view('admin.monitoring_timtecs.select_exam_timtecs', compact('exams'))->with(['isPostBack'=>$isPostBack, 
                                                                                     'exam_selected'=>$exam_selected,
                                                                                     'exam_timtecs_allocations'=>$exam_timtecs_allocations]);
     }
@@ -47,7 +46,11 @@ class Manager_MonitoringTimtecController extends Controller
                                               ->orderBy('exam_day_id', 'asc')
                                               ->orderBy('time_period_id', 'asc')
                                               ->get();
-        return view('manager.monitoring_timtecs.timtec_observations', compact('exam','timtec_allocations','timtec_member'));
+
+        //dd($timtec_allocations);
+
+        return view('admin.monitoring_timtecs.timtec_observations', compact('exam','timtec_allocations','timtec_member'));
     }
 
+    
 }

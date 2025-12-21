@@ -75,11 +75,11 @@
                                             @php
                                                 $counter = 0;
                                             @endphp
-
+                                                
                                                 @foreach ($exam_schedules as $exam_schedule)
-                                                <tr >
+                                                <tr class='border-t-2  border-black' >
                                                     <td class='text-center py-8'>{{ ++$counter }}.</td>
-                                                    <td>
+                                                    <td class='py-8'>
                                                          <a href="#" class='hover:underline'>
                                                                 {{ $exam_schedule->course->title }} ({{ $exam_schedule->course->code }})                                                                
                                                          </a>
@@ -114,8 +114,9 @@
                                                 </tr>
                                                 <tr class="border border-b border-gray-200 text-sm">
                                                             <td></td>
-                                                            <td class='py-2' colspan='4'>
+                                                            <td class='py-6' colspan='4'>
                                                                 <!-- Invigilators //-->
+                                                                
                                                                 @if ($invigilators->count())
                                                                 <div class='flex flex-row space-x-4 py-1'>
                                                                     <span class='font-semibold'>Invigilators: </span>
@@ -193,13 +194,16 @@
                                                                                 @endphp    
 
                                                                                 @foreach($timtec_member->venue_category_group->venue_categories as $venue_categories)
-                                                                                    @if (($venue_categories->id == $exam_schedule->venue->venue_category->id) && ($timtec_member_time_period_id == $exam_schedule->time_period_id))
+                                                                                   @if (($venue_categories->id == $exam_schedule->venue->venue_category->id))
+
                                                                                         <span>
                                                                                             <a class='hover:underline' href='#'>
                                                                                                 {{ $timtec_member_names }}
+                                                                                                {{ $exam_schedule->time_period}} -
+                                                                                               
                                                                                             </a>
                                                                                         </span>
-                                                                                    @endif                                                                                
+                                                                                    @endif                                                                              
                                                                                 @endforeach
                                                                             @endforeach
                                                                     </span>
@@ -276,6 +280,7 @@
                                                                                                                     <span>
                                                                                                                         <a class='hover:underline' href='#'>
                                                                                                                             {{ $timtec_member_names }}
+                                                                                                                            {{ $exam_schedule->time_period }}
                                                                                                                         </a>
                                                                                                                     </span>
                                                                                                                 @endif                                                                                

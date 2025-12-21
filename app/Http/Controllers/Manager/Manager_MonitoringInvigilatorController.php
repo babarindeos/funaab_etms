@@ -24,9 +24,10 @@ class Manager_MonitoringInvigilatorController extends Controller
 
 
                 $exam_invigilators_allocations = InvigilatorAllocation::where('exam_id', $request->get('exam'))
-                                        ->orderBy('invigilator_id','asc')
-                                        ->get()
-                                        ->groupBy('invigilator_id');
+                                                                        ->orderBy('invigilator_id','asc')
+                                                                         ->get()
+                                                                         ->groupBy('invigilator_id');
+               
 
                 
             }

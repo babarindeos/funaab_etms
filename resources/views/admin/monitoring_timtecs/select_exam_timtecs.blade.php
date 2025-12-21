@@ -125,16 +125,31 @@
                                             @php
                                                 $counter = 0;
                                             @endphp
-                                            @foreach($exam_timtecs_allocations as $exam_timtec)
+                                            @foreach($exam_timtecs_allocations as $timtec_member_id => $group)
                                             
+                                                @php
+                                                    $timtec = $group->first()->timtec_member; //relationship
+                                                    $count =  $group->count(); 
+                                                @endphp
+
                                                 <tr class="border-b">
-                                                    <td class='text-center py-6'>{{ ++$counter }}.</td>
-                                                    <td>
-                                                        <a href="{{ route('admin.monitoring.exams.timtecs.observations',['exam'=>$exam_selected,'timtec_member'=>$exam_timtec->timtec_member_id]) }}" class="hover:underline">
-                                                            {{ $exam_timtec->timtec_member->staff->staff_title->title}} 
-                                                            {{ ucfirst(strtolower($exam_timtec->timtec_member->staff->surname)) }} 
-                                                            {{ $exam_timtec->timtec_member->staff->firstname }}
-                                                        </a>
+                                                    <td class='text-center'>{{ ++$counter }}.</td>
+                                                    <td class='py-8'>
+                                                        <div class='flex flex-row justify-between'>
+                                                                <div>
+                                                                        <a href="{{ route('admin.monitoring.exams.timtecs.observations',['exam'=>$exam_selected,'timtec_member'=>$timtec_member_id]) }}" class="hover:underline">
+                                                                            {{ $timtec->staff->staff_title->title}} 
+                                                                            {{ ucfirst(strtolower($timtec->staff->surname)) }} 
+                                                                            {{ $timtec->staff->firstname }}
+                                                                        </a>
+                                                                </div>
+
+                                                                <div class='px-4'>
+                                                                        <span class="text-gray-500 ml-2">({{ $count }} slots)</span>
+                                                                </div>
+                                                        </div>
+                                                        
+
                                                     </td>
                                                     
 

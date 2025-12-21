@@ -1,5 +1,5 @@
 <x-manager-layout>
-    <div class="container mx-auto mb-16">
+    <div class="container mx-auto">
         <!-- page header //-->
         <section class="flex flex-col w-[90%] md:w-[95%] py-8 px-4 border-red-900 mx-auto">
             
@@ -123,34 +123,37 @@
                                         </thead>
                                         <tbody>
                                             @php
-                                                $counter = 1;
+                                                $counter = 0;
                                             @endphp
-                                            @foreach($exam_invigilators_allocations as $invigilator_id => $group)
-                                                
-                                                @php                                                    
-                                                    $inv = $group->first()->invigilator;                                                   
+                                            @foreach($exam_invigilators_allocations as $invigilator_id=>$group)
+
+                                                @php
+                                                    $inv = $group->first()->invigilator;
                                                     $count = $group->count();
+
                                                 @endphp
+                                            
+                                                <tr class='border-b'>
+                                                    <td class='text-center '>{{ ++$counter }}.</td>
+                                                    <td class='py-8'>
+                                                        <div class='flex flex-row justify-between'>
+                                                                <div>
+                                                                        <a href="{{ route('admin.monitoring.exams.invigilators.invigilations',['exam'=>$exam_selected,'invigilator'=>$invigilator_id]) }}" class="hover:underline">
+                                                                            {{ $inv->staff->staff_title->title}} 
+                                                                            {{ ucfirst(strtolower($inv->staff->surname)) }} 
+                                                                            {{ $inv->staff->firstname }}
+                                                                        </a>
+                                                                </div>
 
-                                                <tr class="border-b">
-                                                    <td class="text-center py-6">{{ $counter++ }}.</td>
+                                                                <div>
+                                                                    <span class="text-gray-500 mx-2">({{ $count }} slots)</span>
+                                                                </div>
+                                                        </div>                                                        
 
-                                                    <td>
-                                                        <a href="{{ route('manager.monitoring.exams.invigilators.invigilations', [
-                                                                        'exam' => $exam_selected,
-                                                                        'invigilator' => $invigilator_id
-                                                                    ]) }}" class="hover:underline">
-
-                                                            {{ $inv->staff->staff_title->title }}
-                                                            {{ ucfirst(strtolower($inv->staff->surname)) }}
-                                                            {{ $inv->staff->firstname }}
-                                                        </a>
-
-                                                        <span class="text-gray-500 ml-2">({{ $count }} slots)</span>
                                                     </td>
+                                                    
 
                                                 </tr>
-                                                
                                             @endforeach
                                         </tbody>
                                     </table>

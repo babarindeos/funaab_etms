@@ -136,6 +136,9 @@ use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\BackOffice\BackOffice_AuthController;
 
 
+// Admin ExamTimeSection
+use App\Http\Controllers\Admin\Admin_ExamTimeSectionController;
+
 
 
 /*
@@ -892,6 +895,19 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
        // Allocation Statistics
        Route::get('exams/allocation_statistics/select_exam', [Admin_AllocationStatisticController::class, 'select_exam'])->name('admin.exams.allocation_statistics.select_exam');
        Route::get('exams/{exam}/allocation_statistics', [Admin_AllocationStatisticController::class, 'index'])->name('admin.exams.allocation_statistics.index');
+
+
+        // Exam Time Section    
+        Route::get('exams/exam_time_sections', [Admin_ExamTimeSectionController::class, 'index'])->name('admin.exams.exam_time_sections.index');
+        Route::get('exams/exam_time_sections/create', [Admin_ExamTimeSectionController::class, 'create'])->name('admin.exams.exam_time_sections.create');
+        Route::post('exams/exam_time_sections/store', [Admin_ExamTimeSectionController::class, 'store'])->name('admin.exams.exam_time_sections.store');
+        Route::get('exams/exam_time_sections/{exam_time_section}/edit', [Admin_ExamTimeSectionController::class, 'edit'])->name('admin.exams.exam_time_sections.edit');
+        Route::post('exams/exam_time_sections/{exam_time_section}/update', [Admin_ExamTimeSectionController::class, 'update'])->name('admin.exams.exam_time_sections.update');
+        Route::get('exams/exam_time_sections/{exam_time_section}/confirm_delete', [Admin_ExamTimeSectionController::class, 'confirm_delete'])->name('admin.exams.exam_time_sections.confirm_delete');
+        Route::delete('exams/exam_time_sections/{exam_time_section}/delete', [Admin_ExamTimeSectionController::class, 'destroy'])->name('admin.exams.exam_time_sections.delete');
+
+
+       
 
        
     });    

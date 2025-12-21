@@ -1,5 +1,5 @@
 <x-manager-layout>
-    <div class="container mx-auto mb-16">
+    <div class="container mx-auto">
         <!-- page header //-->
         <section class="flex flex-col w-[90%] md:w-[95%] py-8 px-4 border-red-900 mx-auto">
             
@@ -9,7 +9,7 @@
                     </div>  
                     <div>
                             <a href="{{ route('admin.exams.index') }}" class="bg-green-600 text-white py-2 px-4 
-                                            rounded-lg text-xs md:text-sm hover:bg-green-500 hidden"> Exams</a>
+                                            rounded-lg text-xs md:text-sm hover:bg-green-500"> Exams</a>
                            
                     </div>              
             </div>
@@ -81,7 +81,7 @@
 
                     <!-- Records of Chiefs in the selected exams //-->
                     @if ($isPostBack && $exam_selected)
-                    <div class="flex flex-col w-[80%] md:w-[54%] mx-auto">
+                    <div class="flex flex-col w-[80%] md:w-[54%] mx-auto mb-16">
                         
 
                             <div class="flex flex-col md:flex-row md:w-full border-0 justify-between mt-8">
@@ -125,17 +125,31 @@
                                             @php
                                                 $counter = 0;
                                             @endphp
-                                            @foreach($exam_timtecs_allocations as $exam_timtec)
+                                            @foreach($exam_timtecs_allocations as $timtec_member_id => $group)
                                             
-                                                <tr class="border-b">
-                                                    <td class='text-center py-6'>{{ ++$counter }}.</td>
-                                                    <td>
-                                                        <a href="{{ route('manager.monitoring.exams.timtecs.observations',['exam'=>$exam_selected,'timtec_member'=>$exam_timtec->timtec_member_id]) }}" class="hover:underline">
-                                                            {{ $exam_timtec->timtec_member->staff->staff_title->title}} 
-                                                            {{ ucfirst(strtolower($exam_timtec->timtec_member->staff->surname)) }} 
-                                                            {{ $exam_timtec->timtec_member->staff->firstname }}
+                                                @php
+                                                    $timtec = $group->first()->timtec_member; //relationship
+                                                    $count =  $group->count(); 
+                                                @endphp
 
-                                                            
+                                                <tr class="border-b">
+                                                    <td class='text-center'>{{ ++$counter }}.</td>
+                                                    <td class='py-8'>
+                                                        <div class='flex flex-row justify-between'>
+                                                                <div>
+                                                                        <a href="{{ route('admin.monitoring.exams.timtecs.observations',['exam'=>$exam_selected,'timtec_member'=>$timtec_member_id]) }}" class="hover:underline">
+                                                                            {{ $timtec->staff->staff_title->title}} 
+                                                                            {{ ucfirst(strtolower($timtec->staff->surname)) }} 
+                                                                            {{ $timtec->staff->firstname }}
+                                                                        </a>
+                                                                </div>
+
+                                                                <div class='px-4'>
+                                                                        <span class="text-gray-500 ml-2">({{ $count }} slots)</span>
+                                                                </div>
+                                                        </div>
+                                                        
+
                                                     </td>
                                                     
 

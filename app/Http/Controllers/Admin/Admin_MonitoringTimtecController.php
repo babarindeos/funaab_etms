@@ -23,10 +23,10 @@ class Admin_MonitoringTimtecController extends Controller
             $exam_selected = $request->get('exam');
 
 
-            $exam_timtecs_allocations = TimtecAllocation::where('exam_id', $request->get('exam'))
-                                    ->groupBy('timtec_member_id')
+            $exam_timtecs_allocations = TimtecAllocation::where('exam_id', $request->get('exam'))                                   
                                     ->orderBy('timtec_member_id','asc')
-                                    ->get();
+                                    ->get()
+                                    ->groupBy('timtec_member_id');
 
             
         }
